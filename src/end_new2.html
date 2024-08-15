@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finished</title>
+    <link rel="stylesheet" href="style-end2.css">
+    <style>
+        /* Popup container */
+        .popup {
+            display: none; /* Hidden by default */
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Popup content */
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+            max-width: 400px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center the content horizontally */
+        }
+
+        /* Close button */
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #aaa;
+        }
+
+        .popup-close:hover {
+            color: #333;
+        }
+
+        /* Button and image container */
+        .button-image-container {
+            display: flex;
+            flex-direction: column; /* Arrange items in a column */
+            align-items: center;
+            justify-content: center; /* Center the content horizontally */
+            margin-top: 0; /* Add space above the container */
+        }
+
+        /* Button inside popup */
+        .popup-button {
+            background-color: rgba(9, 9, 82, 0.777); /* Deep blue background */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 5px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 10px; /* Add space between image and button */
+            text-decoration: none; /* Remove underline */
+        }
+
+        .popup-button:hover {
+            background-color: rgb(143, 129, 238);
+            transform: scale(1.05);
+        }
+
+        .popup-image {
+            width: 20%;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        /* New popup for confirmation */
+        .confirmation-popup .popup-content {
+            max-width: 400px;
+        }
+
+        .confirmation-buttons {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .confirmation-button {
+            background-color: rgba(9, 9, 82, 0.777); /* Deep blue background */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            text-decoration: none; /* Remove underline */
+        }
+
+        .confirmation-button:hover {
+            background-color: rgb(143, 129, 238);
+            transform: scale(1.05);
+        }
+
+        /* Message styling */
+        #message {
+            color: red;
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 0.85rem;
+
+            display: none; /* Hidden by default */
+        }
+
+/* Points display */
+.points-display {
+    font-size: 1.75rem;
+    font-weight: 700; /* Increased font weight for emphasis */
+    color: #000; /* Keep the text color black */
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding: 10px 20px; /* Add padding for space around the text */
+    animation: pointsPop 0.5s ease-in-out forwards; /* Animation for pop-in effect */
+    transition: transform 0.2s, background 0.5s; /* Smooth transitions */
+}
+
+
+
+/* Keyframe for dramatic pop-in animation */
+@keyframes pointsPop {
+    0% {
+        transform: scale(0.5); /* Start smaller */
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.2); /* Grow larger than final size */
+        opacity: 1;
+    }
+    80% {
+        transform: scale(0.9); /* Slightly smaller than final size */
+    }
+    100% {
+        transform: scale(1); /* Settle at final size */
+    }
+}
+
+/* Reward text */
+.reward-text {
+    font-size: 1.5em;
+    color: #000; /* Black color for the reward text */
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+
+        /* Shake animation */
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+        .shake {
+            animation: shake 0.5s;
+        }
+
+        @media (max-width: 950px) {
+            
+        /* Points display */
+        .points-display {
+            font-size: 1.5rem;
+            font-weight: 700; /* Increased font weight for emphasis */
+            color: #000; /* Keep the text color black */
+            text-align: center;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .reward-text {
+            font-size: 1.3rem;
+            color: #000; /* Black color for the reward text */
+            text-align: center;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        }
+
+    </style>
+</head>
+<body id="b">
+    <h1 id="heading">Game Completed</h1>
+    <div id="main"></div>
+
+    <div class="divMid" id="midDiv">
+        <span class="text" id="firstNameLabel">First name:</span>
+        <input type="text" id="name" name="firstname" value="">
+        <span class="text" id="lastNameLabel">Last name:</span>
+        <input type="text" id="lname" name="lastname" value="">
+        <span class="text" id="emailLabel">Email:</span>
+        <input type="text" id="email" name="email" value="">
+        <button type="submit" id="submitBtn">Submit score</button>
+        <div id="message"></div>
+    </div>
+
+    <div class="top-left-logo">
+        <img src="../imgs/logo-SmartPark.png" alt="App Logo">
+    </div>
+    <div class="language-buttons">
+        <button id="en-btn" onclick="setLanguage('en')">English</button>
+        <button id="gr-btn" onclick="setLanguage('gr')">Ελληνικά</button>
+    </div>
+
+   <!-- Popup Element -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <span class="popup-close" id="popupClose">&times;</span>
+        <p id="popupMessage">Score submitted successfully! Check the leaderboard to see your ranking</p>
+        <div class="button-image-container">
+            <img src="../imgs/leaderboard.png" alt="Leaderboard Icon" class="popup-image">
+            <a href="scores_new.html" class="popup-button" id="leaderboardBtn">Leaderboard</a>
+        </div>
+    </div>
+</div>
+
+<!-- Confirmation Popup -->
+<div id="confirmationPopup" class="popup confirmation-popup">
+    <div class="popup-content">
+        <span class="popup-close" id="confirmationPopupClose">&times;</span>
+        <p id="confirmationPopupMessage">Are you sure you don't want to submit your score? If you click yes, all progress will be lost.</p>
+        <div class="confirmation-buttons">
+            <button id="confirmYes" class="confirmation-button">Yes</button>
+            <button id="confirmNo" class="confirmation-button">No</button>
+        </div>
+    </div>
+</div>
+
+
+    <script>
+const translations = {
+    en: {
+        finished: "Game Completed",
+        noReward: "Hmm... Better luck next time!",
+        bronze: "Practice makes perfect. You are a bronze level parker!",
+        silver: "Getting closer to the top. You are a silver level parker!",
+        gold: "Excellent skills! You are the best parker out there.",
+        firstName: "First name:",
+        lastName: "Last name:",
+        email: "Email:",
+        submitScore: "Submit score",
+        playAgain: "Play Again!",
+        allFieldsRequired: "All fields are required.",
+        invalidEmail: "You have entered an invalid email address!",
+        scoreSubmitted: "Score submitted successfully! Check the leaderboard to see your ranking",
+        confirmationMessage: "Are you sure you don't want to submit your score? If you click yes, all progress will be lost.",
+        yes: "Yes",
+        no: "No",
+        leaderboard: "Leaderboard"
+    },
+    gr: {
+        finished: "Τέλος παιχνιδιού",
+        noReward: "Χμμ... Ίσως την επόμενη φορά!",
+        bronze: "Λίγη εξάσκηση ακόμα. Είστε οδηγός επιπέδου bronze!",
+        silver: "Σχεδόν φτάσατε την κορυφή. Είστε οδηγός επιπέδου silver!",
+        gold: "Άψογες δεξιότητες! Είστε ενας golden οδηγός.",
+        firstName: "Όνομα:",
+        lastName: "Επώνυμο:",
+        email: "Ηλεκτρονικό ταχυδρομείο:",
+        submitScore: "Υποβολή σκορ",
+        playAgain: "Παίξε ξανά!",
+        allFieldsRequired: "Όλα τα πεδία είναι υποχρεωτικά.",
+        invalidEmail: "Έχετε εισάγει μια μη έγκυρη διεύθυνση email.",
+        scoreSubmitted: "Το σκορ υποβλήθηκε επιτυχώς! Ελέγξτε τον πίνακα βαθμολογίας για να δείτε την κατάταξή σας",
+        confirmationMessage: "Είστε σίγουροι ότι δεν θέλετε να υποβάλετε το σκορ σας; Εάν κάνετε κλικ στο ναι, όλη η πρόοδος θα χαθεί.",
+        yes: "Ναι",
+        no: "Όχι",
+        leaderboard: "Πίνακας κατάταξης"
+    }
+};
+
+function setLanguage(lang) {
+    const elementsToTranslate = {
+        'heading': 'finished',
+        'firstNameLabel': 'firstName',
+        'lastNameLabel': 'lastName',
+        'emailLabel': 'email',
+        'submitBtn': 'submitScore',
+        'playAgainText': 'playAgain',
+        'allFieldsRequiredText': 'allFieldsRequired',
+        'invalidEmailText': 'invalidEmail',
+        'popupMessage': 'scoreSubmitted',
+        'confirmationPopupMessage': 'confirmationMessage',
+        'confirmYes': 'yes',
+        'confirmNo': 'no',
+        'leaderboardBtn': 'leaderboard'
+    };
+
+    for (const [elementId, translationKey] of Object.entries(elementsToTranslate)) {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.innerText = translations[lang][translationKey];
+        }
+    }
+
+    document.querySelectorAll('.language-buttons button').forEach(button => {
+        button.classList.remove('selected');
+    });
+    document.getElementById(`${lang}-btn`).classList.add('selected');
+    document.cookie = `lang=${lang};path=/`;
+
+    if (window.finalScore) {
+    const mainDiv = document.getElementById("main");
+    mainDiv.innerHTML = ''; // Clear previous content
+
+    // Display the player's score
+    const pointsDisplay = document.createElement("div");
+    pointsDisplay.setAttribute("class", "points-display");
+    pointsDisplay.textContent = "Points: " + playerScore;
+
+    var text = document.createElement("p");
+    text.setAttribute("class", "reward-text");
+    var pImage = document.createElement("img");
+    var medal = document.createElement("img");
+    pImage.setAttribute("id", "park");
+    medal.setAttribute("id", "medal");
+
+    if (window.finalScore === "NoReward") {
+        text.innerHTML = translations[lang].noReward;
+        pImage.setAttribute("src", "../imgs/random/ParkingBalck.png");
+    } else if (window.finalScore === "Bronze") {
+        text.innerHTML = translations[lang].bronze;
+        pImage.setAttribute("src", "../imgs/random/ParkingBronze.png");
+        medal.setAttribute("src", "../imgs/random/bronze.png");
+    } else if (window.finalScore === "Silver") {
+        text.innerHTML = translations[lang].silver;
+        pImage.setAttribute("src", "../imgs/random/ParkingSilver.png");
+        medal.setAttribute("src", "../imgs/random/silver.png");
+    } else if (window.finalScore === "Gold") {
+        text.innerHTML = translations[lang].gold;
+        pImage.setAttribute("src", "../imgs/random/ParkingGold.png");
+        medal.setAttribute("src", "../imgs/random/gold.png");
+    }
+
+    mainDiv.appendChild(pointsDisplay);
+    mainDiv.appendChild(pImage);
+    mainDiv.appendChild(medal);
+    mainDiv.appendChild(text);
+}
+}
+
+
+function getLanguageFromCookie() {
+    const match = document.cookie.match(new RegExp('(^| )lang=([^;]+)'));
+    if (match) return match[2];
+    return null;
+}
+
+function ending(playerScore) {
+    let score = "";
+
+    if (playerScore >= 430 && playerScore <= 500) {
+        score = "Gold";
+    } else if (playerScore >= 330 && playerScore <= 429) {
+        score = "Silver";
+    } else if (playerScore >= 230 && playerScore <= 329) {
+        score = "Bronze";
+    } else if (playerScore >= 0 && playerScore <= 229) {
+        score = "NoReward";
+    }
+
+    // Store the score in a global variable to access it later
+    window.finalScore = score;
+
+   /* // Display playerScore for debugging
+    var debugElement = document.createElement("p");
+    debugElement.textContent = "Debug: Player Score = " + playerScore;
+    debugElement.style.color = "red"; // Optional: style the debug message for visibility
+    debugElement.style.fontWeight = "bold"; // Make the text bold
+
+    // Append the debugElement to the body or another container in the UI
+    document.body.appendChild(debugElement);
+*/
+    // Call setLanguage to update the UI with the appropriate translation
+    setLanguage(getLanguageFromCookie() || 'en');
+}
+
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const lang = getLanguageFromCookie() || 'en';
+            setLanguage(lang);
+        });
+
+        function submitForm(event) {
+    event.preventDefault();
+    const firstname = document.getElementById("name").value;
+    const lastname = document.getElementById("lname").value;
+    const email = document.getElementById("email").value;
+    const playerScore = parseInt(localStorage.getItem("points"), 10) || 0; // Retrieve the player's score from localStorage
+    const score = determineScore(playerScore); // Determine the score (Gold, Silver, etc.)
+    const loss = parseInt(localStorage.getItem("looses"), 10) || 0;
+
+    console.log('Form Data:', {
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        score: score,
+        playerScore: playerScore,
+        loss: loss
+    });
+
+    if (validateForm(firstname, lastname, email)) {
+        insertSignupData(firstname, lastname, email, score, playerScore, loss);
+    }
+}
+
+function validateForm(firstname, lastname, email) {
+    const message = document.getElementById("message");
+
+    if (!firstname || !lastname || !email) {
+        message.innerHTML = translations[getLanguageFromCookie() || 'en'].allFieldsRequired;
+        message.style.display = 'block'; // Show the message
+        message.classList.add('shake'); // Add shake effect
+        setTimeout(() => message.classList.remove('shake'), 500); // Remove shake effect after animation
+        return false;
+    }
+
+    if (!ValidateEmail({ value: email })) {
+        message.innerHTML = translations[getLanguageFromCookie() || 'en'].invalidEmail;
+        message.style.display = 'block'; // Show the message
+        message.classList.add('shake'); // Add shake effect
+        setTimeout(() => message.classList.remove('shake'), 500); // Remove shake effect after animation
+        return false;
+    }
+
+    message.innerHTML = "";
+    message.style.display = 'none'; // Hide the message
+    return true;
+}
+
+function ValidateEmail(inputText) {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return inputText.value.match(mailformat);
+}
+
+function insertSignupData(firstname, lastname, email, score, playerScore, loss) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState !== 4) return;
+        if (xhr.status >= 200 && xhr.status < 300) {
+            try {
+                const response = JSON.parse(xhr.responseText);
+                console.log(response);
+                if (response.success) {
+                    showPopup(); // Show popup on successful submission
+                } else {
+                    console.error(response.message);
+                }
+            } catch (e) {
+                console.error("Error parsing response as JSON:", xhr.responseText);
+            }
+        } else {
+            console.log('error', xhr);
+        }
+    };
+
+    xhr.open('POST', "response_new2.php");
+    xhr.setRequestHeader("Content-Type", "application/json");
+    const data = {
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        score: score,
+        loss: loss,
+        playerScore: playerScore // Include the player's points in the data
+
+    };
+    xhr.send(JSON.stringify(data));
+}
+
+
+        function showPopup() {
+            document.getElementById('popup').style.display = 'flex';
+        }
+
+        function hidePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        function showConfirmationPopup() {
+            document.getElementById('confirmationPopup').style.display = 'flex';
+        }
+
+        function hideConfirmationPopup() {
+            document.getElementById('confirmationPopup').style.display = 'none';
+        }
+
+        document.getElementById('submitBtn').addEventListener('click', submitForm);
+        document.getElementById('popupClose').addEventListener('click', hidePopup);
+        document.getElementById('confirmationPopupClose').addEventListener('click', hideConfirmationPopup);
+        document.getElementById('confirmYes').addEventListener('click', () => {
+            window.location.href = 'index_new.html';
+        });
+        document.getElementById('confirmNo').addEventListener('click', hideConfirmationPopup);
+
+    
+
+        function determineScore() {
+            return window.finalScore;
+        }
+
+        var noOfAns = decodeURIComponent(window.location.search).substring(window.location.search.length - 1);
+        var loss = parseInt(localStorage.getItem("looses"), 10);
+        
+        var playerScore = parseInt(localStorage.getItem("points"), 10);
+
+        ending(playerScore);
+
+       //ending(noOfAns);
+
+        var midDiv = document.getElementById("midDiv");
+
+        var playAgainImage = document.createElement("img");
+        playAgainImage.setAttribute("src", "../imgs/play.png");
+        playAgainImage.setAttribute("alt", translations[getLanguageFromCookie() || 'en'].playAgain);
+        // Directly set the size of the image
+        playAgainImage.style.width = "125px"; // Adjust the width as needed
+        playAgainImage.style.height = "auto"; // Maintain aspect ratio
+        playAgainImage.style.display = "block"; // Ensure it’s displayed as a block element
+        playAgainImage.style.margin = "0 auto"; // Center the image
+        playAgainImage.style.marginTop = "20px"; // Center the image
+
+        // Create a link element
+        var playAgainLink = document.createElement("a");
+        playAgainLink.style.width = "100px";
+        playAgainLink.style.height = "auto"; // Maintain aspect ratio
+
+        playAgainLink.setAttribute("href", "#"); // Change href to "#" to prevent immediate navigation
+        playAgainLink.setAttribute("id", "playAgainLink");
+
+        // Append the image to the link element
+        playAgainLink.appendChild(playAgainImage);
+
+        // Append the link element to the midDiv
+        document.getElementById("midDiv").appendChild(playAgainLink);
+
+        document.getElementById('playAgainLink').addEventListener('click', (event) => {
+            event.preventDefault();
+            showConfirmationPopup();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,725 @@
+/* General body styling */
+body {
+    background-color: #b0b0b0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
+    height: 100vh;
+    margin: 0;
+    /*padding-top: 1rem;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center the container vertically */
+
+}
+
+/* Container for left and right sections */
+.container {
+    display: flex;
+    width: 100%;
+    height: 100vh; /* Take up the full viewport height */
+    flex-direction: row; /* Default to side-by-side layout */
+    overflow: hidden; /* Hide any overflow content */
+    /*padding-top: 1rem; /* Add padding to the top */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Left and right sections */
+#left, #right {
+    width: 50%;
+    height: 100%;
+    position: relative;
+}
+
+#left {
+    background-color: rgba(9, 9, 82, 0.777);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#right {
+    background-color: rgba(165, 171, 205, 0.777);
+    color: rgb(10, 4, 4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Adjusting headings and other elements */
+#levelHeading, #message, #PickText, #PickText2 {
+    text-align: center;
+    color: rgb(14, 2, 2);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#Heading {
+    text-align: center;
+    color: rgb(247, 243, 243);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    margin-top: 1rem;
+}
+
+#levelHeading {
+    font-size: 20px;
+    margin-top: 1rem;
+}
+
+#message {
+    font-size: 20px;
+    margin-top: 10%;
+}
+
+#distMap, #map {
+    width: 88%;
+  /*  margin-left: 6%;*/
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    margin-top: 120px;
+}
+
+#PickText {
+    font-size: 20px;
+    margin-top: 5%;
+    margin-left: 2%;
+    text-align: center;
+}
+
+#PickText2 {
+    font-size: 20px;
+    margin-top: 5%;
+    margin-left: 2%;
+    text-align: center;
+    color: rgb(247, 243, 243);
+}
+
+#map {
+    width: 88%;
+    position: relative;
+   /* margin-left: 6%;*/
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+/* Exit button specific styles */
+.exit-btn {
+    margin-top: 20px; /* Adjust top margin to create space from other elements */
+}
+
+.exit-btn:hover {
+    background-color: rgb(143, 129, 238);
+}
+
+.butt-time {
+    display: inline-block;
+    margin-top: 5px; /* Remove margin top to eliminate space between the image and button */
+    padding: 5px 10px;
+    background-color: rgb(36, 113, 237);
+    color: white;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 30px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    text-align: center; /* Ensure the text inside the button is centered */
+}
+
+.butt-time:hover {
+    background-color: rgb(143, 129, 238);
+    color: white;
+}
+
+#text {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+}
+
+#coffee {
+    width: 80%;
+    position: relative;
+    height: 60%;
+    margin-left: 10%;
+}
+
+#heading {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+}
+
+#cDiv {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 25px;
+    color: white;
+}
+
+.top-left-logo {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 80px; /* Default size */
+    height: 80px; /* Default size */
+    border-radius: 30%;
+    overflow: hidden;
+    z-index: 1000; /* Ensure it's above other fixed elements */
+}
+
+.top-left-logo img {
+    width: 100%;
+    height: auto;
+}
+
+.language-buttons {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 2000; /* Increased to ensure it is above other elements */
+}
+
+.language-buttons button {
+    background-color: rgba(4, 4, 88, 0.777);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin-left: 5px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    transition: background-color 0.3s, border 0.3s;
+}
+
+.language-buttons button.selected {
+    background-color: rgb(143, 129, 238);
+    border: 2px solid black;
+}
+
+.language-buttons button:hover {
+    background-color: rgb(143, 129, 238);
+}
+
+
+
+/* Styles for message container and text */
+#messageContainer {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.message-correct {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.message-wrong {
+    background-color: #f44336;
+    color: white;
+}
+
+#messageHeading {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+#messageText {
+    font-size: 16px;
+}
+#timerContainer {
+    text-align: right;
+    margin-bottom: 0;
+    font-size: 23px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+#timerLabel {
+    display: inline;
+    margin-right: 5px; /* Space between label and display */
+}
+
+#timerDisplay {
+    display: inline;
+    font-weight: bold;
+}
+
+/* CSS Styles for successPic */
+#successPic {
+        width: 50%;
+        max-width: 50%;
+        margin-top: 10px; /* Adjust margin top for better positioning */
+        margin-bottom: 10px; /* Remove bottom margin to eliminate space between the image and button */
+    
+    margin-top: 80px; /* Adds space above the image */
+}
+
+
+/* CSS Styles for successPic */
+#successPic-beer {
+    width: 50%;
+    position: relative;
+    height: 50%;
+    margin-top: 10px; /* Adjust margin top for better positioning */
+    margin-bottom: 10px; /* Remove bottom margin to eliminate space between the image and button */
+}
+
+/* CSS Styles for correctMap */
+#correctMap {
+    width: 88%;
+    max-width: 100%; /* Ensure images do not exceed their containers */
+    height: auto;
+    margin-bottom: 5px; /* Adds space below the image */
+    margin-top: 120px; /* Adds space above the image */
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* CSS class to remove bottom margin */
+.no-margin-bottom {
+    margin-bottom: 0;
+}
+
+/* Center the loose image */
+.aImg {
+    display: block;
+    margin: 0 auto; /* Center the image horizontally */
+    max-width: 100%;
+    height: auto;
+    margin-top: 0%;
+    margin-bottom: 10%;
+}
+
+
+
+.play-butt {
+    display: block; /* Changed to block for centering */
+    margin: 10px auto 0 auto; /* Center the button horizontally and keep top margin */
+    padding: 0;
+    color: white;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 10px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+    width: 150px; /* Set the width of the button */
+    height: auto; /* Set the height of the button */
+}
+
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent black background */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears on top of other elements */
+}
+
+.modal-overlay2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent black background */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears on top of other elements */
+}
+
+/* Next Level image */
+.game-over-img {
+    width: 80%; /* Set width to 100% of the screen */
+    height: auto; /* Maintain aspect ratio */
+    margin: 0; /* Remove margins */
+    padding: 0; /* Remove padding */
+    border: none; /* Remove any border */
+    opacity: 0.9; /* Slightly transparent */
+}
+
+
+/* Buttons container */
+.buttons-container {
+    display: flex;
+    justify-content: space-around;
+    width: 50%; /* Same width as the image for alignment */
+    position: absolute; /* Position within the game-over image */
+    bottom: 28%; /* Adjust as needed to position buttons higher */
+    left: 50%; /* Center the buttons container */
+    transform: translateX(-50%); /* Center the buttons container */
+}
+
+/* Button styles */
+.butt {
+    background-color: #6A0DAD; /* Purple color for game-like appearance */
+    color: white;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px; /* Larger font for a game-like feel */
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px 20px; /* More padding for a bigger button */
+    border: 2px solid #BA55D3; /* Border with a lighter purple */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add some shadow for depth */
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    text-align: center;
+    margin: 0 15px; /* More margin for spacing between buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-top: 0px;
+}
+/* Button styles */
+.butt2 {
+    background-color: #6A0DAD; /* Purple color for game-like appearance */
+    color: white;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px; /* Larger font for a game-like feel */
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px 20px; /* More padding for a bigger button */
+    border: 2px solid #BA55D3; /* Border with a lighter purple */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add some shadow for depth */
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    text-align: center;
+    margin: 0 30px; /* More margin for spacing between buttons */
+    margin-top: 50px;
+    cursor: pointer; /* Pointer cursor on hover */
+}
+.butt, .butt2:hover {
+    background-color: #BA55D3; /* Lighter purple on hover */
+    color: white;
+    transform: translateY(-3px); /* Slight lift effect on hover */
+}
+
+
+/* Modal overlay */
+.modal-overlay2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears on top of other elements */
+}
+
+
+
+/* Message text */
+.font2 {
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 24px; /* Large font size for visibility */
+    text-align: center;
+    margin: 20px 0; /* Margin for spacing */
+    text-shadow: 2px 2px 4px #000000; /* Add a shadow for better readability */
+}
+
+/* Buttons container */
+.buttons-container2 {
+    display: flex;
+    justify-content: center;
+    width: 80%; /* Same width as the image for alignment */
+    margin-top: -40px; /* Move buttons closer to the image */
+}
+
+/* Next Level image */
+.next-level-img {
+    width: 50%; /* Set width to 80% of the screen */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 20px; /* Space between the image and buttons */
+    opacity: 0.7; /* Slightly transparent */
+    animation: bounceIn 3s ease-in-out; /* Bounce-in effect for image */
+}
+
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.5); }
+    to { transform: scale(1); }
+}
+
+@keyframes bounceIn {
+    0%, 20%, 40%, 60%, 80%, 100% {
+        transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    }
+    0% {
+        opacity: 0;
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+    20% {
+        transform: scale3d(1.1, 1.1, 1.1);
+    }
+    40% {
+        transform: scale3d(0.9, 0.9, 0.9);
+    }
+    60% {
+        opacity: 1;
+        transform: scale3d(1.03, 1.03, 1.03);
+    }
+    80% {
+        transform: scale3d(0.97, 0.97, 0.97);
+    }
+    100% {
+        opacity: 1;
+        transform: scale3d(1, 1, 1);
+    }
+}
+.modal-overlay, .modal-overlay2 {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.next-level-img, .font2, .buttons-container {
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Modal overlay for wrong answer */
+.modal-overlay-wrong {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears on top of other elements */
+}
+
+/* Modal content for wrong answer */
+.modal-content-wrong {
+    background-color: white; /* White background */
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    position: relative;
+    max-width: 30%;
+    width: 80%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add some shadow for a nice effect */
+}
+
+/* Close button */
+.close-button-wrong {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+}
+
+/* Heart image */
+.heart-img {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 60px;
+    height: auto;
+}
+
+/* Wrong answer text */
+.wrong-text {
+    font-size: 22px;
+    color: black;
+    margin-top: 20px;
+}
+
+/* Responsive styles */
+@media (max-width: 950px) and (max-height: 550px) and (orientation: landscape) {
+    body {
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        height: 100vh;
+    }
+
+    #left, #right {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        justify-content: center; /* Center items horizontally */
+        align-items: center; /* Center items vertically */
+        flex-direction: column; /* Stack items vertically */
+        padding-top: 2%; /* Adjust this value to move content higher */
+    }
+
+    #levelHeading, #message, #Heading, #text, #coffee, #heading, #cDiv, .language-buttons button {
+        font-size: 12px;
+        text-align: center;
+        width: 90%;
+        margin: 0 auto;
+        padding: 5px;
+    }
+
+    #distMap, #map {
+        width: 90%;
+        margin: 0% 5% 0% 5%; /* Reduced top margin */
+        
+    }
+
+    #successPic {
+        width: 40%;
+        max-width: 40%;
+        margin-top: 30px; /* Adjust margin top for better positioning */
+        margin-bottom: 20px; /* Remove bottom margin to eliminate space between the image and button */
+
+    }
+
+  
+
+    #PickText {
+        font-size: 14px;
+        margin-top: 2%; /* Adjust margin to move text below distMap */
+        margin-left:2%;
+        margin-right:2%;
+        margin-bottom: 10px; /* Add bottom margin to separate from image */
+    }
+
+    #PickText2 {
+        font-size: 14px;
+        margin-top: 2%; /* Adjust margin to move text below PickText */
+        margin-left:2%;
+        margin-right:2%;
+        margin-bottom: 10px; /* Add bottom margin to separate from image */
+    }
+
+    .top-left-logo {
+        width: 60px; /* Smaller size */
+        height: 60px; /* Smaller size */
+    }
+
+    .top-left-logo img {
+        width: 100%;
+        height: auto;
+    }
+
+
+    .language-buttons button {
+        padding: 0.25rem 0.25rem;
+        font-size: 10px;
+        width: 90%;
+    }
+
+    #text, #message, #levelHeading, #Heading {
+        width: 90%;
+        font-size: 15px;
+        margin: 0 auto;
+        text-align: center;
+        padding: 5px;
+    }
+
+    #timerContainer {
+        text-align: right;
+        margin-bottom: 0;
+        font-size: 18px;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    /* CSS Styles for correctMap */
+    #correctMap {
+    width: 88%;
+    max-width: 100%; /* Ensure images do not exceed their containers */
+    height: auto;
+    margin-bottom: 5px; /* Adds space below the image */
+    margin-top:20px; /* Adds space above the image */
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Styles for message container and text */
+#messageContainer {
+    display: none;
+    margin-top: 10px;
+    padding: 2px;
+    border-radius: 5px;
+    text-align: center;
+    width: 88%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#messageHeading {
+    font-size: 18px;
+    margin-bottom: 2px;
+    margin-top:8px;
+
+}
+
+#messageText {
+    font-size: 16px;
+    margin-top:2px;
+}
+
+
+/* Buttons container */
+.buttons-container {
+
+    bottom: 20%; /* Adjust as needed to position buttons higher */
+    
+}
+
+/* Button styles */
+.butt {
+    background-color: #6A0DAD; /* Purple color for game-like appearance */
+    color: white;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 17px; /* Larger font for a game-like feel */
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px 13px; /* More padding for a bigger button */
+    border: 2px solid #BA55D3; /* Border with a lighter purple */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add some shadow for depth */
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    text-align: center;
+    margin: 0 15px; /* More margin for spacing between buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-top: 0px;
+    width: 18%;
+}
+
+}

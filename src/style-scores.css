@@ -1,0 +1,246 @@
+body {
+    background-color: rgba(165, 171, 205, 0.777); /* Light greyish-blue background */
+    font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #0c0c0c; /* General text color for better readability */
+    font-weight: 500; /* Make all text semi-bold */
+}
+
+h1#head1 {
+    text-align: center;
+    font-size: 2.5rem; /* Use rem for better scalability */
+    color: rgba(9, 9, 82, 0.777); /* Deep blue color */
+    margin: 20px 0;
+    font-weight: 500; /* Semi-bold for heading */
+}
+
+#top-players {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.top-player-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.top-player {
+    text-align: center;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 25%;
+    margin: 0 10px;
+    position: relative;
+}
+
+.top-player .crown-icon {
+    width: 25%; /* Adjust size as needed */
+    height: auto;
+    position: absolute;
+    top: -20px; /* Adjust vertical position */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.top-player .rank {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.top-player .name {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin: 5px 0;
+}
+
+.top-player .score {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #333;
+}
+
+
+.gold-medal {
+    border: 2px solid gold;
+    background-color: #f9f9f9;
+}
+
+.silver-medal {
+    border: 2px solid silver;
+    background-color: #f9f9f9;
+}
+
+.bronze-medal {
+    border: 2px solid #cd7f32;
+    background-color: #f9f9f9;
+}
+
+.scores-table {
+    width: 70%;
+    border-collapse: collapse;
+    margin: 20px auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.scores-table th, .scores-table td {
+    border: 1px solid rgba(9, 9, 82, 0.777); /* Deep blue border */
+    padding: 10px;
+    text-align: center;
+    font-weight: 500; /* Semi-bold for table text */
+}
+
+.scores-table th {
+    background-color: rgba(9, 9, 82, 0.777); /* Deep blue background */
+    color: white;
+}
+
+button#back-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: rgba(9, 9, 82, 0.777); /* Deep blue background */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-weight: 500; /* Semi-bold for button text */
+}
+
+button#back-btn:hover {
+    background-color: rgb(143, 129, 238); /* Light purple on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+.top-left-logo {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 70px; /* Default size */
+    height: 70px; /* Default size */
+    border-radius: 30%;
+    overflow: hidden;
+    z-index: 1000; /* Ensure it's above other fixed elements */
+}
+
+.top-left-logo img {
+    width: 100%;
+    height: auto;
+}
+
+
+/* Responsive Styles */
+
+@media (max-width: 950px) {
+    h1#head1 {
+        font-size: 1.75rem;
+        margin: 25px 0;
+    }
+
+    .scores-table th, .scores-table td {
+        padding: 8px;
+    }
+
+    button#back-btn {
+        padding: 8px 16px;
+        font-size: 0.875rem;
+    }
+
+    .top-left-logo {
+        width: 70px; /* Smaller size */
+        height: 70px; /* Smaller size */
+    }
+
+    .top-player-container {
+        /* Keep row layout but adjust sizes */
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-top: 40px;
+
+    }
+    .top-player .crown-icon {
+        width: 25%; /* Smaller size for medium screens */
+        top: -15px; /* Adjust position */
+    }
+    .top-player {
+        width: 30%; /* Adjust width to fit smaller screens */
+        padding: 10px;
+        font-size: 0.875rem; /* Smaller font size */
+        margin: 5px;
+    }
+
+    .top-player .rank {
+        font-size: 1.5rem; /* Smaller font size */
+    }
+
+    .top-player .name {
+        font-size: 1rem; /* Smaller font size */
+    }
+
+    .top-player .score {
+        font-size: 1.25rem; /* Smaller font size */
+    }
+}
+
+@media (max-width: 480px) {
+    h1#head1 {
+        font-size: 1.75rem;
+        margin-top: 25px;
+    }
+
+    .scores-table th, .scores-table td {
+        padding: 6px;
+    }
+
+    button#back-btn {
+        padding: 6px 12px;
+        font-size: 1rem;
+    }
+
+    .top-left-logo {
+        width: 70px; 
+        height: 70px; 
+    }
+
+    .top-player-container {
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+
+    .top-player .crown-icon {
+        width: 25%; /* Smaller size for small screens */
+        top: -15px; /* Adjust position */
+    }
+    .top-player {
+        width: 35%; /* Make them full width to stack vertically */
+        padding: 8px;
+        font-size: 0.75rem; /* Smaller font size */
+        margin: 5px 0; /* Adjust margin for vertical stacking */
+    }
+
+    .top-player .rank {
+        font-size: 1.25rem; /* Smaller font size */
+    }
+
+    .top-player .name {
+        font-size: 1rem; /* Smaller font size */
+    }
+
+    .top-player .score {
+        font-size: 1.25rem; /* Smaller font size */
+    }
+}

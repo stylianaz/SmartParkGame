@@ -1,0 +1,480 @@
+body {
+    background-color: #b0b0b0;
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0rem;
+    position: relative; /* Add position relative to body for absolute positioning */
+}
+
+.font {
+    font-size: 25px;
+    text-align: center;
+    margin-top: 20px;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    color: #ffffff;
+}
+
+.skip-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+}
+
+.skip-btn:hover {
+    color: #007bff;
+}
+
+
+.image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    max-width: 300px; /* Adjust as needed */
+    height: auto;
+    margin-top: 20px;
+}
+
+
+.top-left-logo {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 70px;
+    height: 70px;
+    border-radius: 30%;
+    overflow: hidden;
+    z-index: 1000; /* Ensure it's above other fixed elements */
+}
+
+.top-left-logo img {
+    width: 100%;
+    height: auto;
+}
+
+.language-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.language-buttons button {
+    background-color: rgba(4, 4, 88, 0.777);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    margin-left: 5px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    transition: background-color 0.3s, border 0.3s;
+}
+
+.language-buttons button.selected {
+    background-color: rgb(143, 129, 238);
+    border: 2px solid black;
+}
+
+.language-buttons button:hover {
+    background-color: rgb(143, 129, 238);
+}
+
+#backBTN {
+    position: fixed;
+    top: 100px; /* Adjust the top position as needed */
+    left: 30px; /* Adjust the left position as needed */
+    z-index: 1100; /* Ensure it's above other fixed elements */
+    background-color: rgba(4, 4, 88, 0.777);
+    border: none;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 8px;
+    font-size: 20px;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#backBTN:hover {
+    background-color: rgb(143, 129, 238);
+}
+
+.tableCell {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+
+.back-button {
+    position: fixed;
+    top: 120px; /* Adjust the top position as needed */
+    left: 30px; /* Adjust the left position as needed */
+    z-index: 1000; /* Adjust z-index as needed based on your layout */
+}
+
+.back-button button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: opacity 0.3s;
+}
+
+.back-button button img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.back-button button:hover {
+    opacity: 0.7;
+}
+
+img{
+    width: 50%;
+    height: auto;
+}
+
+h1 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    margin-top: 0px;
+    color: #120257;
+}
+
+.instructions-container {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.instructions-container p {
+    font-size: 18px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.button:hover {
+    background-color: rgb(143, 129, 238);
+}
+
+#timeTriesLine1,
+#timeTriesLine2 {
+    font-size: 20px; /* Adjust the font size as needed */
+    font-weight: bold; /* Make the text bold */
+    margin-top: 10px; /* Adjust margin as needed */
+    color: #240542;
+
+}
+#levelLink {
+    display: inline-block;
+    padding: 0px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 0px; /* Adjust margin as needed */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: pulse 2s infinite; /* Apply the animation */
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: translateX(-50%) scale(1); /* Normal size */
+    }
+    50% {
+        transform: translateX(-50%) scale(1.05); /* Slightly larger */
+    }
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.popup-content {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 35%;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    overflow-y: auto; /* Add scroll if content exceeds the fixed height */
+}
+
+.popup-content2 {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 35%;
+    height: 30%; /* Fixed height */
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    overflow-y: auto; /* Add scroll if content exceeds the fixed height */
+}
+
+.popup h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #120257;
+    margin-top: 0px;
+}
+
+.difficulty-btn {
+    display: block;
+    width: 100%;
+    background-color: rgba(4, 4, 88, 0.777);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 0;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
+}
+
+.difficulty-btn:hover {
+    background-color: rgb(143, 129, 238);
+}
+
+.note {
+    font-size: 1rem;
+    color: #333;
+    margin-top: 1rem;
+}
+
+.note2 {
+    font-size: 1.1rem;
+    color: #333;
+    margin-top: 1rem;
+}
+
+.note3 {
+    font-size: 1.4rem;
+    color: #333;
+    margin-top: 1rem;
+}
+
+.close-btn {
+    background-color: grey;
+    color: rgb(29, 27, 27);
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Countdown Overlay Styles */
+.countdown-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Purple with opacity */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    text-align: center;
+    color: rgb(143, 129, 238);
+    font-family: 'Roboto', sans-serif;
+}
+
+.countdown-content {
+    text-align: center;
+    animation: fadeIn 1s;
+}
+
+#countdown-text {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    animation: fadeIn 1s;
+}
+
+#countdown-number {
+    font-size: 5rem;
+    color: rgb(143, 129, 238);
+    animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Utility class to hide elements */
+.hidden {
+    display: none;
+}
+
+/* Keyframes for sliding in and out animations */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+/* Classes to apply the animations */
+.slide-in-right {
+    animation: slideInRight 0.5s ease forwards;
+}
+
+.slide-out-left {
+    animation: slideOutLeft 0.5s ease forwards;
+}
+
+
+@media (max-width: 950px) {
+    .top-left-logo {
+        width: 60px; /* Smaller size */
+        height: 60px; /* Smaller size */
+    }
+    .image {
+        width: 22%;
+        margin-top: 0px;
+    }
+
+    .font {
+        font-size: 20px;
+    }
+
+    .butt {
+        font-size: 18px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        margin-top: 0px;
+    }
+    .instructions-container p {
+        font-size: 18px;
+        line-height: 1.5;
+        
+    }
+    .language-buttons {
+        top: 5px;
+        right: 5px;
+    }
+
+    .language-buttons button {
+        padding: 0.25rem 0.25rem;
+        font-size: 10px;
+        width: 90%;
+    }
+
+    #backBTN {
+        top: 80px;
+        left: 15px;
+    }
+
+    .back-button {
+        top: 100px;
+        left: 15px;
+    }
+    
+    
+    .instructions-container p {
+        font-size: 15px;
+        line-height: 1.2;
+        margin-bottom: 3px;
+        color: #333;
+    }
+
+    #levelLink {
+        display: inline-block;
+        padding: 0px;
+       
+        transition: background-color 0.3s ease;
+        margin-top: 0px; /* Adjust margin as needed */
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    #timeTriesLine1,
+#timeTriesLine2 {
+    font-size: 17px; /* Adjust the font size as needed */
+    margin-top: 5px; /* Adjust margin as needed */
+    margin-bottom: 0px;
+
+}
+
+.popup-content {
+    padding: 1rem;
+    width: 40%;
+}
+.popup-content2 {
+    padding: 1rem;
+    width: 40%;
+    height: 50%;
+}
+.popup h2 {
+    font-size: 1.5rem;
+}
+
+.difficulty-btn {
+    padding: 0.3rem 0;
+    font-size: 1rem;
+}
+
+.note {
+    font-size: 0.9rem;
+}
+
+.note3 {
+    font-size: 1.1rem;
+}
+.close-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+}
+}

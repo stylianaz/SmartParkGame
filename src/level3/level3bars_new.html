@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Demetris Kouppas, Styliana Zymara">
+    <title>SmartPark Level3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-level3-new.css">
+    <style>
+        /* CSS to make map areas show the pointer cursor on hover */
+        area {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body id="b">
+    <div class="top-left-logo">
+        <img src="../../imgs/logo-SmartPark.png" alt="App Logo">
+    </div>
+   
+
+    <div class="language-buttons">
+        <button id="en-btn" onclick="setLanguage('en')">English</button>
+        <button id="gr-btn" onclick="setLanguage('gr')">Ελληνικά</button>
+    </div>
+   
+    <script>
+
+        var stop = 0;
+
+       // Ensure choices are stored in localStorage if not already present
+if (!localStorage.getItem('choices')) {
+    const choicesArray = ['cost', 'destination'];
+    localStorage.setItem('choices', JSON.stringify(choicesArray));
+}
+
+
+// Function to shuffle an array using Fisher-Yates (Knuth) shuffle
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+
+function selectRandomChoice() {
+       // Get the choices array from localStorage
+       let choices = JSON.parse(localStorage.getItem('choices'));
+
+        choices = shuffleArray(choices);
+
+        localStorage.setItem('choices', JSON.stringify(choices));
+
+        const randomChoice = choices[0];
+            let imageSrc;
+            if (randomChoice === 'destination') {
+                imageSrc = "../../imgs/random/dist-priority.png";
+            } else if (randomChoice === 'cost') {
+                imageSrc = "../../imgs/random/cost-priority.png";
+            }
+
+            return imageSrc;
+}
+
+const translations = {
+    en: {
+        level3: "LEVEL 3",
+        level4: "LEVEL 4",
+        bestOption: "BEST OPTION",
+        secondBest: "SECOND BEST",
+        outOfTime: "You run out of time you lose!",
+        timesup: "Time's Up!",
+        exitText: "Click here to view your score",
+        exit: "EXIT",
+        play: "Play",
+        park: "PARK",
+        instructions: "Choose the 2 best options for parking! The categories of the algorithm are shown above, with the top being the most important.",
+        timeTriesLine1_60: "Time: 60 seconds",
+        timeTriesLine1_45: "Time: 45 seconds",
+        timeTriesLine1_30: "Time: 30 seconds",
+        timeTriesLine2: "Number of tries: 2.",
+        
+        explainTextOtherLevels: "Choose the best two spots",
+        youFoundBoth: "You found both parkings correctly! Move on to the next level!",
+        tryingToGoTo: "We are trying to go to the",
+        tryingToGoToMuseum: "We are trying to go to the museum",
+        textWin: "You found both parkings correctly! Move on to the next level!",
+        loseText: "You didn't find both parkings correctly! You lose...",
+        wrongAnswerHeading: "Wrong answer! You have one life remaining.",
+        pivo: "We are trying to go to Pivo brewery",
+        costa: "We are trying to go to Costa coffee",
+        neverland: "We are trying to go to Neverland Rock Bar",
+        ledras: "We are trying to go to Ledras street",
+        aquadect: "We are trying to go to the Nicosia Aquaduct",
+        byzantine: "We are trying to go to the Byzantine museum",
+        leventis: "We are trying to go to Leventis museum",
+        cyprusMuseum: "We are trying to go to the Cyprus museum",
+        famagusta: "We are trying to go to the Famagusta gate",
+        fridays: "We are trying to go to Fridays",
+        default: "We are trying to go to the destination"
+
+    },
+    gr: {
+        level3: "ΕΠΙΠΕΔΟ 3",
+        level4: "ΕΠΙΠΕΔΟ 4",
+        bestOption: "ΚΑΛΥΤΕΡΗ ΕΠΙΛΟΓΗ",
+        secondBest: "ΔΕΥΤΕΡΗ ΚΑΛΥΤΕΡΗ",
+        outOfTime: "Ο χρόνος τελείωσε, χάσατε!",
+        timesup: "Τέλος χρόνου!",
+        exitText: "Κάνε κλικ για να δεις το σκορ σου.",
+        exit: "ΕΞΟΔΟΣ",
+        play: "Παίξε",
+        //park: "ΠΆΡΚΑΡΕ!",
+        instructions: "Επιλέξτε τις 2 καλύτερες επιλογές για parking. Πιο πάνω φαίνεται η σειρά προτεραιότητας που χρησιμοποιεί ο αλγόριθμος.",
+        timeTriesLine1_60: "Χρόνος: 60 δευτερόλεπτα.",
+        timeTriesLine1_45: "Χρόνος: 45 δευτερόλεπτα.",
+        timeTriesLine1_30: "Χρόνος: 30 δευτερόλεπτα.",
+        timeTriesLine2: "Αριθμός προσπαθειών: 2.",
+        explainTextOtherLevels: "Επιλέξτε τα δύο καλύτερα σημεία",
+        youFoundBoth: "Βρήκατε και τα δύο παρκινγκ σωστά! Προχωρήστε στο επόμενο επίπεδο!",
+        tryingToGoTo: "Προσπαθούμε να πάμε στο",
+        tryingToGoToMuseum: "Προσπαθούμε να πάμε στο μουσείο",
+        textWin: "Βρήκατε και τα δύο parkings σωστά! Προχωρήστε στο επόμενο επίπεδο!",
+        loseText: "Δεν βρήκατε και τα δύο παρκινγκ σωστά! Χάσατε...",
+        wrongAnswerHeading: "Λάθος Απάντηση! Σου απομένει μια ζωή.",
+        pivo: "Προσπαθούμε να πάμε στο Pivo brewery",
+        costa: "Προσπαθούμε να πάμε στο Costa coffee",
+        neverland: "Προσπαθούμε να πάμε στο Neverland Rock Bar",
+        ledras: "Προσπαθούμε να πάμε στην Λήδρας",
+        aquadect: "Προσπαθούμε να πάμε στο υδραγωγείο Λευκωσίας",
+        byzantine: "Προσπαθούμε να πάμε στο Βυζαντινό μουσείο",
+        leventis: "Προσπαθούμε να πάμε στο Λεβέντειο μουσείο",
+        cyprusMuseum: "Προσπαθούμε να πάμε στο Κυπριακό Μουσείο",
+        famagusta: "Προσπαθούμε να πάμε στην πύλη Αμμοχώστου",
+        fridays: "Προσπαθούμε να πάμε στο Fridays",
+        default: "Προσπαθούμε να πάμε στον προορισμό"
+
+    }
+};
+
+        
+    
+    
+        //health for tries
+        var health = 1;
+        //get level that need to be loaded and category
+        var levels = localStorage.getItem("levelsarr").split(",");
+        var nextLevel = levels[0];
+        var category = localStorage.getItem("category");
+
+        //create left part of screen
+        var bod = document.getElementById("b");
+        var right_div = document.createElement("div");
+        var left_div = document.createElement("div");
+        left_div.setAttribute("id", "left");
+
+
+        right_div.setAttribute("id", "right");
+        bod.appendChild(right_div);
+        bod.appendChild(left_div);
+        var heading1 = document.createElement("h1");
+        if (levels.length == 3) { //if levels left are 3 then we are at level 3 if levels left are 2 then we are at level 4
+            heading1.innerHTML = "LEVEL 3!";
+        } else {
+            heading1.innerHTML = "LEVEL 4!";
+        }
+
+        heading1.setAttribute("class", "font h1-margin-top"); // Apply both font and margin-top classes
+        right_div.appendChild(heading1);
+
+
+
+        //add image of correct level and place
+        var userPic = document.createElement("img");
+        userPic.setAttribute("class", "map");
+        var imgSrc = "../../imgs/" + category + "/" + nextLevel + "/" + nextLevel + "Lvl3.png";
+        userPic.setAttribute("src", imgSrc);
+        
+      
+        
+        right_div.appendChild(userPic);
+
+
+
+        /* form with checkboxex. Number of checkboxes depends on parkings close to specific place */
+        var form = document.createElement("form");
+       // form.style.backgroundColor = "rgba(165, 171, 205, 0.777)"; // Set the background color
+
+        right_div.appendChild(form);
+        form.setAttribute("id", "optionsCheckboxes");
+        //right_div.appendChild(form);
+        right_div.appendChild(form);
+
+        form.onsubmit = function() {
+            submition()
+        };
+        form.action = "javascript:checkAnswers()";
+        var formDiv1 = document.createElement("div");
+        form.appendChild(formDiv1);
+        formDiv1.setAttribute("class", "checks");
+        var option = document.createElement("p");
+        option.setAttribute("id", "option");
+        option.innerHTML = "BEST OPTION";
+        option.setAttribute("class", "text");
+        formDiv1.appendChild(option);
+
+        //second row of options
+        var formDiv2 = document.createElement("div");
+        formDiv2.setAttribute("class", "checks");
+        var option2 = document.createElement("p");
+        option2.setAttribute("id", "option2");
+        option2.setAttribute("class", "text");
+        option2.innerHTML = "SECOND BEST";
+        formDiv2.appendChild(option2);
+        form.appendChild(formDiv2);
+
+        createleft_div();
+        createForm();
+        
+        var answer = false;
+        //timer 
+        var counter = 0;
+        var counterDiv = document.createElement("div");
+        counterDiv.setAttribute("id", "cDiv");
+        var counterDisplay = document.createElement("p");
+        counterDiv.appendChild(counterDisplay);
+        left_div.appendChild(counterDiv);
+        //counter stops at 10 seconds for test 
+
+        
+
+// Define global variables for timer and countdown
+        var countdown;
+         var maxTime;
+         var difficulty = localStorage.getItem("difficulty");
+
+         var extra;
+
+        if (difficulty === "easy") {
+            maxTime = 60;
+            extra = 0;
+        } else if (difficulty === "medium") {
+            maxTime = 45;
+            extra = 4;
+        } else if (difficulty === "hard") {
+            maxTime = 30;
+            extra = 8;
+        } else {
+            maxTime = 60; // Default value if difficulty is not set
+            extra = 0;
+        }
+        counter = maxTime;
+
+function timer() {
+    countdown = setInterval(function () {
+        if (counter > 0 && stop == 0) {
+            document.getElementById('timerDisplay').innerText = counter;
+            counter--;
+        } else if (stop == 0){
+           clearInterval(countdown);
+           outOfTime();
+        }
+    }, 1000);
+}
+
+
+       // window.onload = timer();
+
+    function outOfTime() {
+    document.getElementById("en-btn").style.display = "none"; //remove form
+    document.getElementById("gr-btn").style.display = "none"; //remove form
+
+    var loss = parseInt(localStorage.getItem("looses"));
+    loss += 1;
+    localStorage.setItem("looses", loss);
+
+    // Create the modal overlay
+    var modalOverlay = document.createElement("div");
+    modalOverlay.setAttribute("class", "modal-overlay");
+
+    // Create the Game Over image
+    var gameOverImg = document.createElement("img");
+    gameOverImg.src = "../../imgs/gameOver4.png";
+    gameOverImg.setAttribute("class", "game-over-img");
+
+    // Create the buttons container
+    var buttonsContainer = document.createElement("div");
+    buttonsContainer.setAttribute("class", "buttons-container");
+
+    // Create the See Score button
+    var seeScoreButton = document.createElement("a");
+    seeScoreButton.innerHTML = "See Score";
+    seeScoreButton.setAttribute("class", "butt");
+    seeScoreButton.href = "../end_new2.html?noOfAnswers=" + (levels.length == 3 ? "1" : "2");
+
+    // Append buttons to the buttons container
+    buttonsContainer.appendChild(seeScoreButton);
+    //buttonsContainer.appendChild(tryAgainButton);
+
+    // Append the image and buttons container to the modal overlay
+    modalOverlay.appendChild(gameOverImg);
+    modalOverlay.appendChild(buttonsContainer);
+
+    // Append the modal overlay to the body
+    document.body.appendChild(modalOverlay);
+
+    stop = 1;
+
+    const currentLang = getLanguage();
+    setLanguage2(currentLang);
+}
+
+        //create the form with the options for the user to choose
+        function createForm() {
+            window.onload = timer();
+
+            var noOfChecks = 0;
+            if (category == "bars") {
+                if (nextLevel == "pivo" || nextLevel == "fridays" || nextLevel == "neverland") {
+                    noOfChecks = 8;
+                } else if (nextLevel == "ledras") {
+                    noOfChecks = 9;
+                } else if (nextLevel == "costa") {
+                    noOfChecks = 5;
+                }
+            } else if (category == "culture") {
+                if (nextLevel == "cyprusMuseum" || nextLevel == "famagusta") {
+                    noOfChecks = 6;
+                } else if (nextLevel == "aquadect") {
+                    noOfChecks = 8;
+                } else if (nextLevel == "byzantine") {
+                    noOfChecks = 7;
+                } else {
+                    noOfChecks = 9;
+                }
+            }
+            for (var c = 1; c <= noOfChecks; c++) {
+                var labels = document.createElement("label");
+                labels.setAttribute("class", "container");
+                labels.innerHTML = "Parking " + c.toString();
+                var inp = document.createElement("input");
+                inp.type = "radio";
+                inp.name = "first";
+                inp.value = c.toString();
+                labels.appendChild(inp);
+                var sp = document.createElement("span");
+                sp.setAttribute("class", "checkmark");
+                labels.appendChild(sp);
+                formDiv1.appendChild(labels);
+            }
+            for (var c = 1; c <= noOfChecks; c++) {
+                var labels = document.createElement("label");
+                labels.setAttribute("class", "container");
+                labels.innerHTML = "Parking " + c.toString();
+                var inp = document.createElement("input");
+                inp.type = "radio";
+                inp.name = "second";
+                inp.value = c.toString();
+
+                labels.appendChild(inp);
+                var sp = document.createElement("span");
+                sp.setAttribute("class", "checkmark");
+                labels.appendChild(sp);
+                formDiv2.appendChild(labels);
+            }
+           // var inpFinal = document.createElement("input");
+            var inpFinal = document.createElement("input");
+            inpFinal.type = "submit";
+            inpFinal.setAttribute("id", "red-button");
+            inpFinal.value = "PARK";
+            inpFinal.classList.add("red-button"); // Add the CSS class to the button
+
+    form.appendChild(inpFinal);
+   // bod.appendChild(form)
+        }
+
+        function createleft_div() {
+          //  window.onload = timer();
+
+    var para1 = document.createElement("h1");
+    para1.setAttribute("class", "font h1-margin-top");
+    para1.setAttribute("id", "instructions");
+    var para2 = document.createElement("p");
+    para2.setAttribute("class", "font");
+    para2.setAttribute("id", "timeTriesLine1");
+    var para3 = document.createElement("p");
+    para3.setAttribute("class", "font");
+    para3.setAttribute("id", "timeTriesLine2");
+
+    var para4 = document.createElement("h1");
+            para4.setAttribute("class", "font");
+            para4.setAttribute("id", "difficultyText");
+
+
+    var categoImg = document.createElement("img");
+    if (levels.length == 3) {
+        // Get the image source based on the random choice
+        const randomImageSrc = selectRandomChoice();
+
+        // Set the image source and attributes
+        categoImg.src = randomImageSrc
+        categoImg.setAttribute("id", "cImg");
+        left_div.appendChild(categoImg);
+       
+
+
+        para1.innerHTML = "For this next level, you have to choose the 2 best options for parking! The categories on the algorithm are shown above, with the top being the most important.";
+        para2.innerHTML = "Time: 90 seconds";
+        para3.innerHTML = "Number of tries: 2.";
+
+    } else {
+        para1.innerHTML = "This level is the same! Choose the best two!";
+    }
+    left_div.appendChild(para1);
+    left_div.appendChild(para4);
+    left_div.appendChild(para2);
+    left_div.appendChild(para3);
+
+
+    var heading2 = document.createElement("h2");
+    var placeToGo = nextLevel.charAt(0).toUpperCase() + nextLevel.slice(1);
+    var distMap = document.createElement("img");
+    distMap.src = "../../imgs/" + category + "/" + nextLevel + "/" + nextLevel.concat("Dist") + ".png";
+    distMap.setAttribute("id", "distMap");
+    distMap.style.position = "relative";
+    distMap.style.marginLeft = "7%";
+    distMap.style.marginRight = "5%";
+    distMap.style.marginBottom = "5%";
+    distMap.style.marginTop = "10%";
+    distMap.style.width = "88%";
+
+    if (levels.length == 3) {
+        document.getElementById("optionsCheckboxes").style.display = "none";
+        document.getElementById("option").style.display = "none";
+        document.getElementById("option2").style.display = "none";
+       
+    
+
+        var playBtn = document.createElement("img");
+        playBtn.setAttribute("id", "play");
+        playBtn.setAttribute("class", "play-butt");
+        playBtn.src = "../../imgs/play.png";
+
+        playBtn.onclick = function() {
+         //  window.onload = timer();
+
+         var timerContainer = document.createElement("div");
+        timerContainer.setAttribute("id", "timerContainer");
+        timerContainer.setAttribute("class", "timerContainer");
+
+
+        var timerLabel = document.createElement("p");
+        timerLabel.setAttribute("id", "timerLabel");
+        timerLabel.innerText = "Timer: ";
+
+        var timerDisplay = document.createElement("p");
+        timerDisplay.setAttribute("id", "timerDisplay");
+        timerDisplay.innerText = maxTime;
+
+        timerContainer.appendChild(timerLabel);
+        timerContainer.appendChild(timerDisplay);
+       left_div.appendChild(timerContainer);
+
+            categoImg.style.display = "none";
+            para1.style.display = "none";
+            para2.style.display = "none";
+            para3.style.display = "none";
+            para4.style.display = "none";
+
+
+            left_div.appendChild(distMap);
+            document.getElementById("optionsCheckboxes").style.display = "";
+            document.getElementById("option").style.display = "";
+            document.getElementById("option2").style.display = "";
+            document.getElementById("play").remove();
+
+        }
+    } else {
+        left_div.appendChild(distMap);
+        var timerContainer = document.createElement("div");
+        timerContainer.setAttribute("id", "timerContainer");
+
+        var timerLabel = document.createElement("p");
+        timerLabel.setAttribute("id", "timerLabel");
+        timerLabel.innerText = "Timer: ";
+
+        var timerDisplay = document.createElement("p");
+        timerDisplay.setAttribute("id", "timerDisplay");
+        timerDisplay.innerText = maxTime;
+
+        timerContainer.appendChild(timerLabel);
+        timerContainer.appendChild(timerDisplay);
+       left_div.appendChild(timerContainer);
+
+
+    }
+    let currentLang = getLanguage(); // Assume getLanguage() returns 'en' or 'gr'
+
+    let message;
+
+switch (nextLevel) {
+    case "pivo":
+        message = translations[currentLang].pivo;
+        break;
+    case "costa":
+        message = translations[currentLang].costa;
+        break;
+    case "neverland":
+        message = translations[currentLang].neverland;
+        break;
+    case "ledras":
+        message = translations[currentLang].ledras;
+        break;
+    case "aquadect":
+        message = translations[currentLang].aquadect;
+        break;
+    case "byzantine":
+    message = translations[currentLang].byzantine;
+        break;
+    case "leventis":
+        message = translations[currentLang].leventis;
+        break;
+    case "cyprusMuseum":
+        message = translations[currentLang].cyprusMuseum;
+        break;
+    case "famagusta":
+        message = translations[currentLang].famagusta;
+        break;
+    case "fridays":
+        message = translations[currentLang].fridays;
+        break;
+    default:
+        message = translations[currentLang].default;
+        break;
+}
+
+heading2.innerHTML = message;
+
+
+    heading2.setAttribute("id", "h2");
+    heading2.setAttribute("class", "font h1-margin-top");
+    left_div.appendChild(heading2);
+    if (levels.length == 3) {
+        left_div.appendChild(playBtn);
+    }
+}
+
+        var options1;
+        var options2;
+        var opt1;
+        var opt2;
+
+        //check the answer when button pressed
+        function submition() {
+            answer = true;
+            options1 = document.getElementsByName("first");
+            options2 = document.getElementsByName("second");
+
+            //get two checkbox answers
+            for (c = 0; c < options1.length; c++) {
+                if (options1[c].checked) {
+                    opt1 = options1[c].value;
+                }
+                if (options2[c].checked) {
+                    opt2 = options2[c].value;
+                }
+            }
+        }
+
+
+        function getFirstChoice() {
+    const choices = JSON.parse(localStorage.getItem('choices'));
+
+    if (choices && choices.length > 0) {
+        return choices[0];
+    } else {
+        // Return null or a default value if the array is empty or doesn't exist
+        return null;
+    }
+}
+
+// Usage example
+const firstChoice = getFirstChoice();
+
+
+        function checkAnswers() {
+
+            //check correct answer for bars category
+            if (category == "bars") {
+                switch (nextLevel) {
+                    case "pivo":
+                        if (opt1 == "3" && opt2 == "4") { 
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                    case "ledras":
+                        if (opt1 == "3" && opt2 == "5") {
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                    case "neverland":
+                        if (opt1 == "4" && opt2 == "6") {
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                    case "costa":
+                        if (opt1 == "3" && ( opt2 == "4")) {
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+
+                    case "fridays":
+                        if (opt1 == "5" && opt2 == "8") {
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                }
+            } else if (category == "culture") {
+                switch (nextLevel) {
+                    case "byzantine":
+                        if (firstChoice === 'destination') {
+                            if (opt1 == "5" && opt2 == "3") {
+                                correctAnswer();
+                            } else {
+                                wrongAnswer();
+                            }
+                        }
+                        else if (firstChoice === 'cost') {
+                            if (opt1 == "3" && opt2 == "1") {
+                                correctAnswer();
+                            } else {
+                                wrongAnswer();
+                            }
+
+                        }
+                            break;
+                    case "aquadect":
+                        if ((opt1 == "7") && (opt2 == "4" || opt2 == "6")) {
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                    case "cyprusMuseum":
+                        if (firstChoice === 'destination') {
+                            if (opt1 == "3" && (opt2 == "2") ) {
+                                correctAnswer();
+                            } else {
+                                wrongAnswer();
+                            }
+                        }
+                        else if (firstChoice === 'cost') {
+                            if (opt1 == "3" && (opt2 == "1") ) {
+                                correctAnswer();
+                            } else {
+                                wrongAnswer();
+                            }
+
+                        }
+                            break;
+                    case "famagusta":
+                        if (opt1 == "5" && opt2 == "4") {
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                    case "leventis":
+                        if (firstChoice === 'destination') {
+                            if (opt1 == "2" && opt2 == "3") {
+                                correctAnswer();
+                            } else {
+                                wrongAnswer();
+                            }
+                        }
+                        else if (firstChoice === 'cost') {
+                            if (opt1 == "1" && opt2 == "4") {
+                                correctAnswer();
+                            } else {
+                                wrongAnswer();
+                            }
+
+                        }
+
+                        break;
+                }
+            }
+        }
+
+   
+
+function correctAnswer() {
+    //clearUp();
+
+    document.getElementById("en-btn").style.display = "none"; //remove form
+    document.getElementById("gr-btn").style.display = "none"; //remove form
+
+    clearInterval(countdown); // Stop the timer
+
+    var timeUsed = maxTime - counter; // time took for correct answer
+    var pointsEarned = 100 - timeUsed + extra; // Points based on remaining time
+
+    if(health == 0){
+        pointsEarned = pointsEarned - 20; // Points based on remaining time
+
+    }
+    // Store the points in localStorage
+    var currentPoints = parseInt(localStorage.getItem('points')) || 0;
+    localStorage.setItem('points', currentPoints + pointsEarned);
+
+
+
+// Create a debug element to display the calculated values
+/*var debugInfo = document.createElement("div");
+debugInfo.setAttribute("id", "debugInfo");
+debugInfo.innerHTML = `
+    <p>Time Used: ${timeUsed} seconds</p>
+    <p>Points Earned: ${pointsEarned}</p>
+    <p>Total Points: ${currentPoints + pointsEarned}</p>
+     <p>counter: ${counter} seconds</p>
+    <p>maxtime: ${maxTime}</p>
+`;
+
+// Set inline CSS to position the element lower on the screen
+debugInfo.style.position = "fixed";
+debugInfo.style.bottom = "0px"; // Adjust as needed
+debugInfo.style.left = "10px";   // Adjust as needed
+//debugInfo.style.backgroundColor = "rgba(0, 0, 0, 0.7)"; // Optional: make the background semi-transparent
+debugInfo.style.color = "red";   // Optional: change text color to white for better contrast
+debugInfo.style.padding = "10px"; // Optional: add padding for better appearance
+debugInfo.style.borderRadius = "5px"; // Optional: round corners
+
+document.body.appendChild(debugInfo);
+*/
+    // Create the modal overlay
+    var modalOverlay = document.createElement("div");
+    modalOverlay.setAttribute("class", "modal-overlay2");
+
+    // Create the next level image
+    var nextLevelImg = document.createElement("img");
+    nextLevelImg.src = "../../imgs/nextLevel4.png";
+    nextLevelImg.setAttribute("class", "next-level-img");
+
+    // Create the text message
+    var textWin = document.createElement("p");
+    textWin.setAttribute("id", "textWinID");
+    textWin.innerHTML = "You found both parkings correctly! Move on to the next level!";
+    textWin.setAttribute("class", "font2");
+
+    // Create the button for the next level
+    var nextLevelButt = document.createElement("a");
+    nextLevelButt.setAttribute("class", "butt2");
+    nextLevelButt.setAttribute("id", "butt");
+
+    if (levels.length == 3) { //same page used for level 4 and 5
+        nextLevelButt.innerHTML = "LEVEL 4";
+        nextLevelButt.setAttribute("href", "../infoScreen/info3_new.html"); // Go to level 4
+    } else {
+        nextLevelButt.innerHTML = "LEVEL 5";
+        nextLevelButt.setAttribute("href", "../infoScreen/info4_new.html"); // Go to level 5
+    }
+
+    // Create the buttons container
+    var buttonsContainer = document.createElement("div");
+    buttonsContainer.setAttribute("class", "buttons-container2");
+
+    // Append the button to the buttons container
+    buttonsContainer.appendChild(nextLevelButt);
+
+    // Append the elements to the modal overlay
+    modalOverlay.appendChild(nextLevelImg);
+    modalOverlay.appendChild(textWin);
+    modalOverlay.appendChild(buttonsContainer);
+
+    // Append the modal overlay to the body
+    document.body.appendChild(modalOverlay);
+
+    stop = 1;
+
+    const currentLang = getLanguage();
+    setLanguage2(currentLang);
+}
+
+
+function wrongAnswer() {
+    answer = true;
+    if (health == 1) {
+        health = 0;
+        var loss = parseInt(localStorage.getItem("looses"));
+        loss += 1;
+        localStorage.setItem("looses", loss);
+
+        // Create the modal overlay
+        var modalOverlay = document.createElement("div");
+        modalOverlay.setAttribute("class", "modal-overlay-wrong");
+
+        // Create the modal content
+        var modalContent = document.createElement("div");
+        modalContent.setAttribute("class", "modal-content-wrong");
+
+        // Create the close button
+        var closeButton = document.createElement("span");
+        closeButton.setAttribute("class", "close-button-wrong");
+        closeButton.innerHTML = "&times;"; // Unicode for the cross symbol
+        closeButton.onclick = function() {
+            modalOverlay.style.display = "none";
+        };
+
+        // Create the heart image
+        var heartImg = document.createElement("img");
+        heartImg.src = "../../imgs/lives.png";
+        heartImg.setAttribute("class", "heart-img");
+
+        // Create the text message
+        var textWrong = document.createElement("p");
+        //textWrong.innerHTML = "Wrong answer! You have one life remaining.";
+        textWrong.innerText = translations[currentLang].wrongAnswerHeading;
+
+        textWrong.setAttribute("class", "wrong-text");
+
+        // Append elements to the modal content
+        modalContent.appendChild(closeButton);
+        modalContent.appendChild(heartImg);
+        modalContent.appendChild(textWrong);
+
+        // Append modal content to the overlay
+        modalOverlay.appendChild(modalContent);
+
+        // Append the modal overlay to the body
+        document.body.appendChild(modalOverlay);
+
+        // Display the modal
+        modalOverlay.style.display = "flex";
+        } else {
+        clearInterval(countdown); // Stop the timer
+        outOfTime();
+    }
+}
+          //clears elements with form and questions
+          function clearUp() {
+            document.getElementById("optionsCheckboxes").style.display = "none"; //remove form
+            userPic.style.display = "none"; //remove map
+            document.getElementById("distMap").style.display = "none";
+            if (levels.length == 3) {
+                document.getElementById("cImg").style.display = "none"; //remove priorities image if at level 3
+
+            } else {
+                console.log("levels less than 3");
+            }
+           // document.getElementById("explainText").style.display = "none";
+            document.getElementById("h2").style.display = "none";
+            document.getElementById("instructions").style.display = "none";
+            document.getElementById("timeTriesLine1").style.display = "none";
+            document.getElementById("timeTriesLine2").style.display = "none";
+           // window.onload = timer();
+
+
+        }
+
+
+        function setLanguage(lang) {
+    const t = translations[lang];
+    document.querySelector('h1').innerText = levels.length == 3 ? t.level3 : t.level4;
+    document.getElementById('option').innerText = t.bestOption;
+    document.getElementById('option2').innerText = t.secondBest;
+   // document.getElementById('play').innerText = t.play;
+
+
+    // Update the new paragraphs with translations
+    if (levels.length == 3) {
+        document.getElementById('instructions').innerText = t.instructions;
+        if (difficulty === "easy") {
+            document.getElementById('timeTriesLine1').innerText = t.timeTriesLine1_60;
+        } else if (difficulty === "medium") {
+            document.getElementById('timeTriesLine1').innerText = t.timeTriesLine1_45;
+
+
+        } else if (difficulty === "hard") {
+            document.getElementById('timeTriesLine1').innerText = t.timeTriesLine1_30;
+
+        } else {
+            document.getElementById('timeTriesLine1').innerText = t.timeTriesLine1_60;
+
+        }      
+        document.getElementById('timeTriesLine2').innerText = t.timeTriesLine2;
+   
+    } else {
+        document.getElementById('instructions').innerText = t.explainTextOtherLevels;
+        document.getElementById('timeTriesLine1').innerText = '';
+        document.getElementById('timeTriesLine2').innerText = '';
+    }
+
+   // document.getElementById('sumbitButt').value = t.park;
+
+    // Update textWin with the translated text
+    const textWinElement = document.getElementById('textWinID');
+    if (textWinElement) {
+        textWinElement.innerText = t.textWin;
+    }
+
+    // Update textWin with the translated text
+    const playElement =  document.getElementById('play');
+    if (playElement) {
+        playElement.innerText = t.play;
+    }
+    const loseElement =  document.getElementById('textLoose');
+    if (loseElement) {
+        loseElement.innerText = t.textLoose;
+    }
+
+
+    const timeElement =  document.getElementById('outOfTime');
+    if (timeElement) {
+        timeElement.innerText = t.outOfTime;
+    }
+
+
+    // Remove 'selected' class from all language buttons
+    document.querySelectorAll('.language-buttons button').forEach(button => {
+        button.classList.remove('selected');
+    });
+
+    // Add 'selected' class to the clicked language button
+    document.getElementById(`${lang}-btn`).classList.add('selected');
+
+    // Store the selected language in a cookie
+    document.cookie = `lang=${lang};path=/`;
+
+    // Update level heading again to ensure it's correct after language change
+    // changeElem();
+}
+
+function setLanguage2(lang) {
+    const t = translations[lang];
+    document.querySelector('h1').innerText = levels.length == 3 ? t.level3 : t.level4;
+    document.getElementById('option').innerText = t.bestOption;
+    document.getElementById('option2').innerText = t.secondBest;
+   // document.getElementById('play').innerText = t.play;
+
+   //document.getElementById('timesup').innerText = t.timesup;
+   //document.getElementById('exitText').innerText = t.exitText;
+
+
+    
+   
+    // Remove 'selected' class from all language buttons
+    document.querySelectorAll('.language-buttons button').forEach(button => {
+        button.classList.remove('selected');
+    });
+
+    // Add 'selected' class to the clicked language button
+    document.getElementById(`${lang}-btn`).classList.add('selected');
+
+    // Store the selected language in a cookie
+    document.cookie = `lang=${lang};path=/`;
+
+}
+
+const currentLang = getLanguage();
+setLanguage(currentLang);
+
+
+// Example usage of setLanguage
+function getLanguage() {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; lang=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return 'en'; // default to English if no language cookie found
+}
+
+    </script>
+
+</body>
+
+</html>

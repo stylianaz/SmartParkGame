@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Demetris Kouppas, Styliana Zymara">
+    <title>SmartPark Categories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style_categories2.css">
+</head>
+<body>
+    <div class="top-left-logo">
+        <img src="../imgs/logo-SmartPark.png" alt="App Logo">
+    </div>
+    <div class="back-button">
+        <button onclick="goBackButton()">
+            <img src="../imgs/back-button.png" alt="Back" width="30" height="30">
+        </button>
+    </div>
+    <div class="language-buttons">
+        <button id="en-btn" onclick="setLanguage('en')">English</button>
+        <button id="gr-btn" onclick="setLanguage('gr')">Ελληνικά</button>
+    </div>
+    <h1 id="head1" class="text">Places Categories</h1>
+    <div id="main">
+        <div class="btn-group">
+            <button id="btn1" value="bars" onclick="buttonClick(this.value)">
+                Bars/Restaurants
+                <img src="../imgs/bars-icon.png" alt="Bars" class="button-icon">
+            </button>
+            <button id="btn2" value="culture" onclick="buttonClick(this.value)">
+                Culture
+                <img src="../imgs/culture-icon.png" alt="Culture" class="button-icon">
+            </button>
+            <button id="btn3" value="scores" onclick="buttonClick(this.value)">
+                Scores
+                <img src="../imgs/scores-icon.png" alt="Scores" class="button-icon">
+            </button>
+        </div>
+        
+        <div class="text">
+            <p id="tex">Choose a category to start competing with the algorithm. Your goal is to find the best parking spot!</p>
+        </div>
+    </div>
+    
+    <script src="./js/jquery.min.js"></script>
+    <script>
+        const texts = {
+            en: {
+                head1: "Choose a category",
+                btn1: "Bars/Restaurants",
+                btn2: "Culture",
+                btn3: "Scores",
+                tex: "Choose a category and start competing with the algorithm. Your goal is to find the best parking spots.",
+                backBTN: "Back to categories"
+            },
+            gr: {
+                head1: "Επιλογή κατηγορίας",
+                btn1: "Μπαρ/Εστιατόρια",
+                btn2: "Πολιτισμός",
+                btn3: "Βαθμολογίες",
+                tex: "Επιλέξτε κατηγορία και ανταγωνιστείτε με τον αλγόριθμο. Στόχος είναι να βρείτε τα καλύτερα σημεία στάθμευσης.",
+                backBTN: "Επιστροφή στις κατηγορίες"
+            }
+        };
+
+        function setLanguage(lang) {
+            document.getElementById('head1').innerHTML = texts[lang].head1;
+            document.getElementById('btn1').childNodes[0].textContent = texts[lang].btn1;
+            document.getElementById('btn2').childNodes[0].textContent = texts[lang].btn2;
+            document.getElementById('btn3').childNodes[0].textContent = texts[lang].btn3;
+            document.getElementById('tex').innerHTML = texts[lang].tex;
+            
+            // Remove 'selected' class from all language buttons
+            document.querySelectorAll('.language-buttons button').forEach(button => {
+                button.classList.remove('selected');
+            });
+            
+            // Add 'selected' class to the clicked language button
+            document.getElementById(`${lang}-btn`).classList.add('selected');
+            
+            // Store the selected language in a cookie
+            document.cookie = `lang=${lang};path=/`;
+            
+            // Re-attach event listeners after language change
+            attachEventListeners();
+        }
+
+        function attachEventListeners() {
+            document.getElementById('btn1').addEventListener('click', function() {
+                buttonClick('bars');
+            });
+
+            document.getElementById('btn2').addEventListener('click', function() {
+                buttonClick('culture');
+            });
+
+            document.getElementById('btn3').addEventListener('click', function() {
+                buttonClick('scores');
+            });
+        }
+
+        function getLanguage() {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; lang=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return 'en'; // default to English if no language cookie found
+        }
+
+        const currentLang = getLanguage();
+        setLanguage(currentLang);
+       
+        var bars = ["ledras","neverland","fridays","pivo","costa"];
+        var culture = ["byzantine","famagusta","cyprusMuseum","leventis","aquadect"];
+        var divMain = document.getElementById("main");
+        var cookiesarr = document.cookie.split(";");
+
+
+        function showScores() {
+            window.location.href = 'scores_new.html';
+        }
+
+        function goBackButton() {
+            window.location.href = 'index_new.html';
+        }
+
+        function buttonClick(button) {
+            if (button === "bars") {
+                makeLevels(bars,"bars");
+            } else if (button === "culture") {
+                makeLevels(culture,"culture");
+            } else if (button === "scores") {
+                showScores();
+            } else if (button === "back") {
+                goBackButton();
+            }
+        }
+
+        function getUser(userNumber){
+            var userWanted = "player" + userNumber;
+            var scoreStr = "score" + userNumber;
+            var triesStr = "tries" + userNumber;
+            var userRe;
+            var scoreRe;
+            var triesRe;
+            for(var c = 0;c<cookiesarr.length;c++){
+                var data = cookiesarr[c].split("=");
+                data[0] = data[0].trim();
+                if(data[0] == userWanted){
+                    userRe = data[1];
+                } else if(data[0] == scoreStr){
+                    scoreRe = data[1];
+                } else if(data[0] == triesStr){
+                    triesRe = data[1];
+                }
+            }
+            return {name : userRe, userscore : scoreRe,usertries:  triesRe};
+        }
+
+
+        
+        function makeLevels(arr,catego){
+            localStorage.clear();
+            var levels = shuffle(arr);
+            localStorage.setItem("levelDone","0");
+            localStorage.setItem("levelsarr",levels);
+            localStorage.setItem("category",catego);
+            localStorage.setItem("looses",0);
+            localStorage.setItem("points", 0); // Initialize points variable and store in localStorage
+
+            window.location.href = "./infoScreen/infoBeforeStart_new.html";
+        }
+
+        function shuffle(array){
+            var currentIndex = array.length, temporaryValue, randomIndex;
+
+            while (0 !== currentIndex) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
+
+            return array;
+        }
+
+
+
+    </script>
+</body>
+</html>

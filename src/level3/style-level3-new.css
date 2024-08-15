@@ -1,0 +1,722 @@
+#left {
+    position: relative;
+    background-color:  rgba(9, 9, 82, 0.777);
+    width: 50%;
+    height: 100%;
+    float: left;
+    justify-content: center; 
+    align-items: center; 
+    order: 1; /* Ensure left is placed first */
+
+
+   
+}
+  
+
+#right {
+    background-color: rgba(165, 171, 205, 0.777);
+    width: 50%;
+   /* height: 100vh;*/
+    float: right;
+    justify-content: center; 
+    align-items: center; 
+    flex: 1;
+    order: 2; /* Ensure left is placed first */
+
+
+}
+
+
+
+html, body {
+    margin: 0;
+    display: flex;
+    
+}
+
+body {
+    display: flex;
+    width: 100%;
+    flex-direction: row; /* Ensure the items are placed in a row */
+}
+
+
+
+.map {
+    position: relative;
+    margin-left: 6%;
+    margin-bottom: 5px;
+    width: 88%;
+}
+
+.checks {
+    margin-left: 22%;
+    width: 120px;
+    display: inline-block;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+}
+
+.font {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    margin-left: 2%;
+    margin-right: 2%;
+
+    
+}
+.h1-margin-top {
+    margin-top: 5%; /* Adjust the value to your desired top margin */
+}
+
+/* Container for the form labels */
+.container {
+    display: block;
+    position: relative;
+    padding-left: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 10%;
+    cursor: pointer;
+    font-size: 12px;
+    color: black; /* Changed to black */
+    font-family: 'Arial', sans-serif; /* Changed font */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the default radio button */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+
+/* Create a custom radio button */
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: #eee;
+    border-radius: 50%;
+    border: 2px solid rgba(9, 9, 82, 0.777); /* Changed border color to red */
+}
+
+/* When the radio button is checked */
+.container input:checked ~ .checkmark {
+    background-color: red; /* Changed background color to red */
+}
+
+/* Styling for the submit button */
+/*.red-button {
+    background-color: red;
+    color: white;
+    font-family: 'Arial', sans-serif; 
+    font-size: 20px;
+    border-radius: 5px;
+    border: 2px solid white;
+    padding: 10px 20px;
+    cursor: pointer;
+}*/
+
+/* Hover effect */
+.red-button:hover {
+    background-color: darkred; /* Darker red on hover */
+}
+
+.red-button {
+
+    background-color:red;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 2px solid white;
+    align-self: center; /* Center the button horizontally */
+    margin-top: auto; /* Ensure it doesn't stick to the top */
+    margin-bottom: 50px; /* Ensure it doesn't stick to the bottom */
+    margin-left: 40px;
+}
+.text {
+    color:rgba(9, 9, 82, 0.777);;
+    margin-left: 1%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold; /* Make text bold */
+
+}
+
+#sumbitButt {
+    background-color: blue;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 2px solid white;
+}
+
+#sumbitButt:hover {
+    background-color: chartreuse;
+    color: white;
+}
+
+.aImg {
+    width: 60%;
+    height: 70%;
+    margin-left: 20%;
+}
+
+#cDiv {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 25px;
+    color: white;
+}
+
+.top-left-logo {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 80px; /* Default size */
+    height: 80px; /* Default size */
+    border-radius: 30%;
+    overflow: hidden;
+    z-index: 1000; /* Ensure it's above other fixed elements */
+}
+
+.top-left-logo img {
+    width: 100%;
+    height: auto;
+}
+
+.language-buttons {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 2000; /* Increased to ensure it is above other elements */
+}
+
+.language-buttons button {
+    background-color: rgba(4, 4, 88, 0.777);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin-left: 5px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    transition: background-color 0.3s, border 0.3s;
+}
+
+.language-buttons button.selected {
+    background-color: rgb(143, 129, 238);
+    border: 2px solid black;
+}
+
+.language-buttons button:hover {
+    background-color: rgb(143, 129, 238);
+}
+
+
+#timeTriesLine1,
+#timeTriesLine2 {
+    font-size: 20px; /* Adjust the font size as needed */
+    font-weight: bold; /* Make the text bold */
+    margin-top: 10px; /* Adjust margin as needed */
+    color: #240542;
+
+}
+
+/* Centering the button container */
+#button-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100%; /* Ensure it takes the full height of its parent */
+}
+
+/* Styles for the Play button */
+.butt {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: rgb(36, 113, 237);
+    color: white;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 30px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    text-align: center;
+}
+
+.butt:hover {
+    background-color: rgb(143, 129, 238);
+    color: white;
+}
+
+.play-butt {
+    display: block; /* Changed to block for centering */
+    margin: 20px auto 0 auto; /* Center the button horizontally and keep top margin */
+    padding: 0;
+    color: white;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 10px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+    width: 25%; /* Set the width of the button */
+    height: auto; /* Set the height of the button */
+}
+
+
+/* Ensure high specificity */
+div#right img.map {
+    margin-left: 7%;
+    margin-top: 10%;
+    width: 88%;
+}
+
+
+#timerContainer {
+    text-align: right;
+    color: white;
+    margin-bottom: 0;
+    font-size: 22px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+}
+#timerLabel {
+    display: inline;
+    margin-right: 5px; /* Space between label and display */
+}
+
+#timerDisplay {
+    display: inline;
+    font-weight: bold;
+}
+
+
+/* Modal overlay */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent black background */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears on top of other elements */
+}
+
+.modal-overlay2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent black background */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears on top of other elements */
+}
+
+/* Next Level image */
+.game-over-img {
+    width: 80%; /* Set width to 100% of the screen */
+    height: auto; /* Maintain aspect ratio */
+    margin: 0; /* Remove margins */
+    padding: 0; /* Remove padding */
+    border: none; /* Remove any border */
+    opacity: 0.9; /* Slightly transparent */
+}
+
+
+/* Buttons container */
+.buttons-container {
+    display: flex;
+    justify-content: space-around;
+    width: 50%; /* Same width as the image for alignment */
+    position: absolute; /* Position within the game-over image */
+    bottom: 25%; /* Adjust as needed to position buttons higher */
+    left: 50%; /* Center the buttons container */
+    transform: translateX(-50%); /* Center the buttons container */
+}
+
+/* Button styles */
+.butt {
+    background-color: #6A0DAD; /* Purple color for game-like appearance */
+    color: white;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px; /* Larger font for a game-like feel */
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px 20px; /* More padding for a bigger button */
+    border: 2px solid #BA55D3; /* Border with a lighter purple */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add some shadow for depth */
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    text-align: center;
+    margin: 0 15px; /* More margin for spacing between buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+/* Button styles */
+.butt2 {
+    background-color: #6A0DAD; /* Purple color for game-like appearance */
+    color: white;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px; /* Larger font for a game-like feel */
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px 20px; /* More padding for a bigger button */
+    border: 2px solid #BA55D3; /* Border with a lighter purple */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add some shadow for depth */
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    text-align: center;
+    margin: 0 30px; /* More margin for spacing between buttons */
+    margin-top: 50px;
+    cursor: pointer; /* Pointer cursor on hover */
+}
+.butt, .butt2:hover {
+    background-color: #BA55D3; /* Lighter purple on hover */
+    color: white;
+    transform: translateY(-3px); /* Slight lift effect on hover */
+}
+
+
+/* Modal overlay */
+.modal-overlay2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears on top of other elements */
+}
+
+
+
+/* Message text */
+.font2 {
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 24px; /* Large font size for visibility */
+    text-align: center;
+    margin: 20px 0; /* Margin for spacing */
+    text-shadow: 2px 2px 4px #000000; /* Add a shadow for better readability */
+}
+
+/* Buttons container */
+.buttons-container2 {
+    display: flex;
+    justify-content: center;
+    width: 80%; /* Same width as the image for alignment */
+    margin-top: -40px; /* Move buttons closer to the image */
+}
+
+/* Next Level image */
+.next-level-img {
+    width: 50%; /* Set width to 80% of the screen */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 20px; /* Space between the image and buttons */
+    opacity: 0.7; /* Slightly transparent */
+    animation: bounceIn 3s ease-in-out; /* Bounce-in effect for image */
+}
+
+#cImg {
+    margin-left: 28%;
+    margin-top: 20%;
+    margin-bottom: 10px;
+    width: 45%;
+    max-width: 100%; /* Ensures the image doesn't overflow its container */
+    display: block; /* Ensures the image is a block-level element */
+}
+
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.5); }
+    to { transform: scale(1); }
+}
+
+@keyframes bounceIn {
+    0%, 20%, 40%, 60%, 80%, 100% {
+        transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    }
+    0% {
+        opacity: 0;
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+    20% {
+        transform: scale3d(1.1, 1.1, 1.1);
+    }
+    40% {
+        transform: scale3d(0.9, 0.9, 0.9);
+    }
+    60% {
+        opacity: 1;
+        transform: scale3d(1.03, 1.03, 1.03);
+    }
+    80% {
+        transform: scale3d(0.97, 0.97, 0.97);
+    }
+    100% {
+        opacity: 1;
+        transform: scale3d(1, 1, 1);
+    }
+}
+.modal-overlay, .modal-overlay2 {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.next-level-img, .font2, .buttons-container {
+    animation: fadeIn 1s ease-in-out;
+}
+
+
+/* Modal overlay for wrong answer */
+.modal-overlay-wrong {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears on top of other elements */
+}
+
+/* Modal content for wrong answer */
+.modal-content-wrong {
+    background-color: white; /* White background */
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    position: relative;
+    max-width: 30%;
+    width: 80%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add some shadow for a nice effect */
+}
+
+/* Close button */
+.close-button-wrong {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+}
+
+/* Heart image */
+.heart-img {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 60px;
+    height: auto;
+}
+
+/* Wrong answer text */
+.wrong-text {
+    font-size: 22px;
+    color: black;
+    margin-top: 20px;
+}
+
+@media (max-width: 950px) and (max-height: 550px) and (orientation: landscape) {
+ 
+    .map {
+        width: 100%;
+        margin: 5% 0;
+    }
+    
+   
+
+    .container {
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 12px;
+    }
+
+    #sumbitButt {
+        width: 100%;
+        box-sizing: border-box;
+    }
+  
+
+
+   
+
+#successPic {
+    width: 40%;
+    max-width: 40%;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+
+.top-left-logo {
+    width: 60px;
+    height: 60px;
+}
+
+.top-left-logo img {
+    width: 100%;
+    height: auto;
+}
+
+
+
+.language-buttons button {
+    padding: 0.25rem 0.25rem;
+    font-size: 10px;
+    width: 90%;
+}
+
+
+
+#timerContainer {
+    text-align: right;
+    margin-bottom: 0;
+    font-size: 18px;
+    position: absolute;
+    bottom: 25%;
+    right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+#correctMap {
+    width: 88%;
+    max-width: 100%;
+    height: auto;
+    margin: 20px auto 5px auto;
+    position: relative;
+}
+
+
+
+
+.red-button {
+
+    
+    font-size: 20px;
+    border-radius: 5px;
+    border: 2px solid white;
+    align-self: center; /* Center the button horizontally */
+    margin-top: auto; /* Ensure it doesn't stick to the top */
+    margin-bottom: 40px; /* Ensure it doesn't stick to the bottom */
+    margin-left: 40px;
+    margin-top: 20px;
+}
+.font {
+    font-size: 13px;
+    
+}
+
+/* Styling for checkmark */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #eee;
+    border-radius: 50%;
+    border: 1px solid rgba(9, 9, 82, 0.777); /* Adjusted border color */
+}
+
+.text {
+    font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.checks {
+    margin-left:15%;
+    width: 100px;
+    display: inline-block;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+}
+
+
+html, body {
+    margin: 0;
+    display: flex;
+   /* width: 100vw;
+    height: 100vh;*/
+}
+
+body {
+    display: flex;
+    flex-direction: row; /* Ensure the items are placed in a row */
+}
+
+
+.buttons-container {
+    
+    width: 40%; /* Same width as the image for alignment */
+    bottom: 20%; /* Adjust as needed to position buttons higher */
+    left: 50%; /* Center the buttons container */
+    transform: translateX(-50%); /* Center the buttons container */
+}
+
+#timeTriesLine1,
+#timeTriesLine2 {
+    font-size: 18px; /* Adjust the font size as needed */
+
+}
+
+#cImg {
+    margin-left: 28%;
+    margin-top: 7%;
+    margin-bottom: 10px;
+    width: 45%;
+}
+
+.h1-margin-top {
+    margin-top: 3%; /* Adjust the value to your desired top margin */
+}
+
+.play-butt {
+    
+    margin: 15px auto 0 auto; /* Center the button horizontally and keep top margin */
+    width: 25%; /* Set the width of the button */
+    height: auto; /* Set the height of the button */
+}
+
+}

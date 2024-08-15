@@ -1,0 +1,223 @@
+body {
+    background-color: #b0b0b0;
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+    height: 100vh;
+    margin: 0;
+    padding: 1rem 0;
+    position: relative; /* Add position relative to body for absolute positioning */
+}
+
+.top-left-logo {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 70px;
+    height: 70px;
+    border-radius: 30%;
+    overflow: hidden;
+    z-index: 1000; /* Ensure it's above other fixed elements */
+}
+
+.top-left-logo img {
+    width: 100%;
+    height: auto;
+}
+
+.language-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.language-buttons button {
+    background-color: rgba(4, 4, 88, 0.777);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin-left: 5px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    transition: background-color 0.3s, border 0.3s;
+}
+
+.language-buttons button.selected {
+    background-color: rgb(143, 129, 238);
+    border: 2px solid black;
+}
+
+.language-buttons button:hover {
+    background-color: rgb(143, 129, 238);
+}
+
+h1 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    margin-top: 0px;
+    color: #120257;
+}
+
+.text {
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 1rem 2rem;
+    color: #16035b;
+}
+.btn-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.btn-group button {
+    background-color: rgba(4, 4, 88, 0.777);
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 25%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    margin-bottom: 1rem;
+    transition: background-color 0.3s;
+    position: relative;
+    text-align: center; /* Center text within button */
+    display: flex;
+    align-items: center; /* Center text vertically */
+    justify-content: center; /* Center text horizontally */
+
+}
+
+
+.btn-group button img.button-icon {
+    position: absolute; /* Position the image absolutely */
+    right: 10%; /* Adjust to place image on the far right */
+    width: auto;
+    height: 25px;
+}
+
+
+.btn-group button:hover {
+    background-color: rgb(143, 129, 238);
+}
+
+#btn3 {
+    background-color: rgba(51, 51, 92, 0.777); /* Light purple background color */
+    
+}
+
+#btn3:hover {
+    background-color: rgb(143, 129, 238); /* Slightly darker shade on hover */
+}
+
+#backBTN {
+    position: fixed;
+    top: 100px; /* Adjust the top position as needed */
+    left: 30px; /* Adjust the left position as needed */
+    z-index: 1100; /* Ensure it's above other fixed elements */
+    background-color: rgba(4, 4, 88, 0.777);
+    border: none;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 8px;
+    font-size: 20px;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#backBTN:hover {
+    background-color: rgb(143, 129, 238);
+}
+
+.tableCell {
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+}
+
+.back-button {
+    position: fixed;
+    top: 120px; /* Adjust the top position as needed */
+    left: 30px; /* Adjust the left position as needed */
+    z-index: 1000; /* Adjust z-index as needed based on your layout */
+}
+
+.back-button button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: opacity 0.3s;
+}
+
+.back-button button img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.back-button button:hover {
+    opacity: 0.7;
+}
+
+
+@media (max-width: 950px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .text {
+        font-size: 1.2rem;
+    }
+
+
+    .language-buttons button {
+        padding: 0.25rem 0.25rem;
+        font-size: 10px;
+        width: 90%;
+    }
+
+    .back-button {
+        top: 100px;
+        left: 15px;
+    }
+    
+    .back-button button img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .top-left-logo {
+        width: 60px;
+        height: 60px;
+       
+    }
+
+    .btn-group button img.button-icon {
+        right: 5%; /* Adjust to place image on the far right */
+       
+    }
+    
+    
+.btn-group button {
+   
+    padding: 10px 24px;
+    border-radius: 8px;
+    width: 28%;
+    font-size: 18px;
+    margin-bottom: 1rem;
+    
+}
+
+
+}

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Demetris Kouppas, Styliana Zymara">
+    <title>SmartPark Categories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style2-culture.css">
+
+    <style>
+        /* CSS to make map areas show the pointer cursor on hover */
+        area {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body onload="javascript:changeLevel()">
+
+    <div class="top-left-logo">
+        <img id="logo" src="" alt="App Logo">
+    </div>
+   
+    <div class="language-buttons">
+        <button id="en-btn" onclick="setLanguage('en')">English</button>
+        <button id="gr-btn" onclick="setLanguage('gr')">Ελληνικά</button>
+    </div>
+
+    <div class="container">
+        <!-- Left part of screen -->
+        <div id="left">
+            <h1 id="Heading">Parking Information</h1>
+            <img id="distMap" src="">
+            <p id="PickText2">Look at this picture and memorize the information needed!</p>
+        </div>
+
+        <!-- Right part of screen -->
+        <div id="right">
+            <h1 id="levelHeading">Level 1</h1>
+            <script>
+  
+                // Function to change the element based on the language
+                function changeElem() {
+                            document.getElementById("levelHeading").innerHTML = "Level 2";
+                        }
+                    
+                     
+                        function changeLevel(){
+                                var change = localStorage.getItem("levelDone");
+                                //console.log(change);
+                                if(change == "1"){
+                                    changeElem();
+                                }else{
+                                    //console.log("0");
+                                }
+                            }
+                            changeLevel();
+                        </script>
+                
+
+            <img id="map" src="" usemap="#image-map" alt="Level 1 Map">
+            <map name="image-map" id="image-map">
+                <!-- Areas will be dynamically added here -->
+            </map>
+            <p id="PickText">Click on the parking that you believe is closest to the Nicosia Aquadect. Easy!</p>
+            <div id="timerContainer">
+                <p id="timerLabel">Timer: </p>
+                <p id="timerDisplay"></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="messageContainer">
+        <h2 id="messageHeading"></h2>
+        <p id="messageText"></p>
+    </div>
+
+   
+    <script type="text/javascript" src="../../js/config-culture2.js"></script>
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/imageMapResizer.min.js"></script>
+    
+    <script>
+
+    // Example of setting the language (Add your existing setLanguage function here)
+   // Function to change the element based on the language
+    function setLanguage(lang) {
+    document.getElementById('Heading').innerText = config5.translations[lang].Heading;
+    document.getElementById('PickText2').innerText = config5.translations[lang].PickText2;
+
+    // Update level heading based on current language and level status
+    const levelHeadingElement = document.getElementById('levelHeading');
+    if (levelHeadingElement.innerText.includes("Level 1") || levelHeadingElement.innerText.includes("Επίπεδο 1")) {
+        levelHeadingElement.innerText = config5.translations[lang].levelHeading.levelHeading1;
+    } else if (levelHeadingElement.innerText.includes("Level 2") || levelHeadingElement.innerText.includes("Επίπεδο 2")) {
+        levelHeadingElement.innerText = config5.translations[lang].levelHeading.levelHeading2;
+    }
+
+    document.getElementById('PickText').innerText = config5.translations[lang].PickText;
+
+    // Update interactive message elements with current language
+    document.getElementById('messageHeading').innerText = '';
+    document.getElementById('messageText').innerText = '';
+
+    // Remove 'selected' class from all language buttons
+    document.querySelectorAll('.language-buttons button').forEach(button => {
+        button.classList.remove('selected');
+    });
+
+    // Add 'selected' class to the clicked language button
+    document.getElementById(`${lang}-btn`).classList.add('selected');
+
+    // Store the selected language in a cookie
+    document.cookie = `lang=${lang};path=/`;
+
+    // Update level heading again to ensure it's correct after language change
+    // changeElem();
+}
+
+    
+    function getLanguage() {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; lang=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return 'en'; // default to English if no language cookie found
+    }
+    
+    const currentLang = getLanguage();
+    setLanguage(currentLang);
+    
+   
+    
+    var health = 1;
+    var distmap = document.getElementById("distMap");
+    var textElement = document.getElementById("PickText");
+    var pickText2Element = document.getElementById("PickText2");
+    var heading1 = document.getElementById("Heading");
+    var rightDiv = document.getElementById("right");
+    var leftDiv = document.getElementById("left");
+    var messageContainer = document.getElementById("messageContainer");
+    var messageHeading = document.getElementById("messageHeading");
+    var messageText = document.getElementById("messageText");
+    var successPic = document.createElement("img");
+    var newDiv = document.createElement("div");
+ 
+    
+    
+    var change = localStorage.getItem("levelDone");
+    var answer = false;
+    var counter = 0;
+    var counterDiv = document.createElement("div");
+    counterDiv.setAttribute("id", "cDiv");
+    var counterDisplay = document.createElement("p");
+    counterDiv.appendChild(counterDisplay);
+    rightDiv.appendChild(counterDiv);
+    
+         // Define global variables for timer and countdown
+         var countdown;
+         var maxTime;
+         var difficulty = localStorage.getItem("difficulty");
+
+         var extra;
+
+        if (difficulty === "easy") {
+            maxTime = 30;
+            extra = 0;
+        } else if (difficulty === "medium") {
+            maxTime = 20;
+            extra = 4;
+        } else if (difficulty === "hard") {
+            maxTime = 15;
+            extra = 8;
+        } else {
+            maxTime = 30; // Default value if difficulty is not set
+            extra = 0;
+        }
+        counter = maxTime;
+
+    function timer() {
+        countdown = setInterval(function () {
+            if (counter > 0) {
+                document.getElementById('timerDisplay').innerText = counter;
+                counter--;
+            } else {
+                clearInterval(countdown);
+                outOfTime();
+            }
+        }, 1000);
+    }
+    
+    // Start the timer when the page loads
+    window.onload = timer();
+    
+    function outOfTime() {
+      //  Answer();
+    document.getElementById("en-btn").style.display = "none"; //remove form
+    document.getElementById("gr-btn").style.display = "none"; //remove form
+
+    var loss = parseInt(localStorage.getItem("looses"));
+    loss += 1;
+    localStorage.setItem("looses", loss);
+
+    // Create the modal overlay
+    var modalOverlay = document.createElement("div");
+    modalOverlay.setAttribute("class", "modal-overlay");
+
+    // Create the Game Over image
+    var gameOverImg = document.createElement("img");
+    gameOverImg.src = "../../../imgs/gameOver4.png";
+    gameOverImg.setAttribute("class", "game-over-img");
+
+    // Create the buttons container
+    var buttonsContainer = document.createElement("div");
+    buttonsContainer.setAttribute("class", "buttons-container");
+
+    // Create the See Score button
+    var seeScoreButton = document.createElement("a");
+    seeScoreButton.innerHTML = "See Score";
+    seeScoreButton.setAttribute("class", "butt");
+    seeScoreButton.href = "../../end_new2.html?noOfAnswers=0";
+
+    // Append buttons to the buttons container
+    buttonsContainer.appendChild(seeScoreButton);
+    //buttonsContainer.appendChild(tryAgainButton);
+
+    // Append the image and buttons container to the modal overlay
+    modalOverlay.appendChild(gameOverImg);
+    modalOverlay.appendChild(buttonsContainer);
+
+    // Append the modal overlay to the body
+    document.body.appendChild(modalOverlay);
+
+    stop = 1;
+
+
+}
+    
+function wrongAnswer() {
+        answer = true;
+    if (health == 1) {
+        health = 0;
+        var loss = parseInt(localStorage.getItem("looses"));
+        loss += 1;
+        localStorage.setItem("looses", loss);
+
+        // Create the modal overlay
+        var modalOverlay = document.createElement("div");
+        modalOverlay.setAttribute("class", "modal-overlay-wrong");
+
+        // Create the modal content
+        var modalContent = document.createElement("div");
+        modalContent.setAttribute("class", "modal-content-wrong");
+
+        // Create the close button
+        var closeButton = document.createElement("span");
+        closeButton.setAttribute("class", "close-button-wrong");
+        closeButton.innerHTML = "&times;"; // Unicode for the cross symbol
+        closeButton.onclick = function() {
+            modalOverlay.style.display = "none";
+        };
+
+        // Create the heart image
+        var heartImg = document.createElement("img");
+        heartImg.src = "../../../imgs/lives.png";
+        heartImg.setAttribute("class", "heart-img");
+
+        // Create the text message
+        var textWrong = document.createElement("p");
+        //textWrong.innerHTML = "Wrong answer! You have one life remaining.";
+        textWrong.innerText = config4.translations[currentLang].wrongAnswerHeading;
+
+        textWrong.setAttribute("class", "wrong-text");
+
+        // Append elements to the modal content
+        modalContent.appendChild(closeButton);
+        modalContent.appendChild(heartImg);
+        modalContent.appendChild(textWrong);
+
+        // Append modal content to the overlay
+        modalOverlay.appendChild(modalContent);
+
+        // Append the modal overlay to the body
+        document.body.appendChild(modalOverlay);
+
+        // Display the modal
+        modalOverlay.style.display = "flex";
+            } else {
+                clearInterval(countdown); // Stop the timer
+                outOfTime();
+            }
+    }
+    
+    function correctAnswer() {
+    //clearUp();
+
+    document.getElementById("en-btn").style.display = "none"; //remove form
+    document.getElementById("gr-btn").style.display = "none"; //remove form
+
+    clearInterval(countdown); // Stop the timer
+
+    var timeUsed = maxTime - counter; // time took for correct answer
+    var pointsEarned = 50 - timeUsed + extra; // Points based on remaining time
+
+    if(health == 0){
+        pointsEarned = pointsEarned - 10; // Points based on remaining time
+
+    }
+    // Store the points in localStorage
+    var currentPoints = parseInt(localStorage.getItem('points')) || 0;
+    localStorage.setItem('points', currentPoints + pointsEarned);
+
+    // Create the modal overlay
+    var modalOverlay = document.createElement("div");
+    modalOverlay.setAttribute("class", "modal-overlay2");
+
+    // Create the next level image
+    var nextLevelImg = document.createElement("img");
+    nextLevelImg.src = "../../../imgs/nextLevel4.png";
+    nextLevelImg.setAttribute("class", "next-level-img");
+
+    // Create the text message
+    var textWin = document.createElement("p");
+    textWin.setAttribute("id", "textWinID");
+    textWin.innerHTML = "Put your seatbelt on, just warming up!";
+    textWin.setAttribute("class", "font2");
+
+    // Create the button for the next level
+    var nextLevelButt = document.createElement("a");
+    nextLevelButt.setAttribute("class", "butt2");
+    nextLevelButt.setAttribute("id", "butt");
+
+    if (change!=1) { //same page used for level 4 and 5
+        nextLevelButt.innerHTML = "LEVEL 2";
+        nextLevelButt.setAttribute("href", "../../infoScreen/info1_new.html"); // Go to level 4
+    } else {
+        nextLevelButt.innerHTML = "LEVEL 3";
+        nextLevelButt.setAttribute("href", "../../infoScreen/info2_new.html"); // Go to level 5
+    }
+
+    // Create the buttons container
+    var buttonsContainer = document.createElement("div");
+    buttonsContainer.setAttribute("class", "buttons-container2");
+
+    // Append the button to the buttons container
+    buttonsContainer.appendChild(nextLevelButt);
+
+    // Append the elements to the modal overlay
+    modalOverlay.appendChild(nextLevelImg);
+    modalOverlay.appendChild(textWin);
+    modalOverlay.appendChild(buttonsContainer);
+
+    // Append the modal overlay to the body
+    document.body.appendChild(modalOverlay);
+
+   
+}
+    
+   
+    
+            $(document).ready(function () {
+                $('map').imageMapResize();
+            });
+
+        document.getElementById('logo').src = config5.images.logo;
+        document.getElementById('distMap').src = config5.images.distMap;
+        document.getElementById('map').src = config5.images.map.src;
+const map = document.getElementById('image-map');
+
+
+function getFirstChoice() {
+    const choices = JSON.parse(localStorage.getItem('choices'));
+
+    if (choices && choices.length > 0) {
+        return choices[0];
+    } else {
+        // Return null or a default value if the array is empty or doesn't exist
+        return null;
+    }
+}
+
+// Usage example
+const firstChoice = getFirstChoice();
+
+if (firstChoice === 'destination') {
+    config5.images.map.areas1.forEach(area => {
+    const areaElement = document.createElement('area');
+    areaElement.alt = area.alt;
+    areaElement.title = area.title;
+    areaElement.coords = area.coords;
+    areaElement.shape = area.shape;
+    areaElement.onclick = new Function(area.onClick);
+    map.appendChild(areaElement);
+}
+
+);
+
+} else if (firstChoice === 'cost') {
+
+    config5.images.map.areas2.forEach(area => {
+    const areaElement = document.createElement('area');
+    areaElement.alt = area.alt;
+    areaElement.title = area.title;
+    areaElement.coords = area.coords;
+    areaElement.shape = area.shape;
+    areaElement.onclick = new Function(area.onClick);
+    map.appendChild(areaElement);
+}
+
+);
+}
+        </script>
+    </body>
+    </html>
+    

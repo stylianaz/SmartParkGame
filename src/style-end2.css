@@ -1,0 +1,295 @@
+body {
+    background-color: rgba(165, 171, 205, 0.777); /* Light greyish-blue background */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333; /* General text color for better readability */
+}
+
+h1#heading {
+    text-align: center;
+    font-size: 2rem; /* Use rem for better scalability */
+    color: rgba(9, 9, 82, 0.777); /* Deep blue color */
+    margin: 20px 0;
+}
+
+
+#main {
+    background-color: rgb(143, 129, 238); /* Light purple background */
+    padding: 10px;
+    border-radius: 5px; /* Rounded corners for better aesthetics */
+    margin: 0 auto;
+    max-width: 100%; /* Limit the width for better appearance */
+    text-align: center; /* Center content within #main */
+    position: relative;
+}
+
+p.text {
+    text-align: center;
+    line-height: 1.6;
+    margin: 10px 0;
+    font-size: 1.25rem; /* Use rem for better scalability */
+    color: white; /* White text color */
+}
+
+#park {
+    height: 20%;
+    width: 10%;
+    margin-bottom: 5px;
+    top: 60%;
+}
+
+#medal {
+    height: 60%;
+    width: auto;
+    margin-bottom: 60%;
+    margin-right: 15%;
+    top: 20%;
+    position: absolute; /* Ensure the element is positioned relative to its nearest positioned ancestor */
+    right: 0; /* Align it to the right side of the parent element */
+}
+
+.divMid {
+    text-align: left;
+    margin: 20px auto; /* Center the div and add some top margin */
+    padding: 20px;
+    background-color: white; /* White background for contrast */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    max-width: 300px; /* Limit width for better layout */
+    max-height: 100%;
+}
+
+.divMid input {
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: calc(100% - 20px); /* Full width minus padding */
+    box-sizing: border-box; /* Include padding in width */
+    border: 1px solid rgba(9, 9, 82, 0.777); /* Deep blue border */
+    border-radius: 5px; /* Rounded corners for inputs */
+}
+
+.divMid input:focus {
+    border-color: rgb(143, 129, 238); /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* General button styles */
+button {
+    display: inline-block;
+    border-radius: 8px;
+    border: none;
+    color: white;
+    background-color: rgba(9, 9, 82, 0.777); /* Deep blue background */
+    text-decoration: none;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 1rem; /* Use rem for better scalability */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+}
+
+button:hover {
+    background-color: rgb(143, 129, 238); /* Light purple on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Specific styles for the submit button */
+#submitBtn {
+   /* background-color: #4CAF50; /* Green background for the submit button */
+    color: white; /* Text color for the submit button */
+    padding: 5px 8px; /* Adjust padding for the submit button */
+    font-size: 0.9rem; /* Slightly larger font size for better readability */
+    border-radius: 8px; /* More rounded corners */
+   /* border: 2px solid #3e8e41; /* Darker green border */
+}
+
+#submitBtn:hover {
+    background-color: #45a049; /* Slightly lighter green on hover */
+    border: 2px solid #366f34; /* Darker green border on hover */
+}
+
+#btnReplay {
+    display: block;
+    margin: 20px auto;
+    padding: 0; /* Remove padding, as we’re using an image */
+    border: none;
+    background: none; /* Remove background */
+    cursor: pointer;
+    transition: transform 0.2s; /* Smooth zoom effect */
+}
+
+.play-again-image {
+    width: 150px; /* Set the desired width */
+    height: auto; /* Maintain aspect ratio */
+    display: block;
+    margin: 0 auto; /* Center the image within its container */
+}
+
+#btnReplay:hover .play-again-image {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+
+#btnReplay img {
+    width: 150px; /* Set the width of the image */
+    height: auto;
+    display: block;
+}
+/*
+#btnReplay:hover img {
+    transform: scale(1.05); 
+}
+*/
+.top-left-logo {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 80px; /* Default size */
+    height: 80px; /* Default size */
+    border-radius: 30%;
+    overflow: hidden;
+    z-index: 1000; /* Ensure it's above other fixed elements */
+}
+
+.top-left-logo img {
+    width: 100%;
+    height: auto;
+}
+
+.language-buttons {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 2000; /* Increased to ensure it is above other elements */
+}
+
+.language-buttons button {
+    background-color: rgba(4, 4, 88, 0.777);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin-left: 5px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    transition: background-color 0.3s, border 0.3s;
+}
+
+.language-buttons button.selected {
+    background-color: rgb(143, 129, 238);
+    border: 2px solid black;
+}
+
+.language-buttons button:hover {
+    background-color: rgb(143, 129, 238);
+}
+
+@media (max-width: 950px) and (orientation: landscape) {
+    .top-left-logo {
+        width: 60px; 
+        height: 60px; 
+    }
+
+    .language-buttons button {
+        padding: 0.25rem 0.25rem;
+        font-size: 10px;
+        width: 90%;
+    }
+
+    #medal {
+        height: 50%;
+        width: auto;
+        margin-bottom: 60%;
+        margin-right: 5%;
+        top: 20%;
+        position: absolute; /* Ensure the element is positioned relative to its nearest positioned ancestor */
+        right: 0; /* Align it to the right side of the parent element */
+    }
+
+    #main {
+        padding: 5px;
+        border-radius: 5px; /* Rounded corners for better aesthetics */
+        margin: 0 auto;
+        margin-top: 25px;
+        max-width: 100%; /* Limit the width for better appearance */
+        
+    }
+    h1#heading {
+        font-size: 2rem;
+        margin: 10px 0;
+    }
+  
+}
+
+@media (max-width: 768px) {
+    
+
+    #main {
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    p.text {
+        font-size: 1rem;
+    }
+
+    .divMid {
+        padding: 10px;
+        max-width: 50%;
+    }
+
+    .divMid input {
+        padding: 8px;
+    }
+
+    button, #btnReplay {
+        padding: 8px 16px;
+        font-size: 0.875rem;
+    }
+
+    .top-left-logo {
+        width: 50px; /* Smaller size */
+        height: 50px; /* Smaller size */
+    }
+
+    .language-buttons button {
+        padding: 0.25rem 0.5rem;
+        font-size: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1#heading {
+        font-size: 1.5rem;
+    }
+
+    p.text {
+        font-size: 0.875rem;
+    }
+
+    .divMid {
+        padding: 5px;
+        max-width: 95%;
+    }
+
+    .divMid input {
+        padding: 5px;
+    }
+
+    button, #btnReplay {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+    }
+
+    .top-left-logo {
+        width: 50px; 
+        height: 50px; 
+    }
+
+    .language-buttons button {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.6rem;
+    }
+}

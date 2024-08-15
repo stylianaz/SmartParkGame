@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Demetris Kouppas, Styliana Zymara">
+    <title>SmartPark Level5</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-level5-new.css">
+    <style>
+        /* CSS to make map areas show the pointer cursor on hover */
+        area {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+
+<body id="b">
+    <div class="top-left-logo">
+        <img src="../../imgs/logo-SmartPark.png" alt="App Logo">
+    </div>
+    
+    <div class="language-buttons">
+        <button id="en-btn" onclick="setLanguage('en')">English</button>
+        <button id="gr-btn" onclick="setLanguage('gr')">Ελληνικά</button>
+    </div>
+    
+ 
+</body>
+    <script>
+
+
+var stop = 0;
+
+const translations = {
+    en: {
+        level5: "LEVEL 5",
+        bestOption: "BEST OPTION",
+        secondBest: "SECOND BEST",
+        thirdBest: "THIRD BEST",
+        outOfTime: "You run out of time you lose!",
+        timesup: "Time's Up!",
+        exitText: "Click here to view your score",
+        exit: "EXIT",
+        play: "Play",
+        park: "PARK",
+        instructions: "Choose the 3 best options for parking. The categories on the algorithm are shown above, the top being the most important.",
+        timeTriesLine1_75: "Time: 75 seconds",
+        timeTriesLine1_60: "Time: 60 seconds",
+        timeTriesLine1_45: "Time: 45 seconds",
+        timeTriesLine2: "Number of tries: 2.",
+        easyText: "Difficulty: Easy.",
+        mediumText: "Difficulty: Medium. The map on the left will disappear after 12 seconds!",
+        hardText: "Difficulty: Hard. The map on the left will disappear after 7 seconds!",
+        //explainTextOtherLevels: "This level is the same! Choose the best two!",
+        youFoundBoth: "You found all the parkings correctly! The game is finished.",
+        tryingToGoTo: "We are trying to go to the",
+        tryingToGoToMuseum: "We are trying to go to the museum",
+        textWin: "You found all the parkings correctly! The game is finished.",
+        loseText: "You didn't find both parkings correctly! You lose...",
+        wrongAnswerHeading: "Wrong answer! You have one life remaining.",
+        pivo: "We are trying to go to Pivo brewery",
+        costa: "We are trying to go to Costa coffee",
+        neverland: "We are trying to go to Neverland Rock Bar",
+        ledras: "We are trying to go to Ledras street",
+        aquadect: "We are trying to go to the Nicosia Aquaduct",
+        byzantine: "We are trying to go to the Byzantine museum",
+        leventis: "We are trying to go to Leventis museum",
+        cyprusMuseum: "We are trying to go to the Cyprus museum",
+        famagusta: "We are trying to go to the Famagusta gate",
+        fridays: "We are trying to go to Fridays",
+        default: "We are trying to go to the destination",
+        hiddenMap: "The map has been hidden!",
+        hiddenMess: "Continue choosing the best parking options based on your memory."
+
+
+    },
+    gr: {
+        level5: "ΕΠΙΠΕΔΟ 5",
+        bestOption: "ΚΑΛΥΤΕΡΗ ΕΠΙΛΟΓΗ",
+        secondBest: "ΔΕΥΤΕΡΗ ΚΑΛΥΤΕΡΗ",
+        thirdBest: "ΤΡΙΤΗ ΚΑΛΥΤΕΡΗ",
+        outOfTime: "Ο χρόνος τελείωσε, χάσατε!",
+        timesup: "Τέλος χρόνου!",
+        exitText: "Κάνε κλικ για να δεις το σκορ σου.",
+        exit: "ΕΞΟΔΟΣ",
+        play: "Παίξε",
+        instructions: "Επιλέξετε τα 3 καλύτερα parking. Οι κατηγορίες του αλγορίθμου εμφανίζονται παραπάνω, με την πιο σημαντική στην κορυφή.",
+        timeTriesLine1_75: "Χρόνος: 75 δευτερόλεπτα.",
+        timeTriesLine1_60: "Χρόνος: 60 δευτερόλεπτα.",
+        timeTriesLine1_45: "Χρόνος: 45 δευτερόλεπτα.",
+        easyText: "Δυσκολία: Εύκολο.",
+        mediumText: "Δυσκολία: Μέτριο. Ο χάρτης στα αριστερά θα εξαφανιστεί μετά από 12 δευτερόλεπτα!",
+        hardText: "Δυσκολία: Δύσκολο. Ο χάρτης στα αριστερά θα εξαφανιστεί μετά από 7 δευτερόλεπτα!",
+        timeTriesLine2: "Αριθμός προσπαθειών: 2.",
+        //explainTextOtherLevels: "Αυτό το επίπεδο είναι το ίδιο! Επιλέξτε τα δύο καλύτερα!",
+        youFoundBoth: "Βρήκατε όλα τα παρκινγκ σωστά! Το παιχνίδι τελείωσε.",
+        tryingToGoTo: "Προσπαθούμε να πάμε στο",
+        tryingToGoToMuseum: "Προσπαθούμε να πάμε στο μουσείο",
+        textWin: "Βρήκατε όλα τα parkings σωστά! Το παιχνίδι τελείωσε.",
+        loseText: "Δεν βρήκατε και τα δύο παρκινγκ σωστά! Χάσατε...",
+        wrongAnswerHeading: "Λάθος Απάντηση! Σου απομένει μια ζωή.",
+        pivo: "Προσπαθούμε να πάμε στο Pivo brewery",
+        costa: "Προσπαθούμε να πάμε στο Costa coffee",
+        neverland: "Προσπαθούμε να πάμε στο Neverland Rock Bar",
+        ledras: "Προσπαθούμε να πάμε στην Λήδρας",
+        aquadect: "Προσπαθούμε να πάμε στο υδραγωγείο Λευκωσίας",
+        byzantine: "Προσπαθούμε να πάμε στο Βυζαντινό μουσείο",
+        leventis: "Προσπαθούμε να πάμε στο Λεβέντειο μουσείο",
+        cyprusMuseum: "Προσπαθούμε να πάμε στο Κυπριακό Μουσείο",
+        famagusta: "Προσπαθούμε να πάμε στην πύλη Αμμοχώστου",
+        fridays: "Προσπαθούμε να πάμε στο Fridays",
+        default: "Προσπαθούμε να πάμε στον προορισμό",
+        hiddenMap: "Ο χάρτης εξαφανίστηκε!",
+        hiddenMess: "Συνέχισε να επιλέγεις τα καλύτερα σημεία στάθμευσης χρησιμοποιώντας την μνήμη σου."
+
+    }
+};
+
+
+
+        var health = 1;
+        //get level that need to be loaded and category
+        var levels = localStorage.getItem("levelsarr").split(",");
+        var nextLevel = levels[0];
+        var category = localStorage.getItem("category");
+
+        //create left part of screen
+        var bod = document.getElementById("b");
+        var left_div = document.createElement("div");
+        var right_div = document.createElement("div");
+        right_div.setAttribute("id", "left");
+
+
+        left_div.setAttribute("id", "right");
+        bod.appendChild(left_div);
+        bod.appendChild(right_div);
+        var heading1 = document.createElement("h1");
+
+        heading1.innerHTML = "LEVEL 5";
+        heading1.setAttribute("class", "font h1-margin-top");
+        
+        left_div.appendChild(heading1);
+
+        var timerContainer = document.createElement("div");
+        timerContainer.setAttribute("id", "timerContainer");
+
+
+        var timerLabel = document.createElement("p");
+        timerLabel.setAttribute("id", "timerLabel");
+        timerLabel.innerText = "Timer: ";
+
+        var timerDisplay = document.createElement("p");
+        timerDisplay.setAttribute("id", "timerDisplay");
+        timerDisplay.innerText = maxTime;
+
+        timerContainer.appendChild(timerLabel);
+        timerContainer.appendChild(timerDisplay);
+        right_div.appendChild(timerContainer);
+
+
+        //add image of correct level and place
+        var userPic = document.createElement("img");
+        userPic.setAttribute("class", "map");
+        var imgSrc = "../../imgs/" + category + "/" + nextLevel + "/" + nextLevel + "Lvl3.png";
+        userPic.setAttribute("src", imgSrc);
+        
+        //userPic.style.marginLeft = "5%";
+        left_div.appendChild(userPic);
+
+
+
+        /* form with checkboxex. Number of checkboxes depends on parkings close to specific place */
+       var form = document.createElement("form");
+        left_div.appendChild(form);
+        form.setAttribute("id", "optionsCheckboxes");
+        form.onsubmit = function() {
+            submition()
+        };
+        form.action = "javascript:checkAnswers()";
+        var formDiv1 = document.createElement("div");
+        form.appendChild(formDiv1);
+        formDiv1.setAttribute("class", "checks");
+        var option = document.createElement("p");
+        option.innerHTML = "BEST OPTION";
+        option.setAttribute("id", "option");
+        option.setAttribute("class", "text");
+        formDiv1.appendChild(option);
+
+        //second row of options
+        var formDiv2 = document.createElement("div");
+        formDiv2.setAttribute("class", "checks");
+        var option2 = document.createElement("p");
+        option2.setAttribute("id", "option2");
+        option2.setAttribute("class", "text");
+        option2.innerHTML = "SECOND BEST";
+        formDiv2.appendChild(option2);
+        form.appendChild(formDiv2);
+
+
+        //third row of options
+        var formDiv3 = document.createElement("div");
+        form.appendChild(formDiv3);
+        formDiv3.setAttribute("class", "checks");
+        var option3 = document.createElement("p");
+        option3.innerHTML = "THIRD BEST";
+        option3.setAttribute("id", "option3");
+
+        option3.setAttribute("class", "text");
+        formDiv3.appendChild(option3);
+
+
+
+
+        createright_div();
+        createForm();
+
+
+
+        var answer = false;
+        var counter = 0;
+        var counterDiv = document.createElement("div");
+        counterDiv.setAttribute("id", "cDiv");
+        var counterDisplay = document.createElement("p");
+        counterDiv.appendChild(counterDisplay);
+        left_div.appendChild(counterDiv);
+
+        
+
+// Define global variables for timer and countdown
+        var countdown;
+         var maxTime;
+         var difficulty = localStorage.getItem("difficulty");
+
+         var extra;
+
+        if (difficulty === "easy") {
+            maxTime = 75;
+            extra = 0;
+        } else if (difficulty === "medium") {
+            maxTime = 60;
+            extra = 10;
+        } else if (difficulty === "hard") {
+            maxTime = 45;
+            extra = 16;
+        } else {
+            maxTime = 75; // Default value if difficulty is not set
+            extra = 0;
+        }
+        counter = maxTime;
+    
+
+     // Initial countdown function
+     function initialCountdown() {
+    var initialCounter = 15;
+    var timerDisplay = document.getElementById('timerDisplay');
+ // Ensure timer display is visible and at the bottom
+    
+    var startingMessage = document.createElement('p');
+    startingMessage.setAttribute('id', 'startingMessage');
+    startingMessage.style.color = 'green';
+    startingMessage.style.fontWeight = 'bold';
+    startingMessage.style.fontSize = '24px';
+    startingMessage.innerText = "STARTING";
+
+    var initialCountdown = setInterval(function () {
+        if (initialCounter > 0) {
+                        timerDisplay.style.display = "block"; // Show the timer display
+
+            timerDisplay.innerText = "The level starts in " + initialCounter;
+            
+            initialCounter--;
+            
+        } else {
+            clearInterval(initialCountdown);
+            timerDisplay.style.display = "none"; // Hide the initial countdown message
+            timerDisplay.parentNode.appendChild(startingMessage);
+
+            startingMessage.style.display = "inline-block"; // Show the starting message
+            
+            setTimeout(function () {
+                startingMessage.style.display = "none"; // Hide the starting message after 2 seconds
+               // timerDisplay.style.display = "block"; // Show the timer display
+               startGame(); // Start the game, timer, and hide distMap logic
+            }, 2000);
+        }
+    }, 1000);
+}
+// Main timer function
+function startMainTimer() {
+    countdown = setInterval(function () {
+        if (counter > 0 && stop == 0) {
+            document.getElementById('timerDisplay').innerText = counter;
+           // timerContainer.style.bottom = "35%";
+            timerDisplay.style.display = "inline-block"; // Show the timer display
+            counter--;
+        } else if (stop == 0) {
+            clearInterval(countdown);
+            outOfTime();
+        }
+    }, 1000);
+}
+
+
+
+function hideDistMapAfterTime() {
+    let hideAfterSeconds = 0;
+    if (difficulty === "medium") {
+        hideAfterSeconds = 12;
+    } else if (difficulty === "hard") {
+        hideAfterSeconds = 7;
+    }
+    
+    if (hideAfterSeconds > 0) {
+        setTimeout(function () {
+            var distMap = document.getElementById("distMap");
+            if (distMap) {
+                distMap.style.display = "none";
+            }
+
+            var mapHiddenMessage = document.getElementById("mapHiddenMessage");
+            if (mapHiddenMessage) {
+                mapHiddenMessage.classList.add("show");
+                mapHiddenMessage.style.display = "block";
+            }
+        }, hideAfterSeconds * 1000);
+    }
+}
+
+// Call this function where the counter starts (e.g., inside the play button click event handler or similar)
+function startGame() {
+    startMainTimer(); // Start the countdown
+    hideDistMapAfterTime(); // Schedule the hiding of distMap
+}
+
+function outOfTime() {
+    document.getElementById("en-btn").style.display = "none"; //remove form
+    document.getElementById("gr-btn").style.display = "none"; //remove form
+
+    var loss = parseInt(localStorage.getItem("looses"));
+    loss += 1;
+    localStorage.setItem("looses", loss);
+
+    // Create the modal overlay
+    var modalOverlay = document.createElement("div");
+    modalOverlay.setAttribute("class", "modal-overlay");
+
+    // Create the Game Over image
+    var gameOverImg = document.createElement("img");
+    gameOverImg.src = "../../imgs/gameOver4.png";
+    gameOverImg.setAttribute("class", "game-over-img");
+
+    // Create the buttons container
+    var buttonsContainer = document.createElement("div");
+    buttonsContainer.setAttribute("class", "buttons-container");
+
+    // Create the See Score button
+    var seeScoreButton = document.createElement("a");
+    seeScoreButton.innerHTML = "See Score";
+    seeScoreButton.setAttribute("class", "butt");
+    seeScoreButton.href = "../end_new2.html?noOfAnswers=2";
+
+    // Append buttons to the buttons container
+    buttonsContainer.appendChild(seeScoreButton);
+    //buttonsContainer.appendChild(tryAgainButton);
+
+    // Append the image and buttons container to the modal overlay
+    modalOverlay.appendChild(gameOverImg);
+    modalOverlay.appendChild(buttonsContainer);
+
+    // Append the modal overlay to the body
+    document.body.appendChild(modalOverlay);
+
+    stop = 1;
+
+    const currentLang = getLanguage();
+    setLanguage2(currentLang);
+}
+
+
+
+        //create the form with the options for the user to choose
+        function createForm() {
+            window.onload = initialCountdown();
+//            timer();
+
+            var noOfChecks = 0;
+            if (category == "bars") {
+                if (nextLevel == "pivo" || nextLevel == "fridays" || nextLevel == "neverland") {
+                    noOfChecks = 8;
+                } else if (nextLevel == "ledras") {
+                    noOfChecks = 9;
+                } else if (nextLevel == "costa") {
+                    noOfChecks = 5;
+                }
+            } else if (category == "culture") {
+                if (nextLevel == "cyprusMuseum" || nextLevel == "famagusta") {
+                    noOfChecks = 6;
+                } else if (nextLevel == "aquadect") {
+                    noOfChecks = 8;
+                } else if (nextLevel == "byzantine") {
+                    noOfChecks = 7;
+                } else {
+                    noOfChecks = 9;
+                }
+            }
+            for (var c = 1; c <= noOfChecks; c++) {
+                var labels = document.createElement("label");
+                labels.setAttribute("class", "container");
+                labels.innerHTML = "Parking " + c.toString();
+                var inp = document.createElement("input");
+                inp.type = "radio";
+                inp.name = "first";
+                inp.value = c.toString();
+                labels.appendChild(inp);
+                var sp = document.createElement("span");
+                sp.setAttribute("class", "checkmark");
+                labels.appendChild(sp);
+                formDiv1.appendChild(labels);
+            }
+            for (var c = 1; c <= noOfChecks; c++) {
+                var labels = document.createElement("label");
+                labels.setAttribute("class", "container");
+                labels.innerHTML = "Parking " + c.toString();
+                var inp = document.createElement("input");
+                inp.type = "radio";
+                inp.name = "second";
+                inp.value = c.toString();
+                labels.appendChild(inp);
+                var sp = document.createElement("span");
+                sp.setAttribute("class", "checkmark");
+                labels.appendChild(sp);
+                formDiv2.appendChild(labels);
+            }
+            for (var c = 1; c <= noOfChecks; c++) {
+                var labels = document.createElement("label");
+                labels.setAttribute("class", "container");
+                labels.innerHTML = "Parking " + c.toString();
+                var inp = document.createElement("input");
+                inp.type = "radio";
+                inp.name = "third";
+                inp.value = c.toString();
+                labels.appendChild(inp);
+                var sp = document.createElement("span");
+                sp.setAttribute("class", "checkmark");
+                labels.appendChild(sp);
+                formDiv3.appendChild(labels);
+            }
+
+        }
+
+        function createright_div() {
+            var para1 = document.createElement("h1");
+    para1.setAttribute("class", "font");
+    para1.setAttribute("id", "instructions");
+    var para2 = document.createElement("p");
+    para2.setAttribute("class", "font");
+    para2.setAttribute("id", "timeTriesLine1");
+    var para3 = document.createElement("p");
+    para3.setAttribute("class", "font");
+    para3.setAttribute("id", "timeTriesLine2");
+
+    var para4 = document.createElement("h1");
+    para4.setAttribute("class", "font");
+    para4.setAttribute("id", "difficultyText");
+
+            var categoImg = document.createElement("img");
+            categoImg.src = "../../imgs/random/dist-priority.png";
+            categoImg.setAttribute("id", "cImg");
+            right_div.appendChild(categoImg);
+            categoImg.style.marginLeft = "30%";
+            categoImg.style.marginTop = "10%";
+            categoImg.style.marginBottom = "10px";
+
+            categoImg.style.width = "40%";
+
+        para1.innerHTML = "For this next level you have to choose the 3 best options for parking. The cateogries on the algorithm are shown above, the top being the most important. This is the final level to prove you are the best parker!";
+        para2.innerHTML = "Time: 120 seconds";
+        para3.innerHTML = "Number of tries: 2.";
+
+       
+
+        
+
+            right_div.appendChild(para1);
+            right_div.appendChild(para4);
+            right_div.appendChild(para2);
+            right_div.appendChild(para3);
+            
+    
+            var heading2 = document.createElement("h2");
+            var placeToGo = nextLevel.charAt(0).toUpperCase() + nextLevel.slice(1);
+            var distMap = document.createElement("img");
+            distMap.src = "../../imgs/" + category + "/" + nextLevel + "/" + nextLevel.concat("Dist") + ".png";
+            distMap.setAttribute("id", "distMap");
+            distMap.style.position = "relative";
+            distMap.style.marginLeft = "7%";
+            distMap.style.marginRight = "5%";
+            distMap.style.marginBottom = "5%";
+            distMap.style.marginTop = "10%";
+            distMap.style.width = "88%";
+            var inpFinal = document.createElement("input");
+            inpFinal.type = "submit";
+            inpFinal.setAttribute("id", "red-button");
+            inpFinal.value = "PARK";
+            inpFinal.classList.add("red-button");
+            inpFinal.style.marginTop = "20px";
+
+            
+            setInterval(function() {
+                categoImg.style.display = "none";
+                para1.style.display = "none";
+                para2.style.display = "none";
+                para3.style.display = "none";
+                para4.style.display = "none";
+
+
+                right_div.appendChild(distMap);
+             
+
+            form.appendChild(inpFinal);
+
+                clearInterval(this);
+            }, 18000);
+
+            let currentLang = getLanguage(); // Assume getLanguage() returns 'en' or 'gr'
+
+            let message;
+
+            switch (nextLevel) {
+            case "pivo":
+                message = translations[currentLang].pivo;
+                break;
+            case "costa":
+                message = translations[currentLang].costa;
+                break;
+            case "neverland":
+                message = translations[currentLang].neverland;
+                break;
+            case "ledras":
+                message = translations[currentLang].ledras;
+                break;
+            case "aquadect":
+                message = translations[currentLang].aquadect;
+                break;
+            case "byzantine":
+            case "leventis":
+                message = translations[currentLang].byzantine;
+                break;
+            case "cyprusMuseum":
+                message = translations[currentLang].cyprusMuseum;
+                break;
+            case "famagusta":
+                message = translations[currentLang].famagusta;
+                break;
+            case "fridays":
+                message = translations[currentLang].fridays;
+                break;
+            default:
+                message = translations[currentLang].default;
+                break;
+            }
+
+heading2.innerHTML = message;
+            heading2.setAttribute("id", "h2");
+            heading2.setAttribute("class", "font h1-margin-top");
+            right_div.appendChild(heading2);
+
+
+
+                // Add the map hidden message
+            var mapHiddenMessage = document.createElement("div");
+            mapHiddenMessage.setAttribute("id", "mapHiddenMessage");
+            mapHiddenMessage.style.display = "none"; // Initially hidden
+
+            let mess2;
+            mess2 = translations[currentLang].hiddenMap;
+
+            let mess3;
+            mess3 = translations[currentLang].hiddenMess;
+
+
+
+            var hiddenMessageText1 = document.createElement("p");
+            hiddenMessageText1.classList.add("hidden-message-text");
+            hiddenMessageText1.innerHTML = mess2;
+
+            var hiddenMessageText2 = document.createElement("p");
+            hiddenMessageText2.classList.add("wrong-text2");
+
+            hiddenMessageText2.innerHTML = mess3;
+
+            var hiddenIcon = document.createElement("img");
+            hiddenIcon.src = "../../imgs/parking-hidden.png";
+            hiddenIcon.alt = "Hidden Map Icon";
+            hiddenIcon.classList.add("hidden-icon");
+
+            mapHiddenMessage.appendChild(hiddenMessageText1);
+            mapHiddenMessage.appendChild(hiddenMessageText2);
+            mapHiddenMessage.appendChild(hiddenIcon);
+
+            // Append the map hidden message to the right_div
+            right_div.appendChild(mapHiddenMessage);
+
+        }
+        var options1;
+        var options2;
+        var options3
+        var opt1;
+        var opt2;
+        var opt3;
+
+        //check the answer when button pressed
+        function submition() {
+            answer = true;
+            options1 = document.getElementsByName("first");
+            options2 = document.getElementsByName("second");
+            options3 = document.getElementsByName("third");
+            //get two checkbox answers
+            for (c = 0; c < options1.length; c++) {
+                if (options1[c].checked) {
+                    opt1 = options1[c].value;
+                }
+                if (options2[c].checked) {
+                    opt2 = options2[c].value;
+                }
+                if (options3[c].checked) {
+                    opt3 = options3[c].value;
+                }
+            }
+        }
+       
+       // Create a container div for the answer image to center it
+var answerImgContainer = document.createElement("div");
+    answerImgContainer.style.display = "flex";
+    answerImgContainer.style.justifyContent = "flex-end"; // Align to the right
+    answerImgContainer.style.alignItems = "center";
+    answerImgContainer.style.width = "100%";
+    answerImgContainer.style.height = "100%"; // Ensure the container takes the full height of the parent
+    answerImgContainer.style.position = "relative"; // Ensure it can be properly aligned within its parent
+
+       
+       
+       
+       
+        var answerImg = document.createElement("img");
+        answerImg.setAttribute("class", "aImg");
+
+        answerImg.style.width = "60%"; // Set the desired width
+        answerImg.style.height = "60%"; // Maintain aspect ratio
+        answerImg.style.marginTop = "40px"; // Increase the top margin
+
+
+        function checkAnswers() {
+
+            //check correct answer for bars category
+            if (category == "bars") {
+                switch (nextLevel) {
+                    case "pivo":
+                        if (opt1 == "3" && opt2 == "4" && (opt3 == "6" || opt3=="2") ) { //check for correct answer put correct answer pic depending on place
+                            answerImg.src = "../../imgs/random/beer.png"; //correct answer pic
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                    case "ledras":
+                        if (opt1 == "3"  && opt2 == "5" && (opt3 == "9")) {
+                            answerImg.src = "../../imgs/random/success.png";
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                    case "neverland":
+                        if (opt1 == "4" && opt2 == "6" && opt3 == "5") {
+                            answerImg.src = "../../imgs/random/rock.png";
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                    case "costa":
+                        if (opt1 == "3" && (opt2 == "4") && (opt3 == "5")) {
+                            answerImg.src = "../../imgs/random/coffee.png";
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+
+                    case "fridays":
+                        if (opt1 == "5" && opt2 == "8" && opt3 == "6") {
+                            answerImg.src = "../../imgs/random/burger.png";
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                }
+            } else if (category == "culture") {
+                switch (nextLevel) {
+                    case "byzantine":
+                        if (opt1 == "5" && opt2 == "3" && opt3 == "1") {
+                            answerImg.src = "../../imgs/random/success.png";
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                    case "aquadect":
+                        if ((opt1 == "7") && (opt2 == "4" || opt2 == "6") && ((opt3 == "8") || (opt3 == "4")) ) {
+                            answerImg.src = "../../imgs/random/aquadect.png";
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                    case "cyprusMuseum":
+                        if (opt1 == "3" && opt2 == "2" && opt3 == "4") {
+                            answerImg.src = "../../imgs/random/museum.png";
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                    case "famagusta":
+                        if (opt1 == "5" && opt2 == "4" && (opt3 == "2" || opt3 == "6")) {
+                            answerImg.src = "../../imgs/random/success.png";
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                    case "leventis":
+                        if (opt1 == "2" && opt2 == "3" && (opt3 == "4" || opt3 == "1")) {
+                            answerImg.src = "../../imgs/random/museum.png";
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                }
+            }
+        }
+
+        //function adds elements for correct answer
+        function correctAnswer() {
+ //clearUp();
+
+ document.getElementById("en-btn").style.display = "none"; //remove form
+    document.getElementById("gr-btn").style.display = "none"; //remove form
+
+    clearInterval(countdown); // Stop the timer
+
+    
+    var timeUsed = maxTime - counter; // time took for correct answer
+    var pointsEarned = 150 - timeUsed + extra; // Points based on remaining time
+
+    if(health == 0){
+        pointsEarned = pointsEarned - 20; // Points based on remaining time
+
+    }
+    // Store the points in localStorage
+    var currentPoints = parseInt(localStorage.getItem('points')) || 0;
+    localStorage.setItem('points', currentPoints + pointsEarned);
+
+
+    // Create the modal overlay
+    var modalOverlay = document.createElement("div");
+    modalOverlay.setAttribute("class", "modal-overlay2");
+
+    // Create the next level image
+    var nextLevelImg = document.createElement("img");
+    nextLevelImg.src = "../../imgs/win.png";
+    nextLevelImg.setAttribute("class", "next-level-img");
+
+    // Create the text message
+    var textWin = document.createElement("p");
+    textWin.setAttribute("id", "textWinID");
+            textWin.innerHTML = "You found all three parkings correctly! You have finished the game!";
+            textWin.setAttribute("class", "font2");
+    
+var nextLevelButt = document.createElement("img");
+    nextLevelButt.setAttribute("src", "../../imgs/finish.png");
+    nextLevelButt.setAttribute("class", "play-butt");
+    nextLevelButt.setAttribute("id", "butt");
+    nextLevelButt.style.cursor = "pointer"; // Make it look clickable
+    nextLevelButt.style.marginTop = "40px"; // Make it look clickable
+
+    // Add click event to redirect to the end page
+    nextLevelButt.onclick = function() {
+        window.location.href = "../end_new2.html?noOfAnswers=3";
+    };
+           // Create the buttons container
+    var buttonsContainer = document.createElement("div");
+    buttonsContainer.setAttribute("class", "buttons-container2");
+
+    // Append the button to the buttons container
+    buttonsContainer.appendChild(nextLevelButt);
+
+    // Append the elements to the modal overlay
+    modalOverlay.appendChild(nextLevelImg);
+    modalOverlay.appendChild(textWin);
+    modalOverlay.appendChild(buttonsContainer);
+
+    // Append the modal overlay to the body
+    document.body.appendChild(modalOverlay);
+
+    stop = 1;
+
+    const currentLang = getLanguage();
+    setLanguage2(currentLang);
+
+        }
+
+
+        function wrongAnswer() {
+    answer = true;
+    if (health == 1) {
+        health = 0;
+        var loss = parseInt(localStorage.getItem("looses"));
+        loss += 1;
+        localStorage.setItem("looses", loss);
+
+        // Create the modal overlay
+        var modalOverlay = document.createElement("div");
+        modalOverlay.setAttribute("class", "modal-overlay-wrong");
+
+        // Create the modal content
+        var modalContent = document.createElement("div");
+        modalContent.setAttribute("class", "modal-content-wrong");
+
+        // Create the close button
+        var closeButton = document.createElement("span");
+        closeButton.setAttribute("class", "close-button-wrong");
+        closeButton.innerHTML = "&times;"; // Unicode for the cross symbol
+        closeButton.onclick = function() {
+            modalOverlay.style.display = "none";
+        };
+
+        // Create the heart image
+        var heartImg = document.createElement("img");
+        heartImg.src = "../../imgs/lives.png";
+        heartImg.setAttribute("class", "heart-img");
+
+        // Create the text message
+        var textWrong = document.createElement("p");
+        //textWrong.innerHTML = "Wrong answer! You have one life remaining.";
+        textWrong.innerText = translations[currentLang].wrongAnswerHeading;
+
+        textWrong.setAttribute("class", "wrong-text");
+
+        // Append elements to the modal content
+        modalContent.appendChild(closeButton);
+        modalContent.appendChild(heartImg);
+        modalContent.appendChild(textWrong);
+
+        // Append modal content to the overlay
+        modalOverlay.appendChild(modalContent);
+
+        // Append the modal overlay to the body
+        document.body.appendChild(modalOverlay);
+
+        // Display the modal
+        modalOverlay.style.display = "flex";
+        } else {
+        clearInterval(countdown); // Stop the timer
+outOfTime();
+    }
+        }
+
+
+        //clears elements with form and questions
+        function clearUp() {
+            document.getElementById("optionsCheckboxes").style.display = "none"; //remove form
+            userPic.style.display = "none"; //remove map
+            document.getElementById("distMap").style.display = "none";
+            document.getElementById("cImg").style.display = "none"; //remove priorities image if at level 3
+           // document.getElementById("explainText").style.display = "none";
+            document.getElementById("h2").style.display = "none";
+
+
+            document.getElementById("instructions").style.display = "none";
+            document.getElementById("timeTriesLine1").style.display = "none";
+            document.getElementById("timeTriesLine2").style.display = "none";
+        }
+
+
+        function setLanguage(lang) {
+    const t = translations[lang];
+    document.querySelector('h1').innerText = t.level5;
+    document.getElementById('option').innerText = t.bestOption;
+    document.getElementById('option2').innerText = t.secondBest;
+    document.getElementById('option3').innerText = t.thirdBest;
+
+    // Update the new paragraphs with translations
+ 
+        document.getElementById('instructions').innerText = t.instructions;
+        if (difficulty === "easy") {
+            document.getElementById('timeTriesLine1').innerText = t.timeTriesLine1_75;
+            document.getElementById('difficultyText').innerText = t.easyText;
+        } else if (difficulty === "medium") {
+            document.getElementById('timeTriesLine1').innerText = t.timeTriesLine1_60;
+            document.getElementById('difficultyText').innerText = t.mediumText;
+
+
+        } else if (difficulty === "hard") {
+            document.getElementById('timeTriesLine1').innerText = t.timeTriesLine1_45;
+            document.getElementById('difficultyText').innerText = t.hardText;
+
+        } else {
+            document.getElementById('timeTriesLine1').innerText = t.timeTriesLine1_75;
+            document.getElementById('difficultyText').innerText = t.easyText;
+
+        }      
+        document.getElementById('timeTriesLine2').innerText = t.timeTriesLine2;
+   
+
+   // document.getElementById('sumbitButt').value = t.park;
+
+    // Update textWin with the translated text
+    const textWinElement = document.getElementById('textWinID');
+    if (textWinElement) {
+        textWinElement.innerText = t.textWin;
+    }
+
+    // Update textWin with the translated text
+    const playElement =  document.getElementById('play');
+    if (playElement) {
+        playElement.innerText = t.play;
+    }
+    const loseElement =  document.getElementById('textLoose');
+    if (loseElement) {
+        loseElement.innerText = t.textLoose;
+    }
+
+
+    const timeElement =  document.getElementById('outOfTime');
+    if (timeElement) {
+        timeElement.innerText = t.outOfTime;
+    }
+
+
+    // Remove 'selected' class from all language buttons
+    document.querySelectorAll('.language-buttons button').forEach(button => {
+        button.classList.remove('selected');
+    });
+
+    // Add 'selected' class to the clicked language button
+    document.getElementById(`${lang}-btn`).classList.add('selected');
+
+    // Store the selected language in a cookie
+    document.cookie = `lang=${lang};path=/`;
+
+    // Update level heading again to ensure it's correct after language change
+    // changeElem();
+}
+
+
+
+
+        function setLanguage2(lang) {
+    const t = translations[lang];
+
+    document.querySelector('h1').innerText = t.level5;
+    document.getElementById('option').innerText = t.bestOption;
+    document.getElementById('option2').innerText = t.secondBest;
+    document.getElementById('option3').innerText = t.thirdBest;
+
+   // document.getElementById('play').innerText = t.play;
+
+   //document.getElementById('timesup').innerText = t.timesup;
+   //document.getElementById('exitText').innerText = t.exitText;
+
+
+    
+   
+    // Remove 'selected' class from all language buttons
+    document.querySelectorAll('.language-buttons button').forEach(button => {
+        button.classList.remove('selected');
+    });
+
+    // Add 'selected' class to the clicked language button
+    document.getElementById(`${lang}-btn`).classList.add('selected');
+
+    // Store the selected language in a cookie
+    document.cookie = `lang=${lang};path=/`;
+
+}
+
+const currentLang = getLanguage();
+setLanguage(currentLang);
+
+        function getLanguage() {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; lang=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return 'en'; // default to English if no language cookie found
+}
+
+    </script>
+
+
+</body>
+
+</html>

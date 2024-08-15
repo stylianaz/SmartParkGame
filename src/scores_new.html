@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Demetris Kouppas">
+    <title>SmartPark Scores</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-scores.css"> <!-- Add your CSS file for styling -->
+
+    <style>
+        /* Loading message styles */
+        #loading-message {
+            font-size: 32px; /* Larger font size */
+            color: #333;
+            text-align: center;
+            margin: 40px 0; /* More margin for spacing */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: loadingAnimation 1s infinite;
+        }
+
+        /* Keyframe animation for loading effect */
+        @keyframes loadingAnimation {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+    </style>
+  
+</head>
+<body>
+    <div class="top-left-logo">
+        <img src="../imgs/logo-SmartPark.png" alt="App Logo">
+    </div>
+    <h1 id="head1" class="text">Leaderboard</h1>
+    <div id="loading-message">Loading Leaderboard...</div> <!-- Loading message -->
+
+    <div id="top-players">
+        <!-- Top players will be inserted here by JavaScript -->
+    </div>
+    <div id="scores-container">
+        <!-- Scores will be inserted here by JavaScript -->
+    </div>
+    <button id="back-btn" onclick="goBack()">Back to Categories</button>
+
+    <script src="./js/jquery.min.js"></script>
+    <script>
+       $(document).ready(function() {
+        var loadingMessage = $('#loading-message');
+
+        // Show the loading message initially
+        loadingMessage.show();
+
+            // Fetch scores from the database and display them
+            $.ajax({
+                url: './scores_fetch.php', // Endpoint to get the scores
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var scoresContainer = $('#scores-container');
+                    var topPlayersContainer = $('#top-players');
+                    
+                    loadingMessage.hide();
+
+                    if (data.success) {
+                        // Define ranking order
+                        var rankingOrder = {
+                            "Gold": 1,
+                            "Silver": 2,
+                            "Bronze": 3,
+                            "NoReward": 4
+                        };
+
+                       data.scores.sort(function(a, b) {
+                            return b.Points - a.Points; // Make sure to compare Points, not Score
+                        });
+
+
+                        // Display top 3 players
+                        if (data.scores.length > 0) {
+                            var topPlayers = data.scores.slice(0, 3);
+                            var topPlayersHtml = '<div class="top-player-container">';
+                            topPlayers.forEach(function(player, index) {
+                                var rank = index + 1;
+                                var medalClass = '';
+                                var crownHtml = rank === 1 ? '<img src="../imgs/random/crown.png" class="crown-icon" alt="Crown">' : '';
+                                switch(rank) {
+                                    case 1: medalClass = 'gold-medal'; break;
+                                    case 2: medalClass = 'silver-medal'; break;
+                                    case 3: medalClass = 'bronze-medal'; break;
+                                }
+                                topPlayersHtml += `
+                                    <div class="top-player ${medalClass}">
+                                        ${crownHtml}
+                                        <div class="rank">${rank}</div>
+                                        <div class="name">${player.Name} ${player.Surname}</div>
+                                        <div class="points">${player.Points}</div> <!-- Display points -->
+                                    </div>
+                                `;
+                            });
+                            topPlayersHtml += '</div>';
+                            topPlayersContainer.html(topPlayersHtml);
+
+                            // Create table for all scores
+                            var table = $('<table></table>').addClass('scores-table');
+                            var headerRow = $('<tr></tr>');
+                
+                            headerRow.append('<th></th>'); // New column for numbering
+                            headerRow.append('<th>Player Name</th>');
+                            headerRow.append('<th>Rank</th>'); // Column for rank
+                            headerRow.append('<th>Points</th>'); // Column for points
+                            table.append(headerRow);
+
+                            data.scores.forEach(function(score, index) {
+                                var row = $('<tr></tr>').addClass(score.Score.toLowerCase());
+                                row.append('<td>' + (index + 1) + '</td>'); // Add row number
+                                row.append('<td>' + score.Name + ' ' + score.Surname + '</td>');
+                                row.append('<td>' + score.Score + '</td>'); // Add rank data
+                                row.append('<td>' + score.Points + '</td>'); // Add points data
+                                table.append(row);
+                            });
+
+                            scoresContainer.append(table);
+                        } else {
+                            scoresContainer.append('<p>No scores available.</p>');
+                        }
+                    } else {
+                        scoresContainer.append('<p>Error fetching scores.</p>');
+                    }
+                },
+                error: function() {
+                    loadingMessage.hide(); // Hide loading message on error
+
+                    $('#scores-container').append('<p>Error fetching scores.</p>');
+                }
+            });
+        });
+
+        function goBack() {
+            window.location.href = 'categories2_new.html'; // Adjust this path as needed
+        }
+    </script>
+</body>
+</html>

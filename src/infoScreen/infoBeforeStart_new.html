@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Demetris Kouppas, Styliana Zymara">
+    <title>SmartPark Categories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style_infoBeforeStart.css">
+</head>
+<body>
+    <div class="top-left-logo">
+        <img src="../../imgs/logo-SmartPark.png" alt="App Logo">
+    </div>
+    <div class="back-button">
+        <button onclick="goBackButton()">
+            <img src="../../imgs/back-button.png" alt="Back" width="30" height="30">
+        </button>
+    </div>
+    <div class="language-buttons">
+        <button id="en-btn" onclick="setLanguage('en')">English</button>
+        <button id="gr-btn" onclick="setLanguage('gr')">Ελληνικά</button>
+    </div>
+    <div id="content" class="content">
+        <h1 id="head1" class="text">SmartPark Categories</h1>
+
+        <img id="destination" src="../../imgs/random/dist-priority.png" alt="Categories Image" class="image" style="display: none;">
+        <img id="cost" src="../../imgs/random/cost-priority.png" alt="Categories Image" class="image" style="display: none;">
+
+
+<div class="instructions-container">
+            <p id="instructions" class="font"></p>
+            <p id="timeTriesLine1" class="font"></p> 
+            <p id="timeTriesLine2" class="font"></p> 
+        </div>
+
+        <div class="button-container">
+            <a id="levelLink" class="butt" onclick="showDifficultyPopup()">
+                <img src="../../imgs/play.png" alt="Play Button">
+            </a>
+        </div>
+    </div>
+
+    <!-- Popup for selecting difficulty and showing instructions -->
+    <div id="difficulty-popup" class="popup hidden">
+        <div class="popup-content">
+            <h2 id="popup-title">Select Game Difficulty</h2>
+            <button class="difficulty-btn" id="easy-btn" onclick="setDifficulty('easy')">Easy</button>
+            <button class="difficulty-btn" id="medium-btn" onclick="setDifficulty('medium')">Medium</button>
+            <button class="difficulty-btn" id="hard-btn" onclick="setDifficulty('hard')">Hard</button>
+            <p class="note" id="popup-note">Difficulty increases points in correct answers, but also risks your accuracy!</p>
+            <button class="close-btn" onclick="closePopup()">Close</button>
+        </div>
+    </div>
+
+    <div id="countdown-overlay" class="countdown-overlay hidden">
+        <div class="countdown-content">
+            <p id="countdown-text">The game starts in</p>
+            <h1 id="countdown-number">3</h1>
+        </div>
+    </div>
+
+    <script>
+
+
+
+// Ensure choices are stored in localStorage if not already present
+if (!localStorage.getItem('choices')) {
+    const choicesArray = ['cost', 'destination'];
+    localStorage.setItem('choices', JSON.stringify(choicesArray));
+}
+
+// Function to shuffle an array using Fisher-Yates (Knuth) shuffle
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+function selectRandomChoice() {
+    // Get the choices array from localStorage
+    let choices = JSON.parse(localStorage.getItem('choices'));
+
+    // Shuffle the array
+    choices = shuffleArray(choices);
+
+    // Store the shuffled array back to localStorage
+    localStorage.setItem('choices', JSON.stringify(choices));
+
+    // Return the first element of the shuffled array
+    const randomChoice = choices[0];
+
+    // Optionally, show the appropriate map based on the random choice
+    showMap(randomChoice); // If needed
+
+    return randomChoice;
+}
+
+
+
+function showMap(choice) {
+    // Hide both maps initially
+    document.getElementById('cost').style.display = 'none';
+    document.getElementById('destination').style.display = 'none';
+
+    // Show the correct map based on the choice
+    if (choice === 'cost') {
+        document.getElementById('cost').style.display = 'block';
+    } else if (choice === 'destination') {
+        document.getElementById('destination').style.display = 'block';
+    }
+}
+
+
+        // Show the difficulty selection popup
+        function showDifficultyPopup() {
+            document.getElementById('difficulty-popup').classList.remove('hidden');
+        }
+
+        // Close the popup
+        function closePopup() {
+            document.getElementById('difficulty-popup').classList.add('hidden');
+        }
+
+        // Set the difficulty in localStorage and proceed to show instructions
+        function setDifficulty(difficulty) {
+            localStorage.setItem('difficulty', difficulty);
+            showInstructions();
+        }
+
+        function showInstructions() {
+    const lang = getLanguage(); // Get the current language
+    const popupContent = document.querySelector('.popup-content');
+    popupContent.classList.add('popup-content2');
+
+    // Reset classes to ensure clean slate for animations
+    popupContent.classList.remove('slide-out-left');
+    popupContent.classList.add('slide-in-right');
+
+    // Display the first set of instructions
+    popupContent.innerHTML = `
+        <h2>${lang === 'en' ? 'Instructions 1/2' : 'Οδηγίες 1/2'}</h2>
+        <p class="note2">${texts[lang].instructions1}
+        <img src="../../imgs/blue-mark.png" alt="Blue Mark" style="width: 40px; height: auto; vertical-align: middle;"></p>
+        <p class="note2">${texts[lang].instructions2}
+        <img src="../../imgs/black-dot.png" alt="Black Dot" style="width: 40px; height: auto; vertical-align: middle;"></p>
+        <button class="skip-btn" onclick="skipToNextInstruction(1)">&#10132;</button>
+    `;
+
+    // Set the timer for the first set of instructions
+    window.currentTimer = setTimeout(() => {
+        showSecondInstruction(lang, popupContent);
+    }, 6000);
+}
+
+function showSecondInstruction(lang, popupContent) {
+    // Apply slide-out-left animation before changing the content
+    popupContent.classList.remove('slide-in-right');
+    popupContent.classList.add('slide-out-left');
+
+    setTimeout(() => {
+        // Change content and apply slide-in-right animation for new content
+        popupContent.classList.remove('slide-out-left');
+        popupContent.classList.add('slide-in-right');
+
+        popupContent.innerHTML = `
+            <h2>${lang === 'en' ? 'Instructions 2/2' : 'Οδηγίες 2/2'}</h2>
+            <p class="note3">${texts[lang].instructions3}</p>
+            <img src="../../imgs/info-parking.png" alt="Info parking" style="width: 170px; height: auto; vertical-align: middle;">
+            <button class="skip-btn" onclick="skipToNextInstruction(2)">&#10132;</button>
+        `;
+
+        // Set the timer for the second set of instructions
+        window.currentTimer = setTimeout(() => {
+            endInstructionsAndStartGame(popupContent);
+        }, 5000);
+
+    }, 500);
+}
+function endInstructionsAndStartGame(popupContent) {
+    // Slide out and hide the popup before starting the game
+    popupContent.classList.remove('slide-in-right');
+    popupContent.classList.add('slide-out-left');
+
+    setTimeout(() => {
+        document.getElementById('difficulty-popup').classList.add('hidden');
+        showCountdown();
+    }, 500); // Wait for slide-out to finish before hiding
+}
+
+function skipToNextInstruction(currentInstruction) {
+    clearTimeout(window.currentTimer); // Clear the current timer
+
+    if (currentInstruction === 1) {
+        // Show the second instruction if we are skipping the first one
+        const lang = getLanguage();
+        const popupContent = document.querySelector('.popup-content');
+        showSecondInstruction(lang, popupContent);
+    } else if (currentInstruction === 2) {
+        // End the instructions and start the game if we are skipping the second one
+        const popupContent = document.querySelector('.popup-content');
+        endInstructionsAndStartGame(popupContent);
+    }
+}
+        // Show the countdown before starting the game
+        function showCountdown() {
+            const countdownOverlay = document.getElementById('countdown-overlay');
+            const countdownNumber = document.getElementById('countdown-number');
+            const countdownText = document.getElementById('countdown-text');
+
+            let countdownValue = 3;
+            countdownNumber.textContent = countdownValue;
+
+            countdownOverlay.classList.remove('hidden');
+
+            const countdownInterval = setInterval(() => {
+                countdownValue--;
+                if (countdownValue > 0) {
+                    countdownNumber.textContent = countdownValue;
+                } else {
+                    clearInterval(countdownInterval);
+                    showGameStartImage();
+                }
+            }, 1000); // Update every second
+        }
+
+        // Show the game start image before redirecting to the game level
+        function showGameStartImage() {
+            const countdownOverlay = document.getElementById('countdown-overlay');
+            const countdownContent = document.querySelector('.countdown-content');
+
+            countdownContent.innerHTML = ''; // Clear existing content
+
+            const gameStartImage = document.createElement('img');
+            gameStartImage.src = '../../imgs/gameStart.png'; // Path to the image
+            gameStartImage.alt = 'Game Start';
+            gameStartImage.style.width = '90%'; // Adjust size as needed
+            gameStartImage.style.height = 'auto';
+            gameStartImage.style.display = 'block';
+            gameStartImage.style.margin = '0 auto';
+
+            countdownContent.appendChild(gameStartImage);
+
+            setTimeout(() => {
+                countdownOverlay.classList.add('hidden');
+                goToLevel('level1'); // Adjust as needed to proceed to the correct level
+            }, 2000); // Display the image for 2 seconds
+        }
+
+
+        const texts = {
+    en: {
+        head1: "SmartPark Categories",
+        instructions: "Try to click on the parking you think is most suitable based on these categories, with highest priority the top one! Click play for Level 1.",
+        timeTriesLine1: "Time: Depends on the selected difficulty.",
+        timeTriesLine2: "Number of tries: 2.",
+        levelButton: "LEVEL 1",
+        popupTitle: "Select Game Difficulty",
+        easy: "Easy",
+        medium: "Medium",
+        hard: "Hard",
+        popupNote: "Difficulty increases points in correct answers, but also risks your accuracy!",
+        instructions1: "Your desired location has a <strong>blue mark</strong> on the map.",
+        instructions2: "The available parkings are shown with <strong>black dots</strong>.",
+        instructions3: "Pay attention to the information around the parkings. Good luck!",
+        countdownText: "The game starts in"
+    },
+    gr: {
+        head1: "Κατηγορίες SmartPark",
+        instructions: "Προσπαθήστε να επιλέξετε το parking που νομίζετε ότι είναι το πιο κατάλληλο βάσει αυτών των κατηγοριών, με υψηλότερη προτεραιότητα την πρώτη κατηγορία! Πατήστε play για το πρώτο επίπεδο.",
+        timeTriesLine1: "Χρόνος: Ανάλογος τις επιλεγμένης δυσκολίας.",
+        timeTriesLine2: "Αριθμός προσπαθειών: 2.",
+        levelButton: "ΕΠΙΠΕΔΟ 1",
+        popupTitle: "Επιλέξτε Δυσκολία Παιχνιδιού",
+        easy: "Εύκολο",
+        medium: "Μεσαίο",
+        hard: "Δύσκολο",
+        popupNote: "Η δυσκολία αυξάνει τους πόντους σε σωστές απαντήσεις, αλλά αυξάνει και το ρίσκο για λάθη!",
+        instructions1: "Η επιθυμητή τοποθεσία σας εμφανίζεται με <strong>μπλε σημάδι</strong>.",
+        instructions2: "Τα διαθέσιμα parkings εμφανίζονται με <strong>μαύρες κουκκίδες</strong>.",
+        instructions3: "Προσέξτε τις πληροφορίες γύρω από τους χώρους στάθμευσης. Καλή τύχη!",
+        countdownText: "Το παιχνίδι ξεκινά σε"
+    }
+};
+        function setLanguage(lang) {
+    document.getElementById('head1').innerHTML = texts[lang].head1;
+    document.getElementById('instructions').innerHTML = texts[lang].instructions;
+    document.getElementById('timeTriesLine1').innerHTML = texts[lang].timeTriesLine1;
+    document.getElementById('timeTriesLine2').innerHTML = texts[lang].timeTriesLine2;
+    document.getElementById('levelLink').innerHTML = `<img src="../../imgs/play.png" alt="Play Button" style="width: 125px; height: auto; display: block; margin: 0 auto; margin-top: 0px;">`;
+
+    document.getElementById('popup-title').innerHTML = texts[lang].popupTitle;
+    document.getElementById('easy-btn').innerHTML = texts[lang].easy;
+    document.getElementById('medium-btn').innerHTML = texts[lang].medium;
+    document.getElementById('hard-btn').innerHTML = texts[lang].hard;
+    document.getElementById('popup-note').innerHTML = texts[lang].popupNote;
+
+    document.getElementById('countdown-text').innerHTML = texts[lang].countdownText;
+
+    // Remove 'selected' class from all language buttons
+    document.querySelectorAll('.language-buttons button').forEach(button => {
+        button.classList.remove('selected');
+    });
+    
+    // Add 'selected' class to the clicked language button
+    document.getElementById(`${lang}-btn`).classList.add('selected');
+    
+    // Store the selected language in a cookie
+    document.cookie = `lang=${lang};path=/`;
+}
+
+
+        function getLanguage() {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; lang=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return 'en'; // default to English if no language cookie found
+        }
+
+        const currentLang = getLanguage();
+        setLanguage(currentLang);
+
+        function goBackButton() {
+            history.back(); 
+        }
+
+        function goToLevel(level) {
+            const catego = localStorage.getItem("category");
+            const levels = localStorage.getItem("levelsarr").split(",");
+            const url = `../${level}/`.concat(catego, "/", levels[0], "_new.html");
+            window.location.href = url;
+        }
+
+                // Set initial choices in localStorage
+function initializeChoices() {
+    // Check if the choices array already exists in localStorage
+    if (!localStorage.getItem('choices')) {
+        // If not, create an array with "cost" and "destination" options
+        const choicesArray = ['cost', 'destination'];
+        localStorage.setItem('choices', JSON.stringify(choicesArray));
+    }
+}
+
+// Call this function when you initialize the game or the level
+initializeChoices();
+selectRandomChoice();
+
+    </script>
+</body>
+</html>

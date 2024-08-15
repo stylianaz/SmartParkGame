@@ -1,0 +1,212 @@
+Raw data: fname=shawn&lname=Mendes&email=shawnmendes@gmail.com&score=0&loss=01
+Raw data: fname=shawn&lname=Mendes&email=shawnmendes@gmail.com&score=0&loss=01
+Raw data: fname=shawn&lname=Mendes&email=shawnmendes@gmail.com&score=0&loss=01
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":0,"loss":"01"}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Silver","loss":1}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Silver","loss":1}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Silver","loss":1}
+Raw data: 
+Raw data: {"firstname":"mary","lastname":"johnes","email":"maryjohnes@gmail.com","score":"Silver","loss":1}
+Raw data: {"firstname":"maria","lastname":"johnes","email":"mariajohnes@gmail.com","score":"Silver","loss":1}
+Raw data: {"firstname":"maria","lastname":"johnes","email":"mariajohnes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"maria","lastname":"johnes","email":"mariajohnes@gmail.com","score":"Silver","loss":1}
+Raw data: {"firstname":"maria","lastname":"johnes","email":"mariajohnes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"maria","lastname":"johnes","email":"mariajohnes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"maria","lastname":"johnes","email":"mariajohnes@gmail.com","score":"Silver","loss":0}
+Raw data: {"firstname":"gigi","lastname":"johnes","email":"mariajohnes@gmail.com","score":"Silver","loss":0}
+Raw data: {"firstname":"gigi","lastname":"johnes","email":"mariajohnes@gmail.com","score":"Silver","loss":0}
+Raw data: {"firstname":"gigi","lastname":"johnes","email":"mariajohnes@gmail.com","score":"Silver","loss":0}
+Raw data: {"firstname":"gigi","lastname":"johnes","email":"mariajohnes@gmail.com","score":"Gold","loss":0}
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: {"firstname":"bella","lastname":"hadid","email":"bella@yahoo.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"shawn","lastname":"Mendes","email":"shawnmendes@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"bella","lastname":"hadid","email":"bella@yahoo.com","score":"Gold","loss":0}
+Raw data: {"firstname":"bella","lastname":"hadid","email":"bella@yahoo.com","score":"Gold","loss":0}
+Raw data: {"firstname":"bella","lastname":"hadid","email":"bella@yahoo.com","score":"Gold","loss":0}
+Raw data: {"firstname":"bella","lastname":"hadid","email":"bella@yahoo.com","score":"Gold","loss":0}
+Raw data: {"firstname":"sss","lastname":"hadid","email":"bella@yahoo.com","score":"Gold","loss":0}
+Raw data: {"firstname":"sss","lastname":"hadid","email":"bella@yahoo.com","score":"Gold","loss":0}
+Raw data: {"firstname":"gggg","lastname":"hhh","email":"giannis@gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"gggg","lastname":"hhh","email":"gggg@.gmail.com","score":"Gold","loss":0}
+Raw data: {"firstname":"gggg","lastname":"hhh","email":"d@gm.com","score":"Gold","loss":0}
+Raw data: {"firstname":"gggg","lastname":"hhh","email":"g@yahooo.com","score":"Gold","loss":0}
+Raw data: {"firstname":"bella","lastname":"hadid","email":"bella@oo.com","score":"Gold","loss":0}
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: {"firstname":"dan","lastname":"fol","email":"danFol@gmail.com","score":"Silver","playerScore":0,"loss":4}
+Raw data: {"firstname":"dan","lastname":"fol","email":"danFol@gmail.com","score":"Gold","playerScore":0,"loss":4}
+Raw data: {"firstname":"dan","lastname":"fol","email":"danFol@gmail.com","score":"Gold","playerScore":0,"loss":4}
+Raw data: {"firstname":"dan","lastname":"fol","email":"danFol@gmail.com","score":"Gold","playerScore":0,"loss":4}
+Raw data: 
+Raw data: 
+Raw data: 
+Raw data: 
+Raw data: {"firstname":"dan","lastname":"fol","email":"danFol@gmail.com","score":"Gold","loss":4,"playerScore":0}
+Raw data: {"firstname":"dan","lastname":"fol","email":"danFol@gmail.com","score":"Gold","loss":4,"playerScore":0}
+Raw data: {"firstname":"dan","lastname":"fol","email":"danFol@gmail.com","score":"Gold","loss":4,"playerScore":0}
+Raw data: {"firstname":"dan","lastname":"fol","email":"danFol@gmail.com","score":"Gold","loss":4,"playerScore":450}
+Raw data: {"firstname":"dan","lastname":"fol","email":"danFol@gmail.com","score":"Gold","loss":4,"playerScore":500}
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: {"firstname":"chrisbruh","lastname":"ez","email":"chrisbruh@gmail.com","score":"Bronze","loss":0,"playerScore":285}
+Raw data: {"firstname":"chrisbruh","lastname":"ez","email":"chrisbruh@gmail.com","score":"Bronze","loss":0,"playerScore":285}
+Raw data: {"firstname":"anna","lastname":"Johnson","email":"anna@gmail.com","score":"Bronze","loss":0,"playerScore":285}
+Raw data: {"firstname":"anna","lastname":"james","email":"anna2@gmail.com","score":"Bronze","loss":0,"playerScore":285}
+Raw data: {"firstname":"anna","lastname":"jameson","email":"anna3@gmail.com","score":"Bronze","loss":2,"playerScore":285}
+Raw data: {"firstname":"anna","lastname":"jameson","email":"anna4@gmail.com","score":"Bronze","loss":2,"playerScore":285}
+Extracted values - fname: anna, lname: jameson, email: anna4@gmail.com, score: Bronze, playerScore: 285, loss: 2
+Raw data: {"firstname":"tini","lastname":"nto","email":"tini@gmail.com","score":"Bronze","loss":2,"playerScore":285}
+Extracted data: Name = tini, Surname = nto, Email = tini@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Inserting data: Name = tini, Surname = nto, Email = tini@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Raw data: {"firstname":"tini","lastname":"nto","email":"tini@gmail.com","score":"Bronze","loss":2,"playerScore":285}
+Extracted data: Name = tini, Surname = nto, Email = tini@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Raw data: {"firstname":"styliana","lastname":"zymara","email":"stylianaz@gmail.com","score":"Bronze","loss":2,"playerScore":285}
+Extracted data: Name = styliana, Surname = zymara, Email = stylianaz@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Inserting data: Name = styliana, Surname = zymara, Email = stylianaz@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Raw data: {"firstname":"bailey","lastname":"bih","email":"bailey@gmail.com","score":"Bronze","loss":2,"playerScore":285}
+Extracted data: Name = bailey, Surname = bih, Email = bailey@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Inserting data: Name = bailey, Surname = bih, Email = bailey@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Raw data: {"firstname":"Peter","lastname":"Johnson","email":"petah@gmail.com","score":"Bronze","loss":2,"playerScore":285}
+Extracted data: Name = Peter, Surname = Johnson, Email = petah@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Inserting data: Name = Peter, Surname = Johnson, Email = petah@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Raw data: {"firstname":"Peter","lastname":"Johnson","email":"petah2@gmail.com","score":"Bronze","loss":2,"playerScore":285}
+Extracted data: Name = Peter, Surname = Johnson, Email = petah2@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Inserting data: Name = Peter, Surname = Johnson, Email = petah2@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Raw data: {"firstname":"Peter","lastname":"Johnson","email":"petah2@gmail.com","score":"Bronze","loss":2,"playerScore":285}
+Extracted data: Name = Peter, Surname = Johnson, Email = petah2@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Raw data: {"firstname":"Peter","lastname":"Johnson","email":"petah3@gmail.com","score":"Bronze","loss":2,"playerScore":285}
+Extracted data: Name = Peter, Surname = Johnson, Email = petah3@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Inserting data: Name = Peter, Surname = Johnson, Email = petah3@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Raw data: {"firstname":"love","lastname":"love","email":"aa@gmail.com","score":"Bronze","loss":2,"playerScore":285}
+Extracted data: Name = love, Surname = love, Email = aa@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Inserting data: Name = love, Surname = love, Email = aa@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Raw data: {"firstname":"love1","lastname":"love1","email":"aa1@gmail.com","score":"Bronze","loss":2,"playerScore":285}
+Extracted data: Name = love1, Surname = love1, Email = aa1@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Inserting data: Name = love1, Surname = love1, Email = aa1@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Raw data: {"firstname":"love1","lastname":"love1","email":"aa1@gmail.com","score":"Bronze","loss":2,"playerScore":285}
+Extracted data: Name = love1, Surname = love1, Email = aa1@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Raw data: {"firstname":"love2","lastname":"love2","email":"aa2@gmail.com","score":"Bronze","loss":2,"playerScore":285}
+Extracted data: Name = love2, Surname = love2, Email = aa2@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Inserting data: Name = love2, Surname = love2, Email = aa2@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Raw data: {"firstname":"serena","lastname":"williams","email":"serena@gmail.com","score":"Bronze","loss":2,"playerScore":285}
+Extracted data: Name = serena, Surname = williams, Email = serena@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Inserting data: Name = serena, Surname = williams, Email = serena@gmail.com, Score = Bronze, Points = 285, NumberLooses = 2
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: {"firstname":"demetris","lastname":"zymara","email":"demzym06@gmail.com","score":"NoReward","loss":3,"playerScore":122}
+Extracted data: Name = demetris, Surname = zymara, Email = demzym06@gmail.com, Score = NoReward, Points = 122, NumberLooses = 3
+Inserting data: Name = demetris, Surname = zymara, Email = demzym06@gmail.com, Score = NoReward, Points = 122, NumberLooses = 3
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: {"firstname":"styliana","lastname":"zymara","email":"stylianaz03@gmail.com","score":"Gold","loss":2,"playerScore":457}
+Extracted data: Name = styliana, Surname = zymara, Email = stylianaz03@gmail.com, Score = Gold, Points = 457, NumberLooses = 2
+Inserting data: Name = styliana, Surname = zymara, Email = stylianaz03@gmail.com, Score = Gold, Points = 457, NumberLooses = 2
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: data=%7B%22getUsers%22%3A1%7D
+Raw data: {"firstname":"styliana","lastname":"zymara","email":"stylianaz03@gmail.com","score":"Gold","loss":0,"playerScore":448}
+Extracted data: Name = styliana, Surname = zymara, Email = stylianaz03@gmail.com, Score = Gold, Points = 448, NumberLooses = 0
+Raw data: {"firstname":"styliana","lastname":"zymara","email":"stylianaz03@gmail.com","score":"Gold","loss":0,"playerScore":442}
+Extracted data: Name = styliana, Surname = zymara, Email = stylianaz03@gmail.com, Score = Gold, Points = 442, NumberLooses = 0
+Inserting data: Name = styliana, Surname = zymara, Email = stylianaz03@gmail.com, Score = Gold, Points = 442, NumberLooses = 0
+Raw data: {"firstname":"Styliana","lastname":"Zymara","email":"stylianaz03@gmail.com","score":"Gold","loss":0,"playerScore":458}
+Extracted data: Name = Styliana, Surname = Zymara, Email = stylianaz03@gmail.com, Score = Gold, Points = 458, NumberLooses = 0
+Raw data: {"firstname":"Katerina","lastname":"Georgiou","email":"katerina42@gmail.com","score":"Gold","loss":0,"playerScore":432}
+Extracted data: Name = Katerina, Surname = Georgiou, Email = katerina42@gmail.com, Score = Gold, Points = 432, NumberLooses = 0
+Inserting data: Name = Katerina, Surname = Georgiou, Email = katerina42@gmail.com, Score = Gold, Points = 432, NumberLooses = 0
+Raw data: {"firstname":"Taylor","lastname":"Swift","email":"folklore@yahoo.com","score":"Silver","loss":4,"playerScore":387}
+Extracted data: Name = Taylor, Surname = Swift, Email = folklore@yahoo.com, Score = Silver, Points = 387, NumberLooses = 4
+Inserting data: Name = Taylor, Surname = Swift, Email = folklore@yahoo.com, Score = Silver, Points = 387, NumberLooses = 4
+Raw data: {"firstname":"chrisbrush","lastname":"bruh","email":"thisgameez@gmail.com","score":"Silver","loss":0,"playerScore":424}
+Extracted data: Name = chrisbrush, Surname = bruh, Email = thisgameez@gmail.com, Score = Silver, Points = 424, NumberLooses = 0
+Inserting data: Name = chrisbrush, Surname = bruh, Email = thisgameez@gmail.com, Score = Silver, Points = 424, NumberLooses = 0
+Raw data: {"firstname":"chrisbrush","lastname":"bruh","email":"thisgameez@gmail.com","score":"Silver","loss":0,"playerScore":424}
+Extracted data: Name = chrisbrush, Surname = bruh, Email = thisgameez@gmail.com, Score = Silver, Points = 424, NumberLooses = 0
+Raw data: {"firstname":"chrisbrush","lastname":"bruh","email":"thisgameez@gmail.com","score":"Silver","loss":0,"playerScore":424}
+Extracted data: Name = chrisbrush, Surname = bruh, Email = thisgameez@gmail.com, Score = Silver, Points = 424, NumberLooses = 0
+Raw data: {"firstname":"chrisbrush","lastname":"bruh","email":"thisgameez@gmail.com","score":"Silver","loss":0,"playerScore":424}
+Extracted data: Name = chrisbrush, Surname = bruh, Email = thisgameez@gmail.com, Score = Silver, Points = 424, NumberLooses = 0
+Raw data: {"firstname":"chrisbrush","lastname":"bruh","email":"thisgameez@gmail.com","score":"Silver","loss":0,"playerScore":424}
+Extracted data: Name = chrisbrush, Surname = bruh, Email = thisgameez@gmail.com, Score = Silver, Points = 424, NumberLooses = 0
+Raw data: {"firstname":"chrisbrush","lastname":"bruh","email":"thisgameez@gmail.com","score":"Silver","loss":0,"playerScore":424}
+Extracted data: Name = chrisbrush, Surname = bruh, Email = thisgameez@gmail.com, Score = Silver, Points = 424, NumberLooses = 0
+Raw data: {"firstname":"chrisbrush","lastname":"bruh","email":"thisgameez@gmail.com","score":"Silver","loss":0,"playerScore":424}
+Extracted data: Name = chrisbrush, Surname = bruh, Email = thisgameez@gmail.com, Score = Silver, Points = 424, NumberLooses = 0
+Raw data: {"firstname":"chrisbrush","lastname":"bruh","email":"thisgameez@gmail.com","score":"Silver","loss":0,"playerScore":424}
+Extracted data: Name = chrisbrush, Surname = bruh, Email = thisgameez@gmail.com, Score = Silver, Points = 424, NumberLooses = 0
+Raw data: {"firstname":"anthi","lastname":"georgiou","email":"anthzym74@gmail.com","score":"Bronze","loss":0,"playerScore":284}
+Extracted data: Name = anthi, Surname = georgiou, Email = anthzym74@gmail.com, Score = Bronze, Points = 284, NumberLooses = 0
+Inserting data: Name = anthi, Surname = georgiou, Email = anthzym74@gmail.com, Score = Bronze, Points = 284, NumberLooses = 0
+Raw data: {"firstname":"anthi","lastname":"georgiou","email":"anthzym74@gmail.com","score":"Bronze","loss":0,"playerScore":284}
+Extracted data: Name = anthi, Surname = georgiou, Email = anthzym74@gmail.com, Score = Bronze, Points = 284, NumberLooses = 0
+Raw data: {"firstname":"styliana","lastname":"zymara","email":"stylianaz03@gmail.com","score":"Silver","loss":2,"playerScore":350}
+Extracted data: Name = styliana, Surname = zymara, Email = stylianaz03@gmail.com, Score = Silver, Points = 350, NumberLooses = 2

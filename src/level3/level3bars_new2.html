@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Demetris Kouppas">
+    <title>SmartPark Level3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-level3.css">
+    <style>
+        /* CSS to make map areas show the pointer cursor on hover */
+        area {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body id="b">
+    <div class="top-left-logo">
+        <img src="../../imgs/logo-SmartPark.png" alt="App Logo">
+    </div>
+   
+    <div class="back-button">
+        <button onclick="goBackButton()">
+            <img src="../../imgs/back-button.png" alt="Back" width="30" height="30">
+        </button>
+    </div>
+    <div class="language-buttons">
+        <button id="en-btn" onclick="setLanguage('en')">English</button>
+        <button id="gr-btn" onclick="setLanguage('gr')">Ελληνικά</button>
+    </div>
+
+
+    <script>
+
+const translations = {
+    en: {
+        level3: "LEVEL 3!",
+        level4: "LEVEL 4!",
+        bestOption: "BEST OPTION!",
+        secondBest: "SECOND BEST!",
+        outOfTime: "You run out of time you lose!",
+        exit: "EXIT",
+        play: "Play",
+        park: "PARK!",
+        instructions: "For this next level, you have to choose the 2 best options for parking! The categories on the algorithm are shown above, with the top being the most important.",
+        timeTriesLine1: "Time for each try: 120 seconds",
+        timeTriesLine2: "Number of tries: 2.",
+        explainTextOtherLevels: "This level is the same! Choose the best two!",
+        youFoundBoth: "You found both parkings correctly! Move on to the next level!",
+        tryingToGoTo: "We are trying to go to the",
+        tryingToGoToMuseum: "We are trying to go to the museum",
+        loseText: "You didn't find both parkings correctly! You lose..."
+    },
+    gr: {
+        level3: "ΕΠΙΠΕΔΟ 3!",
+        level4: "ΕΠΙΠΕΔΟ 4!",
+        bestOption: "ΚΑΛΥΤΕΡΗ ΕΠΙΛΟΓΗ!",
+        secondBest: "ΔΕΥΤΕΡΗ ΚΑΛΥΤΕΡΗ!",
+        outOfTime: "Ο χρόνος τελείωσε, χάσατε!",
+        exit: "ΕΞΟΔΟΣ",
+        play: "Παίξε",
+        park: "ΠΆΡΚΑΡΕ!",
+        instructions: "Αυτές είναι οι κατηγορίες που χρησιμοποιεί ο αλγόριθμος για τα δύο πρώτα επίπεδα! Προσπαθήστε να επιλέξετε το πάρκινγκ που νομίζετε ότι είναι το πιο κατάλληλο βάσει αυτών των κατηγοριών, με υψηλότερη προτεραιότητα το πρώτο!",
+        timeTriesLine1: "Χρόνος για κάθε προσπάθεια: 120 δευτερόλεπτα.",
+        timeTriesLine2: "Αριθμός προσπαθειών: 2.",
+        explainTextOtherLevels: "Αυτό το επίπεδο είναι το ίδιο! Επιλέξτε τα δύο καλύτερα!",
+        youFoundBoth: "Βρήκατε και τα δύο παρκινγκ σωστά! Προχωρήστε στο επόμενο επίπεδο!",
+        tryingToGoTo: "Προσπαθούμε να πάμε στο",
+        tryingToGoToMuseum: "Προσπαθούμε να πάμε στο μουσείο",
+        loseText: "Δεν βρήκατε και τα δύο παρκινγκ σωστά! Χάσατε..."
+    }
+};
+
+        //health for tries
+        var health = 1;
+        //get level that need to be loaded and category
+        var levels = localStorage.getItem("levelsarr").split(",");
+        var nextLevel = levels[0];
+        var category = localStorage.getItem("category");
+
+        //create left part of screen
+        var bod = document.getElementById("b");
+        var right_div = document.createElement("div");
+        var left_div = document.createElement("div");
+        left_div.setAttribute("id", "left");
+
+
+        right_div.setAttribute("id", "right");
+        bod.appendChild(right_div);
+        bod.appendChild(left_div);
+        var heading1 = document.createElement("h1");
+        if (levels.length == 3) { //if levels left are 3 then we are at level 3 if levels left are 2 then we are at level 4
+            heading1.innerHTML = "LEVEL 3!";
+        } else {
+            heading1.innerHTML = "LEVEL 4!";
+        }
+
+        heading1.setAttribute("class", "font");
+        right_div.appendChild(heading1);
+
+        var timerContainer = document.createElement("div");
+        timerContainer.setAttribute("id", "timerContainer");
+
+        var timerLabel = document.createElement("p");
+        timerLabel.setAttribute("id", "timerLabel");
+        timerLabel.innerText = "Timer: ";
+
+        var timerDisplay = document.createElement("p");
+        timerDisplay.setAttribute("id", "timerDisplay");
+        timerDisplay.innerText = maxTime;
+
+        timerContainer.appendChild(timerLabel);
+        timerContainer.appendChild(timerDisplay);
+        right_div.appendChild(timerContainer);
+
+   //add image of correct level and place
+   var userPic = document.createElement("img");
+        userPic.setAttribute("class", "map");
+        var imgSrc = "../../imgs/" + category + "/" + nextLevel + "/" + nextLevel + "Lvl3.png";
+        userPic.setAttribute("src", imgSrc);
+        
+        right_div.appendChild(userPic);
+
+
+
+        /* form with checkboxex. Number of checkboxes depends on parkings close to specific place */
+        var form = document.createElement("form");
+        right_div.appendChild(form);
+        form.setAttribute("id", "optionsCheckboxes");
+        form.onsubmit = function() {
+            submition()
+        };
+        form.action = "javascript:checkAnswers()";
+        var formDiv1 = document.createElement("div");
+        form.appendChild(formDiv1);
+        formDiv1.setAttribute("class", "checks");
+        var option = document.createElement("p");
+        option.setAttribute("id", "option");
+        option.innerHTML = "BEST OPTION!";
+        option.setAttribute("class", "text");
+        formDiv1.appendChild(option);
+
+        //second row of options
+        var formDiv2 = document.createElement("div");
+        formDiv2.setAttribute("class", "checks");
+        var option2 = document.createElement("p");
+        option2.setAttribute("id", "option2");
+        option2.setAttribute("class", "text");
+        option2.innerHTML = "SECOND BEST!";
+        formDiv2.appendChild(option2);
+        form.appendChild(formDiv2);
+        createleft_div();
+        createForm();
+        var answer = false;
+        //timer 
+        var counter = 120;
+        var maxTime = 120;
+        var counterDiv = document.createElement("div");
+        counterDiv.setAttribute("id", "cDiv");
+        var counterDisplay = document.createElement("p");
+        counterDiv.appendChild(counterDisplay);
+        left_div.appendChild(counterDiv);
+        
+        //counter stops at 10 seconds for test 
+        function timer() {
+            countdown = setInterval(function () {
+                if (counter > 0) {
+                    document.getElementById('timerDisplay').innerText = counter;
+                    counter--;
+                } else {
+                    clearInterval(timer);
+                    if (!answer)
+                        outOfTime();                
+                    }
+            }, 1000);
+        }
+
+
+        window.onload = timer();
+
+        function outOfTime() {
+            clearUp();
+            var loss = parseInt(localStorage.getItem("looses"));
+            loss += 1;
+            localStorage.setItem("looses", loss);
+            var exit = document.createElement("a");
+            var textLoose = document.createElement("p");
+            textLoose.innerHTML = "You run out of time you loose!"
+            textLoose.setAttribute("class", "font");
+            exit.innerHTML = "EXIT";
+            exit.setAttribute("type", "button");
+            if (levels.length == 3) {
+                exit.setAttribute("href", "../end.html?noOfAnswers=1");
+            } else {
+                exit.setAttribute("href", "../end.html?noOfAnswers=2");
+            }
+
+            exit.setAttribute("class", "butt");
+            exit.style.left = "45%";
+            left_div.appendChild(textLoose);
+            var looseImg = document.createElement("img");
+            looseImg.src = "../../imgs/random/sad.png";
+            looseImg.setAttribute("class", "aImg");
+            right_div.appendChild(looseImg);
+            left_div.appendChild(exit);
+
+        }
+
+
+
+        //create the form with the options for the user to choose
+        function createForm() {
+            var noOfChecks = 0;
+            if (category == "bars") {
+                if (nextLevel == "pivo" || nextLevel == "fridays" || nextLevel == "neverland") {
+                    noOfChecks = 8;
+                } else if (nextLevel == "ledras") {
+                    noOfChecks = 9;
+                } else if (nextLevel == "costa") {
+                    noOfChecks = 5;
+                }
+            } else if (category == "culture") {
+                if (nextLevel == "cyprusMuseum" || nextLevel == "famagusta") {
+                    noOfChecks = 6;
+                } else if (nextLevel == "aquadect") {
+                    noOfChecks = 8;
+                } else if (nextLevel == "byzantine") {
+                    noOfChecks = 7;
+                } else {
+                    noOfChecks = 9;
+                }
+            }
+            for (var counter = 1; counter <= noOfChecks; counter++) {
+                var labels = document.createElement("label");
+                labels.setAttribute("class", "container");
+                labels.innerHTML = "Parking " + counter.toString();
+                var inp = document.createElement("input");
+                inp.type = "radio";
+                inp.name = "first";
+                inp.value = counter.toString();
+                labels.appendChild(inp);
+                var sp = document.createElement("span");
+                sp.setAttribute("class", "checkmark");
+                labels.appendChild(sp);
+                formDiv1.appendChild(labels);
+            }
+            for (var counter = 1; counter <= noOfChecks; counter++) {
+                var labels = document.createElement("label");
+                labels.setAttribute("class", "container");
+                labels.innerHTML = "Parking " + counter.toString();
+                var inp = document.createElement("input");
+                inp.type = "radio";
+                inp.name = "second";
+                inp.value = counter.toString();
+
+                labels.appendChild(inp);
+                var sp = document.createElement("span");
+                sp.setAttribute("class", "checkmark");
+                labels.appendChild(sp);
+                formDiv2.appendChild(labels);
+            }
+            var inpFinal = document.createElement("input");
+            inpFinal.type = "submit";
+            inpFinal.setAttribute("id", "sumbitButt");
+            inpFinal.value = "PARK!";
+            form.appendChild(inpFinal);
+
+        }
+
+        function createleft_div() {
+            var para = document.createElement("p");
+            para.setAttribute("class", "font");
+            para.setAttribute("id", "explainText");
+            var categoImg = document.createElement("img");
+            if (levels.length == 3) {
+                categoImg.src = "../../imgs/random/categories.png";
+                categoImg.setAttribute("id", "cImg");
+                left_div.appendChild(categoImg);
+                categoImg.style.marginLeft = "25%";
+                categoImg.style.marginTop = "10%";
+                para.innerHTML = "For this next levels you have to choose the 2 best options for parking! The cateogries on the algorithm are shown above the top being the most important. You have 120 seconds or you loose. You have 2 tries until the time runs out. Click on the button below to continue playing";
+
+            } else {
+
+                para.innerHTML = "This level is the same! Choose the best two!";
+
+            }
+            left_div.appendChild(para);
+            var heading2 = document.createElement("h2");
+            var placeToGo = nextLevel.charAt(0).toUpperCase() + nextLevel.slice(1);
+            var distMap = document.createElement("img");
+            distMap.src = "../../imgs/" + category + "/" + nextLevel + "/" + nextLevel.concat("Dist") + ".png";
+            distMap.setAttribute("id", "distMap");
+            distMap.style.position = "relative";
+            distMap.style.marginLeft = "3%";
+            distMap.style.marginBottom = "5%";
+            distMap.style.marginTop = "6%";
+            distMap.style.width = "88%";            
+            if (levels.length == 3) {
+                document.getElementById("optionsCheckboxes").style.display = "none";
+                document.getElementById("option").style.display = "none";
+                document.getElementById("option2").style.display = "none";
+                var playBtn = document.createElement("button");
+                playBtn.setAttribute("id", "play");
+                playBtn.innerHTML = "Play";
+                playBtn.setAttribute("class", "butt");
+                playBtn.style.marginLeft = "10%";
+                playBtn.onclick = function() {
+                    categoImg.style.display = "none";
+                    para.style.display = "none";
+                    left_div.appendChild(distMap);
+                    document.getElementById("optionsCheckboxes").style.display = "";
+                    document.getElementById("option").style.display = "";
+                    document.getElementById("option2").style.display = "";
+                    document.getElementById("play").remove();
+                }
+
+            } else {
+                left_div.appendChild(distMap);
+            }
+
+            //make the sentence that says where we are going better 
+            switch (nextLevel) {
+                case "pivo":
+                    heading2.innerHTML = "We are trying to go to the " + placeToGo + " brewery";
+                    break;
+                case "costa":
+                    heading2.innerHTML = "We are trying to go to " + placeToGo + " coffee metropolitan";
+                    break;
+                case "neverland":
+                    heading2.innerHTML = "We are trying to go to " + placeToGo + " rock bar!";
+                    break;
+                case "ledras":
+                    heading2.innerHTML = "We are trying to go to " + placeToGo + " street!";
+                    break;
+                case "aquadect":
+                    heading2.innerHTML = "We are trying to go to the Nicosia old " + placeToGo;
+                    break;
+                case "byzantine":
+                case "leventis":
+                    heading2.innerHTML = "We are trying to go to the " + placeToGo + " museum";
+                    break;
+                case "cyprusMuseum":
+                    heading2.innerHTML = "We are trying to go to the " + placeToGo.slice(0, 6).concat(" Museum");
+                    break;
+                case "famagusta":
+                    heading2.innerHTML = "We are trying to go to the " + placeToGo + " gate";
+                    break;
+                default:
+                    heading2.innerHTML = "We are trying to go to " + placeToGo;
+                    break;
+            }
+            heading2.setAttribute("id", "h2");
+            heading2.setAttribute("class", "font");
+            left_div.appendChild(heading2);
+            if (levels.length == 3) {
+                left_div.appendChild(playBtn);
+            }
+
+        }
+
+        function createleft_div() {
+            var para1 = document.createElement("h1");
+            para1.setAttribute("class", "font");
+            para1.setAttribute("id", "instructions");
+            var para2 = document.createElement("p");
+            para2.setAttribute("class", "font");
+            para2.setAttribute("id", "timeTriesLine1");
+            var para3 = document.createElement("p");
+            para3.setAttribute("class", "font");
+            para3.setAttribute("id", "timeTriesLine2");
+
+            var categoImg = document.createElement("img");
+            if (levels.length == 3) {
+                categoImg.src = "../../imgs/random/categories.png";
+                categoImg.setAttribute("id", "cImg");
+                left_div.appendChild(categoImg);
+                categoImg.style.marginLeft = "25%";
+                categoImg.style.marginTop = "10%";
+para1.innerHTML = "For this next level, you have to choose the 2 best options for parking! The categories on the algorithm are shown above, with the top being the most important.";
+        para2.innerHTML = "Time for each try: 120 seconds";
+        para3.innerHTML = "Number of tries: 2.";
+
+            } else {
+
+                para1.innerHTML = "This level is the same! Choose the best two!";
+
+            }
+            left_div.appendChild(para1);
+    left_div.appendChild(para2);
+    left_div.appendChild(para3);
+
+    var heading2 = document.createElement("h2");
+            var placeToGo = nextLevel.charAt(0).toUpperCase() + nextLevel.slice(1);
+            var distMap = document.createElement("img");
+            distMap.src = "../../imgs/" + category + "/" + nextLevel + "/" + nextLevel.concat("Dist") + ".png";
+            distMap.setAttribute("id", "distMap");
+    distMap.style.position = "relative";
+    distMap.style.marginLeft = "7%";
+    distMap.style.marginRight = "5%";
+    distMap.style.marginBottom = "5%";
+    distMap.style.marginTop = "10%";
+    distMap.style.width = "88%";
+
+            if (levels.length == 3) {
+                document.getElementById("optionsCheckboxes").style.display = "none";
+                document.getElementById("option").style.display = "none";
+                document.getElementById("option2").style.display = "none";
+
+                var playBtn = document.createElement("button");
+                playBtn.setAttribute("id", "play");
+                playBtn.innerHTML = "Play";
+                playBtn.setAttribute("class", "butt");
+                playBtn.style.marginLeft = "10%";
+                playBtn.onclick = function() {
+                     categoImg.style.display = "none";
+            para1.style.display = "none";
+            para2.style.display = "none";
+            para3.style.display = "none";
+                    left_div.appendChild(distMap);
+                    document.getElementById("optionsCheckboxes").style.display = "";
+                    document.getElementById("option").style.display = "";
+                    document.getElementById("option2").style.display = "";
+                    document.getElementById("play").remove();
+                }
+
+            } else {
+                left_div.appendChild(distMap);
+            }
+
+            //make the sentence that says where we are going better 
+            switch (nextLevel) {
+                case "pivo":
+                    heading2.innerHTML = "We are trying to go to the " + placeToGo + " brewery";
+                    break;
+                case "costa":
+                    heading2.innerHTML = "We are trying to go to " + placeToGo + " coffee metropolitan";
+                    break;
+                case "neverland":
+                    heading2.innerHTML = "We are trying to go to " + placeToGo + " rock bar!";
+                    break;
+                case "ledras":
+                    heading2.innerHTML = "We are trying to go to " + placeToGo + " street!";
+                    break;
+                case "aquadect":
+                    heading2.innerHTML = "We are trying to go to the Nicosia old " + placeToGo;
+                    break;
+                case "byzantine":
+                case "leventis":
+                    heading2.innerHTML = "We are trying to go to the " + placeToGo + " museum";
+                    break;
+                case "cyprusMuseum":
+                    heading2.innerHTML = "We are trying to go to the " + placeToGo.slice(0, 6).concat(" Museum");
+                    break;
+                case "famagusta":
+                    heading2.innerHTML = "We are trying to go to the " + placeToGo + " gate";
+                    break;
+                default:
+                    heading2.innerHTML = "We are trying to go to " + placeToGo;
+                    break;
+            }
+            heading2.setAttribute("id", "h2");
+            heading2.setAttribute("class", "font");
+            left_div.appendChild(heading2);
+            if (levels.length == 3) {
+                left_div.appendChild(playBtn);
+            }
+
+        }
+
+
+
+        var options1;
+        var options2;
+        var opt1;
+        var opt2;
+
+        //check the answer when button pressed
+        function submition() {
+            answer = true;
+            options1 = document.getElementsByName("first");
+            options2 = document.getElementsByName("second");
+
+            //get two checkbox answers
+            for (counter = 0; counter < options1.length; counter++) {
+                if (options1[counter].checked) {
+                    opt1 = options1[counter].value;
+                }
+                if (options2[counter].checked) {
+                    opt2 = options2[counter].value;
+                }
+            }
+        }
+        var answerImg = document.createElement("img");
+        answerImg.setAttribute("class", "aImg");
+
+        function checkAnswers() {
+
+            //check correct answer for bars category
+            if (category == "bars") {
+                switch (nextLevel) {
+                    case "pivo":
+                        if (opt1 == "3" && opt2 == "4") { //check for correct answer put correct answer pic depending on place
+                            answerImg.src = "../../imgs/random/beer.png"; //correct answer pic
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                    case "ledras":
+                        if (opt1 == "3" && opt2 == "5") {
+                            answerImg.src = "../../imgs/random/success.png";
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                    case "neverland":
+                        if (opt1 == "4" && opt2 == "6") {
+                            answerImg.src = "../../imgs/random/rock.png";
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                    case "costa":
+                        if (opt1 == "3" && (opt2 == "1" || opt2 == "4")) {
+                            answerImg.src = "../../imgs/random/coffee.png";
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+
+                    case "fridays":
+                        if (opt1 == "5" && opt2 == "8") {
+                            answerImg.src = "../../imgs/random/burger.png";
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                }
+            } else if (category == "culture") {
+                switch (nextLevel) {
+                    case "byzantine":
+                        if (opt1 == "3" && opt2 == "1") {
+                            answerImg.src = "../../imgs/random/success.png";
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                    case "aquadect":
+                        if ((opt1 == "7") && (opt2 == "4" || opt2 == "6")) {
+                            answerImg.src = "../../imgs/random/aquadect.png";
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                    case "cyprusMuseum":
+                        if (opt1 == "3" && (opt2 == "5") ) {
+                            answerImg.src = "../../imgs/random/museum.png";
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                    case "famagusta":
+                        if (opt1 == "5" && opt2 == "4") {
+                            answerImg.src = "../../imgs/random/success.png";
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                    case "leventis":
+                        if (opt1 == "2" && opt2 == "3") {
+                            answerImg.src = "../../imgs/random/museum.png";
+                            correctAnswer();
+                        } else {
+                            wrongAnswer();
+                        }
+                        break;
+                }
+            }
+        }
+
+        //function adds elements for correct answer
+        function correctAnswer() {
+            clearUp();
+            right_div.appendChild(answerImg); //output correct answer image
+            var answerMap = document.createElement("img");
+            answerMap.setAttribute("class", "map");
+            answerMap.style.marginTop = "10%";
+            answerMap.src = "../../imgs".concat("/", category, "/", nextLevel, "/", nextLevel, "Lvl3Answer.png");
+            answerMap.style.width = "88%"; 
+            var newDiv = document.createElement("div");
+            var nextLevelButt = document.createElement("a");
+            var textWin = document.createElement("p");
+            textWin.innerHTML = "You found both parkings correctly! Move on to the next level!";
+            textWin.setAttribute("class", "font");
+            if (levels.length == 3) { //same page used for level 4 and 5
+                nextLevelButt.innerHTML = "LEVEL 4!";
+            } else {
+                nextLevelButt.innerHTML = "LEVEL 5"
+            }
+            nextLevelButt.setAttribute("type", "button");
+            if (levels.length == 3) {
+                nextLevelButt.setAttribute("href", "../infoScreen/info3.html"); //CHANGE BUTTON TO GO TO NEXT LEVEL
+            } else {
+                nextLevelButt.setAttribute("href", "../infoScreen/info4.html");
+            }
+
+            nextLevelButt.setAttribute("class", "butt");
+            nextLevelButt.setAttribute("id", "butt");
+            newDiv.appendChild(nextLevelButt);
+            left_div.appendChild(answerMap);
+            left_div.appendChild(textWin);
+            right_div.appendChild(newDiv);
+
+        }
+
+
+        function wrongAnswer() {
+            if (health == 1) {
+                health = 0;
+                var loss = parseInt(localStorage.getItem("looses"));
+                loss += 1;
+                localStorage.setItem("looses", loss);
+                alert("You have another try!");
+            } else {
+                clearUp();
+                var exit = document.createElement("a");
+                var textLoose = document.createElement("p");
+                textLoose.innerHTML = "You didn't find both parkings correctly! You loose..."
+                textLoose.setAttribute("class", "font");
+                exit.innerHTML = "EXIT";
+                exit.setAttribute("type", "button");
+                exit.setAttribute("href", "../end.html?noOfAnswers=1");
+                exit.setAttribute("class", "butt");
+                exit.style.left = "45%";
+                left_div.appendChild(textLoose);
+                var looseImg = document.createElement("img");
+                looseImg.src = "../../imgs/random/sad.png";
+                looseImg.setAttribute("class", "aImg");
+                right_div.appendChild(looseImg);
+                left_div.appendChild(exit);
+            }
+
+        }
+
+
+        //clears elements with form and questions
+        function clearUp() {
+            document.getElementById("optionsCheckboxes").style.display = "none"; //remove form
+            userPic.style.display = "none"; //remove map
+            document.getElementById("distMap").style.display = "none";
+            if (levels.length == 3) {
+                document.getElementById("cImg").style.display = "none"; //remove priorities image if at level 3
+
+            } else {
+                console.log("levels less than 3");
+            }
+           // document.getElementById("explainText").style.display = "none";
+            document.getElementById("h2").style.display = "none";
+            document.getElementById("instructions").style.display = "none";
+            document.getElementById("timeTriesLine1").style.display = "none";
+            document.getElementById("timeTriesLine2").style.display = "none";
+
+
+        }
+    </script>
+
+</body>
+
+</html>
