@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Demetris Kouppas, Styliana Zymara">
+    <title>SmartPark</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style_index.css">
+</head>
+<body>
+    <div class="top-left-logo">
+        <img src="../imgs/logo-SmartPark.png" alt="App Logo">
+    </div>
+    <div class="language-buttons">
+        <button id="en-btn" onclick="setLanguage('en')">English</button>
+        <button id="gr-btn" onclick="setLanguage('gr')">Ελληνικά</button>
+    </div>
+    <h1 id="title" class="animated-title">Welcome to the SmartPark Game!</h1>
+    <p id="description" class="animated-text">
+        Think you know the best places to park? Challenge your skills with SmartPark, the ultimate parking game!<br>
+        Navigate through different levels and guess which parking spots are optimal to use.<br>
+        Earn points for accuracy and speed and see how you rank against other players.
+    </p>
+    <div class="container">
+        <img src="../imgs/logo.png" alt="SmartPark Logo">
+        <a href="./categories2_new.html" class="button" id="start-button">START</a>
+    </div>
+    <script>
+        const texts = {
+            en: {
+                title: "Welcome to the SmartPark Game!",
+                description: "Think you know the best places to park? Challenge your skills with SmartPark, the ultimate parking game!<br>Navigate through different levels and guess which parking spots are optimal to use.<br>Earn points for accuracy and speed. See how you rank against other players.",
+                startButton: "START"
+            },
+            gr: {
+                title: "Καλώς ήρθατε στο παιχνίδι SmartPark!",
+                description: "Νομίζετε ότι ξέρετε τα καλύτερα σημεία για parking; Αποδείξτε το δοκιμάζοντας το SmartPark!<br>Πλοηγηθείτε σε διαφορετικά επίπεδα και μαντέψτε τα καλύτερα σημεία στάθμευσης.<br>Κερδίστε πόντους για την ακρίβεια και την ταχύτητα σας. Δείτε την κατάταξή σας ανάμεσα σε άλλους παίκτες.",
+                startButton: "ΕΝΑΡΞΗ"
+            }
+        };
+
+        function setLanguage(lang) {
+            document.getElementById('title').innerHTML = texts[lang].title;
+            document.getElementById('description').innerHTML = texts[lang].description;
+            document.getElementById('start-button').innerHTML = texts[lang].startButton;
+            document.querySelectorAll('.language-buttons button').forEach(button => {
+                button.classList.remove('selected');
+            });
+            document.getElementById(`${lang}-btn`).classList.add('selected');
+
+            // Store the selected language in a cookie
+            document.cookie = `lang=${lang};path=/`;
+        }
+
+        // Default to English
+        setLanguage('en');
+    </script>
+</body>
+</html>
