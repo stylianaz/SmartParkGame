@@ -170,7 +170,7 @@ const translations = {
             heading1.innerHTML = "LEVEL 4!";
         }
 
-        heading1.setAttribute("class", "font h1-margin-top"); // Apply both font and margin-top classes
+        heading1.setAttribute("class", "font h1-margin-top"); 
         right_div.appendChild(heading1);
 
 
@@ -189,7 +189,6 @@ const translations = {
 
         /* form with checkboxex. Number of checkboxes depends on parkings close to specific place */
         var form = document.createElement("form");
-       // form.style.backgroundColor = "rgba(165, 171, 205, 0.777)"; // Set the background color
 
         right_div.appendChild(form);
         form.setAttribute("id", "optionsCheckboxes");
@@ -268,8 +267,6 @@ function timer() {
     }, 1000);
 }
 
-
-       // window.onload = timer();
 
     function outOfTime() {
     document.getElementById("en-btn").style.display = "none"; //remove form
@@ -373,7 +370,7 @@ function timer() {
             inpFinal.type = "submit";
             inpFinal.setAttribute("id", "red-button");
             inpFinal.value = "PARK";
-            inpFinal.classList.add("red-button"); // Add the CSS class to the button
+            inpFinal.classList.add("red-button"); 
 
     form.appendChild(inpFinal);
    // bod.appendChild(form)
@@ -499,7 +496,7 @@ function timer() {
 
 
     }
-    let currentLang = getLanguage(); // Assume getLanguage() returns 'en' or 'gr'
+    let currentLang = getLanguage(); 
 
     let message;
 
@@ -738,12 +735,12 @@ debugInfo.innerHTML = `
 
 // Set inline CSS to position the element lower on the screen
 debugInfo.style.position = "fixed";
-debugInfo.style.bottom = "0px"; // Adjust as needed
-debugInfo.style.left = "10px";   // Adjust as needed
-//debugInfo.style.backgroundColor = "rgba(0, 0, 0, 0.7)"; // Optional: make the background semi-transparent
-debugInfo.style.color = "red";   // Optional: change text color to white for better contrast
-debugInfo.style.padding = "10px"; // Optional: add padding for better appearance
-debugInfo.style.borderRadius = "5px"; // Optional: round corners
+debugInfo.style.bottom = "0px"; 
+debugInfo.style.left = "10px";   
+//debugInfo.style.backgroundColor = "rgba(0, 0, 0, 0.7)"; 
+debugInfo.style.color = "red";   
+debugInfo.style.padding = "10px";
+debugInfo.style.borderRadius = "5px"; 
 
 document.body.appendChild(debugInfo);
 */
@@ -941,8 +938,6 @@ function wrongAnswer() {
     // Store the selected language in a cookie
     document.cookie = `lang=${lang};path=/`;
 
-    // Update level heading again to ensure it's correct after language change
-    // changeElem();
 }
 
 function setLanguage2(lang) {
@@ -975,7 +970,6 @@ const currentLang = getLanguage();
 setLanguage(currentLang);
 
 
-// Example usage of setLanguage
 function getLanguage() {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; lang=`);

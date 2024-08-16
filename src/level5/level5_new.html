@@ -256,7 +256,6 @@ const translations = {
      function initialCountdown() {
     var initialCounter = 15;
     var timerDisplay = document.getElementById('timerDisplay');
- // Ensure timer display is visible and at the bottom
     
     var startingMessage = document.createElement('p');
     startingMessage.setAttribute('id', 'startingMessage');
@@ -329,7 +328,6 @@ function hideDistMapAfterTime() {
     }
 }
 
-// Call this function where the counter starts (e.g., inside the play button click event handler or similar)
 function startGame() {
     startMainTimer(); // Start the countdown
     hideDistMapAfterTime(); // Schedule the hiding of distMap
@@ -525,7 +523,7 @@ function outOfTime() {
                 clearInterval(this);
             }, 18000);
 
-            let currentLang = getLanguage(); // Assume getLanguage() returns 'en' or 'gr'
+            let currentLang = getLanguage();
 
             let message;
 
@@ -638,8 +636,8 @@ var answerImgContainer = document.createElement("div");
     answerImgContainer.style.justifyContent = "flex-end"; // Align to the right
     answerImgContainer.style.alignItems = "center";
     answerImgContainer.style.width = "100%";
-    answerImgContainer.style.height = "100%"; // Ensure the container takes the full height of the parent
-    answerImgContainer.style.position = "relative"; // Ensure it can be properly aligned within its parent
+    answerImgContainer.style.height = "100%"; 
+    answerImgContainer.style.position = "relative"; 
 
        
        
